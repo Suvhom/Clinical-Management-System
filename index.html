@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotionRehab - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="banner-section">
+            <h1 id="banner-title">Manage care, support every patient.</h1>
+            <p id="banner-description">
+                Sign in as admin to manage patient records, schedule workflows, and oversee the MotionRehab portal securely.
+            </p>
+        </div>
+
+        <div class="form-section">
+            <div class="form-wrapper">
+                <h2>Welcome back</h2>
+                <p class="subtitle" id="form-subtitle">Sign in to your MotionRehab admin account</p>
+
+                <div class="toggle-container">
+                    <button type="button" id="patient-btn" onclick="toggleRole('patient')">Patient</button>
+                    <button type="button" id="admin-btn" class="active" onclick="toggleRole('admin')">Admin</button>
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label>Email address</label>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forget password?</a>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Sign in to portal</button>
+                </form>
+
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+
+                <button class="google-btn">
+                    <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Logo">
+                    Sign in with Google
+                </button>
+
+                <p class="footer-text">
+                    New patient? <a href="register.html">Create an account</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
