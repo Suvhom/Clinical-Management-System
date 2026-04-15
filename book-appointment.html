@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Appointment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="appointment-page">
+    <main class="appointment-card">
+      <section class="appointment-hero">
+        <div>
+          <p class="hero-badge">MotionRehab Care</p>
+          <h1>Book your appointment in minutes.</h1>
+          <p class="hero-copy">
+            Fill in your details and choose your preferred date, time, and
+            specialist. We will confirm your slot right away.
+          </p>
+        </div>
+        <ul class="hero-points">
+          <li>Same-day and next-day slots</li>
+          <li>In-person and telehealth options</li>
+          <li>Easy reschedule and reminder alerts</li>
+        </ul>
+      </section>
+
+      <section class="appointment-form-wrap">
+        <header class="appointment-header">
+          <h2>Book Appointment</h2>
+          <p>Complete all fields below to request your visit.</p>
+        </header>
+
+        <form class="appointment-form" id="appointmentForm" novalidate>
+          <div id="formAlert" class="form-alert" role="alert" aria-live="polite"></div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="fullName">Full Name</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                placeholder="Enter full name"
+                required
+              />
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="emailAddress">Email Address</label>
+              <input
+                id="emailAddress"
+                name="emailAddress"
+                type="email"
+                placeholder="Enter email address"
+                required
+              />
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="phoneNumber">Phone Number</label>
+              <input
+                id="phoneNumber"
+                name="phoneNumber"
+                type="tel"
+                placeholder="Enter phone number"
+                required
+              />
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="dob">Date of Birth</label>
+              <input id="dob" name="dob" type="date" required />
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="department">Department</label>
+              <select id="department" name="department" required>
+                <option value="">Select department</option>
+                <option>Orthopedics</option>
+                <option>Physiotherapy</option>
+                <option>Sports Medicine</option>
+                <option>Neurology Rehab</option>
+              </select>
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="doctor">Preferred Doctor</label>
+              <select id="doctor" name="doctor" required>
+                <option value="">Select doctor</option>
+                <option>Dr. Sarah Smith</option>
+                <option>Dr. Michael Johnson</option>
+                <option>Dr. Emily Brown</option>
+                <option>Any Available Specialist</option>
+              </select>
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="appointmentDate">Appointment Date</label>
+              <input
+                id="appointmentDate"
+                name="appointmentDate"
+                type="date"
+                required
+              />
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="appointmentTime">Preferred Time</label>
+              <input
+                id="appointmentTime"
+                name="appointmentTime"
+                type="time"
+                required
+              />
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="visitType">Visit Type</label>
+              <select id="visitType" name="visitType" required>
+                <option value="">Select visit type</option>
+                <option>In-person Consultation</option>
+                <option>Virtual Telehealth</option>
+                <option>Follow-up Visit</option>
+                <option>Initial Assessment</option>
+              </select>
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="insurance">Insurance Provider</label>
+              <input
+                id="insurance"
+                name="insurance"
+                type="text"
+                placeholder="Provider name"
+              />
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="emergencyContact">Emergency Contact</label>
+              <input
+                id="emergencyContact"
+                name="emergencyContact"
+                type="text"
+                placeholder="Name and number"
+                required
+              />
+              <small class="error-text"></small>
+            </div>
+            <div class="field">
+              <label for="reason">Reason for Visit</label>
+              <select id="reason" name="reason" required>
+                <option value="">Select reason</option>
+                <option>Pain Management</option>
+                <option>Post Surgery Rehab</option>
+                <option>Sports Injury</option>
+                <option>Mobility Improvement</option>
+              </select>
+              <small class="error-text"></small>
+            </div>
+          </div>
+
+          <div class="field full-width">
+            <label for="notes">Symptoms / Additional Notes</label>
+            <textarea
+              id="notes"
+              name="notes"
+              placeholder="Share symptoms, current concerns, and anything your specialist should know."
+            ></textarea>
+            <small class="error-text"></small>
+          </div>
+
+          <div class="consent-row">
+            <label class="checkbox-row">
+              <input id="consent" name="consent" type="checkbox" required />
+              <span>
+                I consent to data processing and agree to appointment terms.
+              </span>
+            </label>
+            <small class="error-text consent-error"></small>
+          </div>
+
+          <div class="action-row">
+            <a class="secondary-link" href="index.html">Back to sign in</a>
+            <button class="primary-btn appointment-btn" type="submit">
+              Confirm Appointment
+            </button>
+          </div>
+        </form>
+
+        <div class="confirmation-card" id="confirmationCard" hidden>
+          <h3>Appointment request received</h3>
+          <p id="confirmationMessage"></p>
+          <p class="confirmation-hint">
+            We have also saved this request in your browser for reference.
+          </p>
+          <button id="bookAnotherBtn" class="primary-btn appointment-btn" type="button">
+            Book Another Appointment
+          </button>
+        </div>
+      </section>
+    </main>
+    <script src="book-appointment.js"></script>
+  </body>
+</html>
