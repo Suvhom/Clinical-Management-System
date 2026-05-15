@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+/* Common Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+
+    /* Important: stop full page scroll */
+    overflow: hidden;
+}
+
+/* Main Layout */
+.layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background: #f4f7fb;
+}
+
+/* Main Page Area */
+.page {
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
+    background: #f4f7fb;
+
+    /* Important: only right side scrolls */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
