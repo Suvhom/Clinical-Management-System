@@ -1,25 +1,24 @@
 @charset "UTF-8";
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  /* Common CSS */
-* {
+/* Common CSS */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 body {
   background-color: #eef0f3;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 
 .container {
   width: 80%;
   margin: auto;
 }
-  
+
 /* Nav Bar CSS */
 .navbar {
   background: #fff;
@@ -54,7 +53,6 @@ body {
   align-items: center;
 }
 
-/* Normal Nav Buttons */
 .nav-button {
   text-decoration: none;
   color: black;
@@ -63,12 +61,10 @@ body {
   transition: color 0.3s ease;
 }
 
-/* Hover effect (color + underline animation) */
 .nav-button:hover {
   color: #0B79D2;
 }
 
-/* Underline animation */
 .nav-button::after {
   content: "";
   position: absolute;
@@ -94,250 +90,180 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Hover for button */
 .book-btn:hover {
   background-color: #095fa8;
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 5px 12px rgba(0,0,0,0.2);
 }
 
-/* Click effect */
 .book-btn:active {
   transform: scale(0.96);
 }
 
+/* Hero Section */
+.hero {
+  padding: 4rem 1.5rem 3rem;
+  text-align: center;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e4;
+}
 
-  /* ── Hero ── */
-  .hero {
-    padding: 4rem 1.5rem 3rem;
-    text-align: center;
-    background: #fff;
-    border-bottom: 1px solid #e8e8e4;
-  }
+.hero-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: #e6f1fb;
+  color: #185fa5;
+  padding: 5px 16px;
+  border-radius: 999px;
+  margin-bottom: 1.2rem;
+}
 
-  .hero-badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    background: #e6f1fb;
-    color: #185fa5;
-    padding: 5px 16px;
-    border-radius: 999px;
-    margin-bottom: 1.2rem;
-  }
-
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-    color: #111;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: #185fa5;
-  }
-
-  .hero p {
-    font-size: 16px;
-    color: #666;
-    max-width: 500px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-
-  /* ── Team Section ── */
-  .team-section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 4rem;
-  }
-
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 18px;
-  }
-
-  /* ── Card ── */
-  .team-card {
-    background: #fff;
-    border: 1px solid #e8e8e4;
-    border-radius: 14px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .team-card:hover {
-    border-color: #b5d4f4;
-    transform: translateY(-3px);
-  }
-
-  /* ── Avatar ── */
-  .card-avatar {
-    height: 170px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f1f5fb;
-    border-bottom: 1px solid #e8e8e4;
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.8rem;
-    color: #185fa5;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-
-  .card-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* ── Card Body ── */
-  .card-body {
-    padding: 1.1rem 1.15rem 1.2rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .card-name {
-    font-weight: 500;
-    font-size: 15px;
-    color: #111;
-    margin-bottom: 3px;
-  }
-
-  .card-role {
-    font-size: 12px;
-    font-weight: 500;
-    color: #185fa5;
-    margin-bottom: 0.65rem;
-  }
-
-  .card-desc {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.65;
-    margin-bottom: 0.9rem;
-    flex: 1;
-  }
-
-  /* ── Tags ── */
-  .card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 1rem;
-  }
-
-  .tag {
-    font-size: 11px;
-    background: #f1f5fb;
-    color: #185fa5;
-    border: 1px solid #d0e4f7;
-    padding: 3px 9px;
-    border-radius: 999px;
-    font-weight: 500;
-  }
-
-  /* ── Book Button ── */
-  .btn-book {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 0.6rem 1rem;
-    border-radius: 8px;
-    border: 1px solid #b5d4f4;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 500;
-    color: #185fa5;
-    text-decoration: none;
-    transition: background 0.15s, color 0.15s;
-  }
-
-  .btn-book:hover {
-    background: #185fa5;
-    color: #fff;
-    border-color: #185fa5;
-  }
-
-
-  
-/* Footer Section */
-.footer {
-  background-color: #d9d9d9;
-  padding: 40px 0 20px;
+.hero h1 {
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 1rem;
   color: #111;
-  font-family: Arial, sans-serif;
 }
 
-.footer-top {
+.hero h1 em {
+  font-style: italic;
+  color: #185fa5;
+}
+
+.hero p {
+  font-size: 16px;
+  color: #666;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Team Section */
+.team-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.team-grid {
   display: flex;
-  justify-content: space-between;
-  gap: 40px;
   flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
 }
 
-.footer-brand {
-  max-width: 260px;
-}
-
-.footer-logo {
+/* Card */
+.team-card {
+  background: #fff;
+  border: 1px solid #e8e8e4;
+  border-radius: 14px;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  width: 220px;
+  transition: border-color 0.2s, transform 0.2s;
 }
 
-.logo-box {
-  width: 22px;
-  height: 22px;
-  background-color: black;
+.team-card:hover {
+  border-color: #b5d4f4;
+  transform: translateY(-3px);
 }
 
-.footer-logo span {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.footer-brand p {
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.social-icons {
-  display: flex;
-  gap: 12px;
-}
-
-.social-icons a {
-  width: 32px;
-  height: 32px;
-  background-color: #bfbfbf;
-  color: black;
-  text-decoration: none;
-  border-radius: 50%;
+/* Avatar */
+.card-avatar {
+  height: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  font-weight: bold;
+  background: #f1f5fb;
+  border-bottom: 1px solid #e8e8e4;
+  font-size: 2.8rem;
+  color: #185fa5;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
+.card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+/* Card Body */
+.card-body {
+  padding: 1.1rem 1.15rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
-/* Contact Section */
+.card-name {
+  font-weight: 500;
+  font-size: 15px;
+  color: #111;
+  margin-bottom: 3px;
+}
+
+.card-role {
+  font-size: 12px;
+  font-weight: 500;
+  color: #185fa5;
+  margin-bottom: 0.65rem;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.65;
+  margin-bottom: 0.9rem;
+  flex: 1;
+}
+
+/* Tags */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  font-size: 11px;
+  background: #f1f5fb;
+  color: #185fa5;
+  border: 1px solid #d0e4f7;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+/* Book Button */
+.btn-book {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #b5d4f4;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: #185fa5;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-book:hover {
+  background: #185fa5;
+  color: #fff;
+  border-color: #185fa5;
+}
+
+/* CTA Section */
 .cta {
   background-color: #1683e2;
   padding: 70px 0;
@@ -388,6 +314,62 @@ body {
   width: 250px;
 }
 
+/* Footer Section */
+.footer {
+  background-color: #d9d9d9;
+  padding: 40px 0 20px;
+  color: #111;
+  font-family: Arial, sans-serif;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  max-width: 260px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.footer-logo span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.footer-brand p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-icons a {
+  width: 32px;
+  height: 32px;
+  background-color: #bfbfbf;
+  color: black;
+  text-decoration: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .footer-links h3,
 .footer-contact h3 {
   font-size: 16px;
@@ -431,4 +413,123 @@ hr {
 .footer-bottom-links {
   display: flex;
   gap: 25px;
+}
+
+/* Media Query for Tablets */
+@media screen and (max-width: 768px) {
+
+  .container {
+    width: 90%;
+  }
+
+  .nav-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .book-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .team-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .team-card {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .cta-wrapper h2 {
+    font-size: 28px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-btn-primary,
+  .cta-btn-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .footer-brand {
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .footer-bottom-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Media Query for Mobile */
+@media screen and (max-width: 480px) {
+
+  .logo span {
+    font-size: 18px;
+  }
+
+  .logo-img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+
+  .hero p {
+    font-size: 13px;
+  }
+
+  .card-avatar {
+    height: 150px;
+  }
+
+  .cta {
+    padding: 50px 0;
+  }
+
+  .cta-wrapper h2 {
+    font-size: 24px;
+  }
 }

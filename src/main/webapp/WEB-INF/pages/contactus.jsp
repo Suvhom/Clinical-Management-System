@@ -9,8 +9,7 @@
 </head>
 <body>
 	
-         <!-- Nav Bar -->
-         <!-- Nav Bar -->
+       
         <header class="navbar">
   <div class="container nav-wrapper">
 
