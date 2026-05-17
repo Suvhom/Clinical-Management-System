@@ -1,0 +1,278 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f4f7fb;
+  color: #111;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+/* Navbar */
+.navbar {
+  background-color: white;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: #0B79D2;
+}
+
+.book-btn {
+  background-color: #0B79D2;
+  color: white !important;
+  padding: 10px 18px;
+  border-radius: 4px;
+}
+
+
+.hero-tag {
+  background-color: #e6f1fb;
+  color: #0B79D2;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin: 20px 0 10px;
+}
+
+.hero p {
+  max-width: 550px;
+  margin: auto;
+  color: #555;
+  line-height: 1.6;
+}
+/* Grid Layout */
+.main-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: 100px;
+    overflow: hidden;
+}
+
+.facilities-grid {
+    display: flex;
+    align-items: flex-start;
+}
+
+.text-content {
+    width: 55%;
+    padding-top: 60px;
+    padding-right: 40px;
+}
+
+.section-title {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.accent-line {
+    width: 35px;
+    height: 3px;
+    background: #3178d1;
+    margin-bottom: 50px;
+}
+
+/* Rows */
+.facility-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    min-height: 90px;
+}
+
+.pill-bg {
+    background: #fdf5ef;
+    border-radius: 100px 0 0 100px;
+    padding-left: 20px;
+}
+
+.reverse {
+    flex-direction: row-reverse;
+    text-align: right;
+    padding-right: 20px;
+    padding-left: 0;
+    border-radius: 100px;
+}
+
+.icon-circle {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    background: #3178d1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+    box-shadow: 0 4px 8px rgba(49, 120, 209, 0.3);
+}
+
+.icon-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    padding: 10px; 
+}
+
+.description h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.description p {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.5;
+    max-width: 450px;
+}
+
+/* The Large Image */
+.image-content {
+    width: 45%;
+    height: 100vh;
+    position: sticky; 
+    top: 0;
+}
+
+.hero-mask {
+    width: 100%;
+    height: 100%; 
+    border-bottom-left-radius: 500px;
+    border-top-left-radius: 150px;
+    overflow: hidden; 
+    background: #e0e0e0; 
+}
+
+.hero-mask img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+}
+
+/* Footer */
+.site-footer {
+    background: #fbfbfb;
+    padding: 60px 0 20px;
+    border-top: 1px solid #eee;
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 50px;
+}
+
+.f-col {
+    flex: 1;
+}
+
+.f-col h4 {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.f-col p {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.map-box img {
+    width: 100%;
+    border-radius: 8px;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.copyright-bar {
+    text-align: center;
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 50px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 20px;
+}
+
+/* Search Bar */
+.search-section {
+  width: 80%;
+  margin: 30px auto 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-section form {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-bar {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-bar:focus {
+  border-color: #0B79D2;
+}
+
+.search-results {
+  margin-bottom: 30px;
+}

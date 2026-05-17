@@ -21,7 +21,7 @@
     <!-- Navigation Links -->
     <ul class="nav-links">
       <li><a href="#" class="nav-button">Home</a></li>
-      <li><a href="#" class="nav-button">Facilities</a></li>
+      <li><a href="<%= request.getContextPath() %>/FacilitiesServlet" class="nav-button">Facilities</a></li>
      <li><a href="<%= request.getContextPath() %>/Aboutus" class="nav-button">About Us</a></li>
       <li><a href="#" class="nav-button">Blog</a></li>
       <li><a href="<%= request.getContextPath() %>/Contactus" class="nav-button">Contact Us</a></li>
