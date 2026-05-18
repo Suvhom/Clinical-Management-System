@@ -36,7 +36,7 @@
 </header>
 
 <section class="search-section">
-    <form action="<%= request.getContextPath() %>/FacilitiesServlet" method="get">
+   <form action="<%= request.getContextPath() %>/FacilitiesSearchServlet" method="get">
     <input type="text" name="keyword" placeholder="Search facilities..." class="search-bar">
     <button type="submit" class="book-btn">Search</button>
 </form>
@@ -52,7 +52,7 @@
 				    ${searchResults}
 				</div>
 
-                <div class="facility-row">
+                <div class="facility-row"  id="facility-1">
                     <div class="icon-circle">
                     <img src="<%= request.getContextPath() %>/images/building.png" alt="Working Hours" width="18" height="18" />
                     </div>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                <div class="facility-row pill-bg reverse">
+                <div class="facility-row pill-bg reverse" id="facility-2">
                     <div class="icon-circle"><img src="<%= request.getContextPath() %>/images/bed.png" alt="icon"></div>
                     <div class="description">
                         <h3>Choices of Rooms</h3>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <div class="facility-row">
+                <div class="facility-row"  id="facility-3">
                     <div class="icon-circle"><img src="<%= request.getContextPath() %>/images/doc.png" alt="icon"></div>
                     <div class="description">
                         <h3>Best Equipment</h3>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
 
-                <div class="facility-row pill-bg reverse">
+                <div class="facility-row pill-bg reverse"  id="facility-4">
                     <div class="icon-circle"><img src="<%= request.getContextPath() %>/images/map.png" alt="icon"></div>
                     <div class="description">
                         <h3>Best Infrastructure</h3>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
 
-                <div class="facility-row">
+                <div class="facility-row" id="facility-5">
                     <div class="icon-circle"><img src="<%= request.getContextPath() %>/images/man.png" alt="icon"></div>
                     <div class="description">
                         <h3>IPD and Treatment Facilities</h3>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div class="facility-row pill-bg reverse">
+                <div class="facility-row pill-bg reverse"  id="facility-6">
                     <div class="icon-circle"><img src="<%= request.getContextPath() %>/images/house.png" alt="icon"></div>
                     <div class="description">
                         <h3>Home-Based Treatments</h3>
@@ -102,7 +102,7 @@
                     </div>
                 </div>
 
-                <div class="facility-row">
+                <div class="facility-row"  id="facility-7">
                     <div class="icon-circle"><img src="<%= request.getContextPath() %>/images/pill.png" alt="icon"></div>
                     <div class="description">
                         <h3>Pharmacy</h3>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <div class="facility-row pill-bg reverse">
+                <div class="facility-row pill-bg reverse"  id="facility-8">
                     <div class="icon-circle"><img src="<%= request.getContextPath() %>/images/bag.png" alt="icon"></div>
                     <div class="description">
                         <h3>Health Packages</h3>
@@ -184,6 +184,6 @@
     </div>
   </div>
 </footer>
-</footer>
+
 </body>
 </html>

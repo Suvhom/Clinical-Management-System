@@ -7,51 +7,37 @@ import com.islington.utils.DBconfig;
 
 public class TreatmentDao {
 
-    public String searchFacilities(String keyword) throws Exception {
+	public int findMatchingFacilityId(String keyword) throws Exception {
+	    Connection con = DBconfig.getConnection();
 
-        Connection con = DBconfig.getConnection();
+	    String sql = "SELECT treatment_id FROM treatment "
+	               + "WHERE treatment_name LIKE ? OR description LIKE ? "
+	               + "ORDER BY CASE "
+	               + "WHEN treatment_name LIKE ? THEN 1 "
+	               + "WHEN description LIKE ? THEN 2 "
+	               + "END LIMIT 1";
 
-        String sql = "SELECT * FROM treatment "
-                + "WHERE treatment_name LIKE ? OR description LIKE ? "
-                + "ORDER BY CASE "
-                + "WHEN treatment_name LIKE ? THEN 1 "
-                + "WHEN description LIKE ? THEN 2 "
-                + "ELSE 3 END";
+	    PreparedStatement pst = con.prepareStatement(sql);
 
-        PreparedStatement pst = con.prepareStatement(sql);
+	    String searchValue = "%" + keyword + "%";
 
-        String searchValue = "%" + keyword + "%";
+	    pst.setString(1, searchValue);
+	    pst.setString(2, searchValue);
+	    pst.setString(3, searchValue);
+	    pst.setString(4, searchValue);
 
-        pst.setString(1, searchValue);
-        pst.setString(2, searchValue);
-        pst.setString(3, searchValue);
-        pst.setString(4, searchValue);
+	    ResultSet rs = pst.executeQuery();
 
-        ResultSet rs = pst.executeQuery();
+	    int treatmentId = 0;
 
-        String result = "";
-        boolean found = false;
+	    if (rs.next()) {
+	        treatmentId = rs.getInt("treatment_id");
+	    }
 
-        while (rs.next()) {
-            found = true;
+	    rs.close();
+	    pst.close();
+	    con.close();
 
-            result += "<div  id='matchedResult' class='facility-row'>"
-                    + "<div class='description'>"
-                    + "<h3>" + rs.getString("treatment_name") + "</h3>"
-                    + "<p>" + rs.getString("description") + "</p>"
-                    + "<p><strong>Status:</strong> " + rs.getString("status") + "</p>"
-                    + "</div>"
-                    + "</div>";
-        }
-
-        if (!found) {
-            result = "<p>No matching facility found.</p>";
-        }
-
-        rs.close();
-        pst.close();
-        con.close();
-
-        return result;
-    }
+	    return treatmentId;
+	}
 }
