@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="<%= request.getContextPath() %>/CSS/contactus.css" rel="stylesheet">
+<link href="<%= request.getContextPath() %>/css/contactus.css" rel="stylesheet">
 </head>
 <body>
 	
