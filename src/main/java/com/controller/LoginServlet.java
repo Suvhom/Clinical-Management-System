@@ -1,4 +1,6 @@
 package com.controller;
+import com.service.PatientService;
+import com.model.PatientModel;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,15 +12,13 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import com.hashing.model.StudentModel;
-import com.hashing.service.StudentService;
-
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
     private PatientService service = new PatientService();
 
     @Override
@@ -32,6 +32,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String username = request.getParameter("username");
+        if (username == null || username.trim().isEmpty()) {
+            username = request.getParameter("email");
+        }
         String password = request.getParameter("password");
 
         PatientModel student = service.getStudentByUsername(username);

@@ -27,10 +27,10 @@
 
                 <nav>
                     <a class="nav" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
-                    <a class="nav" href="${pageContext.request.contextPath}/admin/appointments">Appointments</a>
-                    <a class="nav active" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
+                    <a class="nav" href= "${pageContext.request.contextPath}/admin/appointments">Appointments</a>
+                    <a class="nav active" href = "${pageContext.request.contextPath}/admin/patients">Patients</a>
                     <a class="nav" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
-                    <a class="nav" href="${pageContext.request.contextPath}/admin/patient-detail">Staff Directory</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
                 </nav>
 
                 <div class="side-bottom">

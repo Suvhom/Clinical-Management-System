@@ -1,4 +1,5 @@
 package com.controller;
+import com.service.PatientService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

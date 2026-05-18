@@ -1,6 +1,10 @@
 package com.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.dao.AddPatientDao;
+import com.model.AddPatientModel;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +20,11 @@ public class PatientProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        AddPatientDao dao = new AddPatientDao();
+        ArrayList<AddPatientModel> patients = dao.getAllPatients();
+
+        request.setAttribute("patients", patients);
 
         request.getRequestDispatcher("/WEB-INF/Admin_page/PatientProfile.jsp")
                .forward(request, response);

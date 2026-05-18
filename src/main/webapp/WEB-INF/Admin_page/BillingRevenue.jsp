@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.ArrayList" %>
 
 <!doctype html>
 <html lang="en">
@@ -27,12 +28,12 @@
             </div>
 
             <nav class="nav-menu">
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/appointments">Appointments</a>
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
-			    <a class="nav-item active" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/patient-detail">Staff Directory</a>
-			</nav>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/appointments">Appointments</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
+                <a class="nav-item active" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
+            </nav>
 
             <div class="nav-bottom">
                 <a class="nav-item" href="#">Settings</a>
@@ -69,8 +70,6 @@
 
             </header>
             
-            
-            
             <!-- Content -->
             <div class="content">
 
@@ -81,34 +80,48 @@
                         <p>Track invoices, payments and clinic revenue.</p>
                     </div>
 
-                    <button class="primary">+ Create Invoice</button>
+                    <a class="primary" href="${pageContext.request.contextPath}/admin/create-invoice" style="text-decoration: none; font-weight: 700; display: inline-block;">
+                        + Create Invoice
+                    </a>
                 </div>
+
+                <% if (request.getParameter("success") != null) { %>
+                    <p class="success-message" style="background: #dcfce7; color: #15803d; border-color: #bbf7d0; padding: 12px 18px; border-radius: 10px; font-weight: 600; margin-bottom: 20px;">Invoice generated and committed successfully.</p>
+                <% } %>
+
+                <%
+                    Map<String, Integer> stats = (Map<String, Integer>) request.getAttribute("stats");
+                    int totalRevenue = stats != null ? stats.getOrDefault("totalRevenue", 0) : 0;
+                    int monthlyRevenue = stats != null ? stats.getOrDefault("monthlyRevenue", 0) : 0;
+                    int outstandingBalance = stats != null ? stats.getOrDefault("outstandingBalance", 0) : 0;
+                    int paidInvoicesCount = stats != null ? stats.getOrDefault("paidInvoicesCount", 0) : 0;
+                %>
 
                 <!-- Stat Cards -->
                 <div class="stats-row">
 
                     <div class="stat card">
                         <span>Total Revenue</span>
-                        <b>NRP 4,250,000</b>
-                        <small class="ok">+12.5% from last year</small>
+                        <b>NRP <%= String.format("%,d", totalRevenue) %></b>
+                        <small class="ok">Gross cash collections</small>
                     </div>
 
                     <div class="stat card">
                         <span>Monthly Revenue</span>
-                        <b>NRP 380,500</b>
-                        <small class="ok">+4.2% from last month</small>
+                        <b>NRP <%= String.format("%,d", monthlyRevenue) %></b>
+                        <small class="ok">This calendar month</small>
                     </div>
 
                     <div class="stat card">
                         <span>Outstanding Balance</span>
-                        <b>NRP 125,000</b>
-                        <small class="bad">8 pending invoices</small>
+                        <b>NRP <%= String.format("%,d", outstandingBalance) %></b>
+                        <small class="bad">Pending dues</small>
                     </div>
 
                     <div class="stat card">
                         <span>Paid Invoices</span>
-                        <b>248</b>
-                        <small>This month</small>
+                        <b><%= paidInvoicesCount %></b>
+                        <small>Completed treatments</small>
                     </div>
 
                 </div>
@@ -120,11 +133,6 @@
                         <div>
                             <h2>Recent Transactions</h2>
                             <p>Latest billing records and payment updates.</p>
-                        </div>
-
-                        <div class="table-actions">
-                            <input type="text" placeholder="Search by patient or invoice ID...">
-                            <button>Filter</button>
                         </div>
                     </div>
 
@@ -141,63 +149,45 @@
                         </thead>
 
                         <tbody>
-
-                            <tr>
-                                <td>#INV-2023-1045</td>
-                                <td>
-                                    <div class="patient-cell">
-                                        <span class="avatar mini a4"></span>
-                                        <strong>David Miller</strong>
-                                    </div>
-                                </td>
-                                <td>Physiotherapy Session</td>
-                                <td>Oct 12, 2023</td>
-                                <td>NRP 1,500</td>
-                                <td><span class="pill green">Paid</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>#INV-2023-1046</td>
-                                <td>
-                                    <div class="patient-cell">
-                                        <span class="avatar mini a1"></span>
-                                        <strong>Sarah Jones</strong>
-                                    </div>
-                                </td>
-                                <td>Acupuncture Therapy</td>
-                                <td>Oct 11, 2023</td>
-                                <td>NRP 2,000</td>
-                                <td><span class="pill yellow">Pending</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>#INV-2023-1047</td>
-                                <td>
-                                    <div class="patient-cell">
-                                        <span class="avatar mini a3"></span>
-                                        <strong>Michael Smith</strong>
-                                    </div>
-                                </td>
-                                <td>Sports Rehabilitation</td>
-                                <td>Oct 10, 2023</td>
-                                <td>NRP 2,500</td>
-                                <td><span class="pill green">Paid</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>#INV-2023-1048</td>
-                                <td>
-                                    <div class="patient-cell">
-                                        <span class="avatar mini a6"></span>
-                                        <strong>Emma Wilson</strong>
-                                    </div>
-                                </td>
-                                <td>Chiropractic Adjustment</td>
-                                <td>Oct 05, 2023</td>
-                                <td>NRP 3,000</td>
-                                <td><span class="pill red">Overdue</span></td>
-                            </tr>
-
+                            <%
+                                ArrayList<String[]> transactions = (ArrayList<String[]>) request.getAttribute("transactions");
+                                if (transactions == null || transactions.isEmpty()) {
+                            %>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: #6b7280; padding: 40px; font-size: 15px;">
+                                        No billing invoices found. Create appointments to generate clinical transactions dynamically!
+                                    </td>
+                                </tr>
+                            <%
+                                } else {
+                                    int idx = 1;
+                                    for (String[] t : transactions) {
+                                        String pillColor = "gray";
+                                        if ("Paid".equalsIgnoreCase(t[5])) pillColor = "green";
+                                        else if ("Pending".equalsIgnoreCase(t[5])) pillColor = "yellow";
+                                        else if ("Overdue".equalsIgnoreCase(t[5])) pillColor = "red";
+                                        else if ("Void".equalsIgnoreCase(t[5])) pillColor = "gray";
+                                        
+                                        String avatarClass = "a" + ((idx % 6) + 1);
+                                        idx++;
+                            %>
+                                <tr>
+                                    <td><strong><%= t[0] %></strong></td>
+                                    <td>
+                                        <div class="patient-cell" style="display: flex; align-items: center; gap: 10px;">
+                                            <span class="avatar mini <%= avatarClass %>"></span>
+                                            <strong><%= t[1] %></strong>
+                                        </div>
+                                    </td>
+                                    <td><%= t[2] %></td>
+                                    <td><%= t[3] %></td>
+                                    <td><strong><%= t[4] %></strong></td>
+                                    <td><span class="pill <%= pillColor %>"><%= t[5] %></span></td>
+                                </tr>
+                            <%
+                                    }
+                                }
+                            %>
                         </tbody>
                     </table>
 

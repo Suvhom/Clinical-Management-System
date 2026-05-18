@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.model.AppointmentModel" %>
 
 <!doctype html>
 <html lang="en">
@@ -31,7 +33,7 @@
 			    <a class="nav-item active" href="${pageContext.request.contextPath}/admin/appointments">Appointments</a>
 			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
 			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/patient-detail">Staff Directory</a>
+			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
 			</nav>
 
             <div class="nav-bottom">
@@ -79,26 +81,57 @@
                         <p>View, schedule and manage all patient appointments.</p>
                     </div>
 
-                    <button class="primary-btn">+ New Appointment</button>
+                    <a class="primary-btn" href="${pageContext.request.contextPath}/admin/add-appointment" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; height: 46px; box-sizing: border-box;">+ New Appointment</a>
                 </div>
+
+                <!-- Success / Notification Banners -->
+                <% if (request.getParameter("success") != null) { %>
+                    <% if ("1".equals(request.getParameter("success"))) { %>
+                        <p class="success-message" style="background: #dcfce7; color: #15803d; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
+                            ✔ Appointment scheduled successfully.
+                        </p>
+                    <% } else if ("2".equals(request.getParameter("success"))) { %>
+                        <p class="success-message" style="background: #e0f2fe; color: #0369a1; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
+                            ✔ Appointment rescheduled / updated successfully.
+                        </p>
+                    <% } else if ("3".equals(request.getParameter("success"))) { %>
+                        <p class="success-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
+                            ✔ Appointment cancelled successfully.
+                        </p>
+                    <% } %>
+                <% } %>
+
+                <% 
+                    String currentFilter = (String) request.getAttribute("currentFilter");
+                    if (currentFilter == null) currentFilter = "all";
+                    
+                    String currentSearch = (String) request.getAttribute("currentSearch");
+                    if (currentSearch == null) currentSearch = "";
+                %>
 
                 <!-- Filters -->
                 <div class="filter-card">
 
                     <div class="tabs">
-                        <a class="active" href="#">All Appointments</a>
-                        <a href="#">Today</a>
-                        <a href="#">Upcoming</a>
-                        <a href="#">Pending</a>
+                        <a class="<%= "all".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=all&search=<%= currentSearch %>">All Appointments</a>
+                        <a class="<%= "today".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=today&search=<%= currentSearch %>">Today</a>
+                        <a class="<%= "upcoming".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=upcoming&search=<%= currentSearch %>">Upcoming</a>
+                        <a class="<%= "pending".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=pending&search=<%= currentSearch %>">Pending</a>
                     </div>
 
-                    <div class="filter-search">
-                        Search patient or doctor...
-                    </div>
-
-                    <button class="date-btn">Oct 24 - Oct 30, 2023</button>
-
-                    <button class="filter-btn">☷</button>
+                    <form action="${pageContext.request.contextPath}/admin/appointments" method="get" style="display: flex; gap: 8px; width: 100%; grid-column: span 3;">
+                        <input type="hidden" name="filter" value="<%= currentFilter %>">
+                        <div class="filter-search" style="flex: 1; padding: 0; position: relative;">
+                            <input 
+                                type="text" 
+                                name="search" 
+                                value="<%= currentSearch %>" 
+                                placeholder="Search patient, staff ID, reason, status..." 
+                                style="width: 100%; height: 42px; border: 1px solid #e5e7eb; border-radius: 8px; padding-left: 42px; font-size: 15px; outline: none; background: #ffffff;"
+                            >
+                        </div>
+                        <button type="submit" class="primary-btn" style="padding: 0 18px; height: 42px; font-size: 14px;">Search</button>
+                    </form>
 
                 </div>
 
@@ -111,8 +144,8 @@
                             <tr>
                                 <th>Patient</th>
                                 <th>Date & Time</th>
-                                <th>Doctor</th>
-                                <th>Treatment</th>
+                                <th>Assigned Staff</th>
+                                <th>Reason / Treatment</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -120,244 +153,82 @@
 
                         <tbody>
 
+                            <%
+                                ArrayList<AppointmentModel> appts = (ArrayList<AppointmentModel>) request.getAttribute("appointmentsList");
+                                if (appts != null && !appts.isEmpty()) {
+                                    for (AppointmentModel appt : appts) {
+                                        String pillClass = "gray";
+                                        if ("Confirmed".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "green";
+                                        } else if ("In Progress".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "orange";
+                                        } else if ("Pending".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "yellow";
+                                        } else if ("Cancelled".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "red";
+                                        } else if ("Rescheduled".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "orange";
+                                        } else if ("Completed".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "gray";
+                                        }
+                            %>
+
                             <tr>
                                 <td>
                                     <div class="person">
                                         <span class="avatar a1"></span>
                                         <div>
-                                            <strong>John Doe</strong>
-                                            <small>#PT-8842</small>
+                                            <strong><%= appt.getPatientName() %></strong>
+                                            <small>#PT-<%= appt.getPatientId() %></small>
                                         </div>
                                     </div>
                                 </td>
 
                                 <td>
-                                    <strong>09:00 AM - 10:00 AM</strong>
-                                    <small>Today, Oct 26</small>
+                                    <strong><%= appt.getAppointmentTime() %></strong>
+                                    <small><%= appt.getAppointmentDate() %></small>
                                 </td>
 
                                 <td>
                                     <div class="doctor">
                                         <span class="avatar small a2"></span>
-                                        <strong>Dr. M. Smith</strong>
+                                        <strong>Staff #<%= appt.getStaffId() %></strong>
                                     </div>
                                 </td>
 
-                                <td>Manual Therapy</td>
+                                <td><%= appt.getReason() %></td>
 
                                 <td>
-                                    <span class="pill green">Confirmed</span>
+                                    <span class="pill <%= pillClass %>"><%= appt.getStatus() %></span>
                                 </td>
 
                                 <td>
                                     <div class="actions">
-                                        <button>✎</button>
-                                        <button>×</button>
+                                        <a href="${pageContext.request.contextPath}/admin/edit-appointment?id=<%= appt.getAppointmentId() %>" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #e5e7eb; border-radius: 6px; background: #ffffff; color: #111827;" title="Reschedule / Edit">✎</a>
+                                        <% if (!"Cancelled".equalsIgnoreCase(appt.getStatus())) { %>
+                                            <a href="${pageContext.request.contextPath}/admin/cancel-appointment?id=<%= appt.getAppointmentId() %>" onclick="return confirm('Are you sure you want to cancel this appointment?');" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #e5e7eb; border-radius: 6px; background: #ffffff; color: #b91c1c;" title="Cancel Appointment">×</a>
+                                        <% } %>
                                     </div>
                                 </td>
                             </tr>
 
+                            <%
+                                    }
+                                } else {
+                            %>
                             <tr>
-                                <td>
-                                    <div class="person">
-                                        <span class="avatar a3"></span>
-                                        <div>
-                                            <strong>Alice Wong</strong>
-                                            <small>#PT-9931</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <strong>10:30 AM - 11:30 AM</strong>
-                                    <small>Today, Oct 26</small>
-                                </td>
-
-                                <td>
-                                    <div class="doctor">
-                                        <span class="avatar small a4"></span>
-                                        <strong>Dr. S. Evans</strong>
-                                    </div>
-                                </td>
-
-                                <td>Post-op Rehab</td>
-
-                                <td>
-                                    <span class="pill orange">In Progress</span>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-                                        <button>✎</button>
-                                        <button>×</button>
-                                    </div>
+                                <td colspan="6" style="text-align: center; color: #6b7280; padding: 40px 0;">
+                                    No appointments found matching your filters.
                                 </td>
                             </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="person">
-                                        <span class="avatar a5"></span>
-                                        <div>
-                                            <strong>Robert Fox</strong>
-                                            <small>#PT-7720</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <strong>11:15 AM - 12:00 PM</strong>
-                                    <small>Today, Oct 26</small>
-                                </td>
-
-                                <td>
-                                    <div class="doctor">
-                                        <span class="avatar small a2"></span>
-                                        <strong>Dr. M. Smith</strong>
-                                    </div>
-                                </td>
-
-                                <td>Sports Injury</td>
-
-                                <td>
-                                    <span class="pill yellow">Pending</span>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-                                        <button>✎</button>
-                                        <button>×</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="person">
-                                        <span class="avatar a6"></span>
-                                        <div>
-                                            <strong>Sarah Jenkins</strong>
-                                            <small>#PT-8099</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <strong>01:00 PM - 02:00 PM</strong>
-                                    <small>Today, Oct 26</small>
-                                </td>
-
-                                <td>
-                                    <div class="doctor">
-                                        <span class="avatar small a7"></span>
-                                        <strong>Dr. D. Clark</strong>
-                                    </div>
-                                </td>
-
-                                <td>Consultation</td>
-
-                                <td>
-                                    <span class="pill green">Confirmed</span>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-                                        <button>✎</button>
-                                        <button>×</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="person">
-                                        <span class="avatar a8"></span>
-                                        <div>
-                                            <strong>Maria Garcia</strong>
-                                            <small>#PT-8102</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <strong>02:30 PM - 03:30 PM</strong>
-                                    <small>Today, Oct 26</small>
-                                </td>
-
-                                <td>
-                                    <div class="doctor">
-                                        <span class="avatar small a7"></span>
-                                        <strong>Dr. D. Clark</strong>
-                                    </div>
-                                </td>
-
-                                <td>Neurological Rehab</td>
-
-                                <td>
-                                    <span class="pill red">Cancelled</span>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-                                        <button>✎</button>
-                                        <button>×</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="person">
-                                        <span class="avatar a9"></span>
-                                        <div>
-                                            <strong>David Miller</strong>
-                                            <small>#PT-8230</small>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <strong>04:00 PM - 05:00 PM</strong>
-                                    <small>Today, Oct 26</small>
-                                </td>
-
-                                <td>
-                                    <div class="doctor">
-                                        <span class="avatar small a4"></span>
-                                        <strong>Dr. S. Evans</strong>
-                                    </div>
-                                </td>
-
-                                <td>Sports Massage</td>
-
-                                <td>
-                                    <span class="pill gray">Completed</span>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-                                        <button>✎</button>
-                                        <button>×</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            <% } %>
 
                         </tbody>
 
                     </table>
 
                     <div class="table-footer">
-                        <p>Showing 1 to 6 of 42 entries</p>
-
-                        <div class="pagination">
-                            <button>‹</button>
-                            <button class="active">1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <button>...</button>
-                            <button>7</button>
-                            <button>›</button>
-                        </div>
+                        <p>Showing <%= appts != null ? appts.size() : 0 %> entries</p>
                     </div>
 
                 </div>

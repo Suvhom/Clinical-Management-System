@@ -59,7 +59,10 @@
     gap: 12px;
 }
 
-.patient-actions button {
+.patient-actions button,
+.patient-actions .btn-link {
+    display: inline-block;
+    text-decoration: none;
     border: none;
     background: #eef4ff;
     color: #1677d8;
@@ -69,8 +72,18 @@
     cursor: pointer;
 }
 
-.patient-actions button:hover {
+.patient-actions button:hover,
+.patient-actions .btn-link:hover {
     background: #dbeafe;
+}
+
+.patient-actions .btn-link.delete {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.patient-actions .btn-link.delete:hover {
+    background: #fecaca;
 }
 
 /* Avatar */
