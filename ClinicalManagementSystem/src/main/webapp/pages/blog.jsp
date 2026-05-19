@@ -13,7 +13,7 @@
 
     <!-- Logo -->
  <div class="logo">
-  <img src="../images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
+  <img src="../images/Logo.jpeg" alt="Motion Rehab Logo" class="logo-img">
   <span>MotionRehab</span>
 </div>
 

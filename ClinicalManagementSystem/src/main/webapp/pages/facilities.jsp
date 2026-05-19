@@ -105,19 +105,77 @@
             </div>
         </section>
     </main>
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="f-col">
-                <div class="logo"><img src="../images/Logo.png" alt="logo"> MotionRehab</div>
-                <p>MotionRehab is the pioneer and the best center for Physiotherapy, Rehabilitation, Ayurvedic, natural and holistic medicine. With integrated and multidisciplinary approach, we have incorporated the best fields of medicine to provide the best health care and rehabilitation without adverse effects.</p>
+  <footer class="footer">
+    <div class="footer-container">
+
+        <!-- Brand Section -->
+        <div class="footer-brand">
+            <div class="footer-logo">
+                <img src="../images/Logo.png" alt="MotionRehab Logo">
+                <span>MotionRehab</span>
             </div>
-            <div class="f-col">
-                <h4>Contact Us</h4>
-                <p>hello@motionrehab.com</p>
-                <p>+1-800-567-2123<br>+1-800-537-0823</p>
-                <p>123 Wellness Avenue, Health City, State, 12345</p>
+
+            <p>
+                Dedicating to providing exceptional physiotherapy care to help you move
+                freely and live without limits. Your recovery starts here.
+            </p>
+
+            <div class="social-icons">
+                <a href="#">f</a>
+                <a href="#">◎</a>
+                <a href="#">t</a>
             </div>
-            
-    </footer>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Testimonials</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="footer-links">
+            <h3>Services</h3>
+            <ul>
+                <li><a href="#">Sports Injuries</a></li>
+                <li><a href="#">Back &amp; Neck Pain</a></li>
+                <li><a href="#">Post-Surgery Rehab</a></li>
+                <li><a href="#">Acupuncture</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-contact">
+            <h3>Contact</h3>
+
+            <p>
+                <span class="contact-icon">⌾</span>
+                <span>Kirtipur, Panga</span>
+            </p>
+
+            <p>
+                <span class="contact-icon">☏</span>
+                <span>9749497768</span>
+            </p>
+
+            <p>
+                <span class="contact-icon">M</span>
+                <span>Motionrehab99@gmail.com</span>
+            </p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Services</a>
+    </div>
+</footer>
 </body>
 </html>
