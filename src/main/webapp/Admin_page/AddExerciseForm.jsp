@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Exercise Form - MotionRehab</title>
 
-    <link rel="stylesheet" href="AddExerciseForm.css">
+    <link rel="stylesheet" href="/css/AddExerciseForm.css">
 </head>
 
 <body>

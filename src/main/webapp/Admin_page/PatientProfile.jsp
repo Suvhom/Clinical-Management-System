@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Profile - MotionRehab</title>
 
-    <link rel="stylesheet" href="PatientProfile.css">
+    <link rel="stylesheet" href="/css/PatientProfile.css">
 </head>
 
 <body>

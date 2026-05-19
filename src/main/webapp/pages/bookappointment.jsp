@@ -18,7 +18,6 @@
           Fill in your details and choose your preferred date, time, and specialist.
           We will confirm your slot right away.
         </p>
-
         <ul>
           <li>Same-day and next-day slots</li>
           <li>In-person and telehealth options</li>

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Appointments - MotionRehab</title>
 
-    <link rel="stylesheet" href="AdminAppointments.css">
+    <link rel="stylesheet" href="/css/AdminAppointments.css">
 </head>
 
 <body>

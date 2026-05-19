@@ -4,9 +4,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+
 import com.dao.PatientDao;
 import com.utils.PasswordUtil;
 
@@ -17,52 +19,98 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/pages/register.jsp");
+        request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String patientName = request.getParameter("fullName");
-        String email       = request.getParameter("email");
-        String password    = request.getParameter("password");
-        String confirm     = request.getParameter("confirmPassword");
-        String username = email;
+        // Collect all form values
+        String fullName        = request.getParameter("fullName");
+        String email           = request.getParameter("email");
+        String phone           = request.getParameter("phone");
+        String gender          = request.getParameter("gender");
+        String address         = request.getParameter("address");
+        String dateOfBirth     = request.getParameter("dateOfBirth");
+        String password        = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
-        if (password == null || !password.equals(confirm)) {
-            request.setAttribute("errorMessage", "Passwords do not match.");
-            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+        // Create DAO here at the top so it's available everywhere
+        PatientDao dao = new PatientDao();
+
+        // Full name is required
+        if (fullName == null || fullName.trim().isEmpty()) {
+            forwardWithError(request, response, "Please enter your full name.");
+            return;
+        }
+
+        // Checking if the email is empty of not
+        if (email == null || email.trim().isEmpty()) {
+            forwardWithError(request, response, "Please enter your email address.");
+            return;
+        }
+
+        // checking if the email exists in database or not
+        try {
+            if (dao.getPatientByUsername(email) != null) {
+                forwardWithError(request, response, "An account with this email already exists. Please log in.");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            forwardWithError(request, response, "Something went wrong while checking your email. Please try again.");
+            return;
+        }
+
+        // Password must be at least 8 characters
+        if (password == null || password.length() < 8) {
+            forwardWithError(request, response, "Password must be at least 8 characters long.");
+            return;
+        }
+
+        // Both passwords must match
+        if (!password.equals(confirmPassword)) {
+            forwardWithError(request, response, "Passwords do not match. Please try again.");
             return;
         }
 
         // Hash the password before saving
         String hashedPassword = PasswordUtil.getHashPassword(password);
 
-        // Handle image
+        // Handle profile picture upload
         String imageBase64 = null;
         try {
-            Part filePart = request.getPart("image");
-            if (filePart != null && filePart.getSize() > 0) {
-                InputStream is = filePart.getInputStream();
-                byte[] imageBytes = is.readAllBytes();
-                imageBase64 = Base64.getEncoder().encodeToString(imageBytes);
+            Part imagePart = request.getPart("image");
+            if (imagePart != null && imagePart.getSize() > 0) {
+                if (!imagePart.getContentType().startsWith("image/")) {
+                    forwardWithError(request, response, "Only image files are allowed for the profile picture.");
+                    return;
+                }
+                InputStream imageStream = imagePart.getInputStream();
+                imageBase64 = Base64.getEncoder().encodeToString(imageStream.readAllBytes());
             }
         } catch (Exception e) {
+            // Picture upload failed — not critical, just skip it
             e.printStackTrace();
         }
 
-        // It inserts into DB pass empty strings for fields not in form
+        // All good — save the new patient to the database
         try {
-            PatientDao dao = new PatientDao();
-            dao.insertPatient(patientName, email, "", "", "", "", username, hashedPassword, imageBase64);
-            System.out.println("Patient inserted successfully!");
-            response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
+            dao.insertPatient(fullName, email, phone, gender, address, dateOfBirth, email, hashedPassword, imageBase64);
+            response.sendRedirect(request.getContextPath() + "/login");
         } catch (Exception e) {
-            System.out.println("Insert failed: " + e.getMessage());
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Registration failed. Please try again.");
-            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+            forwardWithError(request, response, "Something went wrong on our end. Please try again.");
         }
+    }
+
+    // Attach error message and stay on the register page
+    private void forwardWithError(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  String message)
+            throws ServletException, IOException {
+        request.setAttribute("errorMessage", message);
+        request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
     }
 }

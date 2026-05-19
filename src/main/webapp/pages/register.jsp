@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +14,8 @@
     <div class="left-panel">
         <h1>Create your patient account.</h1>
         <p>
-            Register to start tracking exercises, monitor therapy progress,
-            and stay connected with your clinical care team.
+            Register to start tracking exercises, book appointments,
+            and stay connected with us.
         </p>
     </div>
 
@@ -26,37 +24,67 @@
             <h2>Get started</h2>
             <p class="subtitle">Create your MotionRehab patient account</p>
 
-            <% if (request.getAttribute("errorMessage") != null) { %>
-                <p class="alert error"><%= request.getAttribute("errorMessage") %></p>
-            <% } %>
-
-            <form id="registerForm"
-                  action="${pageContext.request.contextPath}/register"
+            <form action="${pageContext.request.contextPath}/register"
                   method="post"
                   enctype="multipart/form-data">
 
-                <div class="form-group">
-                    <label for="fullName">Full name</label>
-                    <input type="text" id="fullName" name="fullName"
-                           placeholder="Enter your full name" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full name</label>
+                        <input type="text" id="fullName" name="fullName"
+                               placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" name="email"
+                               placeholder="Enter your email" required>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" id="email" name="email"
-                           placeholder="Enter your email" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone number</label>
+                        <input type="tel" id="phone" name="phone"
+                               placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of birth</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password"
-                           placeholder="Create a password" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option value="" disabled selected>Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address"
+                               placeholder="Enter your address">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword"
-                           placeholder="Confirm your password" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password"
+                               placeholder="Create a password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword"
+                               placeholder="Confirm your password" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -66,15 +94,6 @@
 
                 <button type="submit" class="create-btn">Create account</button>
             </form>
-
-            <div class="divider">
-                <span>or continue with</span>
-            </div>
-
-            <button class="google-btn" type="button">
-                <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Logo">
-                Sign up with Google
-            </button>
 
             <p class="login-text">
                 Already have an account?

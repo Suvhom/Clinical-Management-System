@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Billing Revenue - MotionRehab</title>
 
-    <link rel="stylesheet" href="BillingRevenue.css">
+    <link rel="stylesheet" href="/css/BillingRevenue.css">
 </head>
 
 <body>

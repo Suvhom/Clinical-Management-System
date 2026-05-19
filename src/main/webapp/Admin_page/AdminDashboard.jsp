@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard - MotionRehab</title>
 
-    <link rel="stylesheet" href="AdminDashboard_CSS.css">
+    <link rel="stylesheet" href="../css/AdminDashboard.css">
 </head>
 
 <body>
@@ -28,8 +28,8 @@
                     <a class="nav active" href="../index.html#admin-dashboard">Dashboard</a>
                     <a class="nav" href="../index.html#admin-appointments">Appointments</a>
                     <a class="nav" href="../index.html#patient-profile">Patients</a>
-                    <a class="nav" href="../index.html#billing-revenue">Billing & Revenue</a>
-                    <a class="nav" href="../index.html#patient-detail">Staff Directory</a>
+                    <a class="nav" href="/ClinicalManagementSystem/src/main/webapp/Admin_page/BillingRevenue.jsp">Billing & Revenue</a>
+                    <a class="nav" href="BillingRevenue.jsp">Staff Directory</a>
                 </nav>
 
                 <div class="side-bottom">

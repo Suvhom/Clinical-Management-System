@@ -1,68 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.model.PatientModel" %>
-
-<%
-    PatientModel patient = (PatientModel) session.getAttribute("patient");
-    if (patient == null) {
-        response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
-        return;
-    }
-    String image = patient.getImage();
-    String contextPath = request.getContextPath();
-%>
-
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard - MotionRehab</title>
-    <link rel="stylesheet" href="<%= contextPath %>/css/UserDashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/UserDashboard.css">
 </head>
 <body>
     <main class="screens standalone">
         <section class="screen active" id="user-dashboard">
 
             <aside class="sidebar">
-                <a class="brand" href="#"><span class="logo">M</span>MotionRehab</a>
+                <a class="brand" href="${pageContext.request.contextPath}/UserDashboard">
+                    <span class="logo">M</span>MotionRehab
+                </a>
                 <nav>
-                    <a class="nav active" href="#"><span>DB</span>Dashboard</a>
-                    <a class="nav"        href="#"><span>BK</span>Book Appointment</a>
-                    <a class="nav"        href="#"><span>AH</span>Appointment History</a>
-                    <a class="nav"        href="#"><span>EX</span>Exercise Plans</a>
-                    <a class="nav"        href="#"><span>MR</span>Medical Records</a>
-                    <a class="nav"        href="#"><span>BL</span>Billing</a>
+                    <a class="nav active" href="${pageContext.request.contextPath}/UserDashboard"><span>DB</span>Dashboard</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/BookAppointment"><span>BK</span>Book Appointment</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/AppointmentHistory"><span>AH</span>Appointment History</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/ExercisePlans"><span>EX</span>Exercise Plans</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/MedicalRecords"><span>MR</span>Medical Records</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/Billing"><span>BL</span>Billing</a>
                 </nav>
                 <div class="side-bottom">
-                    <a href="#">Settings</a>
-                    <a href="<%= contextPath %>/logout">Log out</a>
+                    <a href="${pageContext.request.contextPath}/UpdateProfile">Settings</a>
+                    <a href="${pageContext.request.contextPath}/logout">Log out</a>
                 </div>
             </aside>
 
             <div class="page">
                 <header class="topbar">
-                    <h1>Good morning, <%= patient.getPatientName() %>!</h1>
+                    <h1>${greeting}, ${patient.patientName}!</h1>
                     <div class="top-actions">
                         <div class="search">Search appointments, exercises...</div>
-
                         <div class="profile">
                             <div class="profile-text">
-                                <span class="profile-name"><%= patient.getPatientName() %></span>
+                                <span class="profile-name">${patient.patientName}</span>
                                 <span class="profile-role">Patient</span>
                             </div>
-                            <a href="<%= contextPath %>/pages/UpdateProfile.jsp" class="avatar-link">
-                                <% if (image != null && !image.isEmpty()) { %>
-                                    <img
-                                        src="data:image/*;base64,<%= image %>"
-                                        alt="Profile"
-                                        class="avatar a1"
-                                    >
-                                <% } else { %>
-                                    <b class="avatar a1"></b>
-                                <% } %>
+                            <a href="${pageContext.request.contextPath}/UpdateProfile" class="avatar-link">
+                                ${imgTag}
                             </a>
                         </div>
-
                     </div>
                 </header>
 
@@ -71,7 +51,7 @@
                     <article class="card wide appointment-hero">
                         <div class="card-head">
                             <h2>Upcoming Appointment</h2>
-                            <a href="#">View all</a>
+                            <a href="${pageContext.request.contextPath}/AppointmentHistory">View all</a>
                         </div>
                         <div class="orange-ticket">
                             <div class="datebox">24</div>
@@ -81,22 +61,36 @@
                             </div>
                             <p>Dr. Emily Chen</p>
                             <p>Main Clinic, Room 3B</p>
-                            <button>Reschedule</button>
-                            <button class="primary">Check In</button>
+
+                            <form action="${pageContext.request.contextPath}/BookAppointment" method="post">
+                                <input type="hidden" name="action" value="reschedule">
+                                <button type="submit">Reschedule</button>
+                            </form>
+
+                            <form action="${pageContext.request.contextPath}/AppointmentHistory" method="post">
+                                <input type="hidden" name="action" value="checkin">
+                                <button type="submit" class="primary">Check In</button>
+                            </form>
                         </div>
                     </article>
 
                     <article class="card quick">
                         <h2>Quick Actions</h2>
-                        <button>Book New Appointment</button>
-                        <button>Message Therapist</button>
-                        <button>View Latest Report</button>
+                        <form action="${pageContext.request.contextPath}/BookAppointment" method="get">
+                            <button type="submit">Book New Appointment</button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/MessageTherapist" method="get">
+                            <button type="submit">Message Therapist</button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/MedicalRecords" method="get">
+                            <button type="submit">View Latest Report</button>
+                        </form>
                     </article>
 
                     <article class="card">
                         <div class="card-head">
                             <h2>Today's Exercise Plan</h2>
-                            <a href="#">View full plan</a>
+                            <a href="${pageContext.request.contextPath}/ExercisePlans">View full plan</a>
                         </div>
                         <div class="progress"><span style="width:66%"></span></div>
                         <div class="todo done">Straight Leg Raises <small>3 sets of 10 reps</small></div>
@@ -117,7 +111,6 @@
 
                 </div>
             </div>
-
         </section>
     </main>
 </body>
