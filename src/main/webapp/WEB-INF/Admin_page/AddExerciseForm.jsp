@@ -1,4 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <!doctype html>
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Exercise Form - MotionRehab</title>
 
-    <link rel="stylesheet" href="AddExerciseForm.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AddExerciseForm.css">
 </head>
 
 <body>
@@ -18,23 +18,19 @@
 
         <section class="screen active" id="add-exercise-form">
 
-            <!-- ================= SIDEBAR ================= -->
+            <!-- SIDEBAR -->
             <aside class="sidebar admin">
 
-                <a class="brand" href="../index.html#admin-dashboard">
+                <a class="brand" href="${pageContext.request.contextPath}/admin/dashboard">
                     <span class="logo">M</span> MotionRehab
                 </a>
 
                 <nav>
-                   <a class="nav" href="<%= request.getContextPath() %>/Admin_page/AdminDashboard.jsp">Dashboard</a>
-
-					<a class="nav" href="<%= request.getContextPath() %>/Admin_page/AdminAppointments.jsp">Appointments</a>
-					
-					<a class="nav" href="<%= request.getContextPath() %>/Admin_page/PatientProfile.jsp">Patients</a>
-					
-					<a class="nav" href="<%= request.getContextPath() %>/Admin_page/BillingRevenue.jsp">Billing & Revenue</a>
-					
-					<a class="nav" href="<%= request.getContextPath() %>/Admin_page/PatientDetail.jsp">Staff Directory</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+                    <a class="nav" href= "${pageContext.request.contextPath}/admin/appointments">Appointments</a>
+                    <a class="nav active" href = "${pageContext.request.contextPath}/admin/patients">Patients</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
                 </nav>
 
                 <div class="side-bottom">
@@ -44,7 +40,7 @@
 
             </aside>
 
-            <!-- ================= MAIN PAGE ================= -->
+            <!-- MAIN PAGE -->
             <div class="page">
 
                 <!-- TOPBAR -->
@@ -62,16 +58,30 @@
                     </div>
                 </header>
 
-                <!-- ================= CONTENT ================= -->
+                <!-- CONTENT -->
                 <div class="content narrow">
 
-                    <!-- BACK LINK -->
-                    <a class="back" href="../index.html#patient-detail">
-                        Back to David Miller
+                    <a class="back" href="${pageContext.request.contextPath}/admin/patient-detail">
+                        Back to Patient Detail
                     </a>
 
+                    <!-- SUCCESS / ERROR MESSAGE -->
+                    <% if (request.getAttribute("success") != null) { %>
+                        <p style="color: green; font-weight: bold;">
+                            <%= request.getAttribute("success") %>
+                        </p>
+                    <% } %>
+
+                    <% if (request.getAttribute("error") != null) { %>
+                        <p style="color: red; font-weight: bold;">
+                            <%= request.getAttribute("error") %>
+                        </p>
+                    <% } %>
+
                     <!-- FORM -->
-                    <form class="card form-card">
+                    <form class="card form-card"
+                          action="${pageContext.request.contextPath}/admin/add-exercise"
+                          method="post">
 
                         <!-- FORM HEADER -->
                         <div class="form-title">
@@ -79,16 +89,17 @@
 
                             <div>
                                 <h2>Add Exercise to Routine</h2>
-                                <p>
-                                    Create a new exercise prescription for David Miller's recovery plan.
-                                </p>
+                                <p>Create a new exercise prescription for the patient recovery plan.</p>
                             </div>
                         </div>
 
                         <!-- EXERCISE NAME -->
                         <label>
                             Exercise Name
-                            <input type="text" placeholder="Search or type exercise name...">
+                            <input type="text"
+                                   name="exerciseName"
+                                   placeholder="Enter exercise name"
+                                   required>
                         </label>
 
                         <!-- GRID INPUTS -->
@@ -96,56 +107,80 @@
 
                             <label>
                                 Focus Area
-                                <select>
-                                    <option>Select focus area</option>
+                                <select name="focusArea" required>
+                                    <option value="">Select focus area</option>
+                                    <option value="Knee">Knee</option>
+                                    <option value="Back">Back</option>
+                                    <option value="Neck">Neck</option>
+                                    <option value="Shoulder">Shoulder</option>
+                                    <option value="Leg">Leg</option>
+                                    <option value="Arm">Arm</option>
                                 </select>
                             </label>
 
                             <label>
                                 Frequency
-                                <select>
-                                    <option>Select frequency</option>
+                                <select name="frequency">
+                                    <option value="">Select frequency</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="3 times a week">3 times a week</option>
+                                    <option value="Weekly">Weekly</option>
                                 </select>
                             </label>
 
                             <label>
                                 Sets
-                                <input type="text" placeholder="e.g. 3">
+                                <input type="text"
+                                       name="sets"
+                                       placeholder="e.g. 3">
                             </label>
 
                             <label>
                                 Repetitions
-                                <input type="text" placeholder="e.g. 10-12">
+                                <input type="text"
+                                       name="repetitions"
+                                       placeholder="e.g. 10-12">
                             </label>
 
                             <label>
                                 Hold Time (Seconds)
-                                <input type="text" placeholder="Optional hold time per rep">
+                                <input type="text"
+                                       name="holdTime"
+                                       placeholder="e.g. 5 seconds">
                             </label>
 
                             <label>
                                 Rest Period (Seconds)
-                                <input type="text" placeholder="Optional rest between sets">
+                                <input type="text"
+                                       name="restPeriod"
+                                       placeholder="e.g. 30 seconds">
                             </label>
 
                         </div>
 
-                        <!-- TEXTAREA -->
+                        <!-- DESCRIPTION -->
                         <label>
                             Special Instructions
-                            <textarea placeholder="Add specific form cues, precautions, or breathing instructions..."></textarea>
+                            <textarea name="description"
+                                      placeholder="Add specific form cues, precautions, or breathing instructions..."></textarea>
                         </label>
 
-                        <!-- URL -->
+                        <!-- VIDEO URL -->
                         <label>
                             Reference Video / Image URL
-                            <input type="text" placeholder="https://">
+                            <input type="text"
+                                   name="videoUrl"
+                                   placeholder="https://">
                         </label>
+
+                        <!-- TEMPORARY HIDDEN IDS -->
+                        <input type="hidden" name="patientId" value="1">
+                        <input type="hidden" name="staffId" value="1">
 
                         <!-- BUTTONS -->
                         <div class="actions">
-                            <button type="button">Cancel</button>
-                            <button class="primary" type="button">Save Exercise</button>
+                            <button type="reset">Cancel</button>
+                            <button class="primary" type="submit">Save Exercise</button>
                         </div>
 
                     </form>

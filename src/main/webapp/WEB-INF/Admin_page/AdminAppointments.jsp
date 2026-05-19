@@ -1,220 +1,244 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.model.AppointmentModel" %>
+
 <!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Appointments - MotionRehab</title>
 
-    <link rel="stylesheet" href="AdminAppointments.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminAppointments.css">
 </head>
 
 <body>
 
-    <main class="screens standalone">
+    <main class="layout">
 
-        <section class="screen active" id="admin-appointments">
+        <!-- Sidebar -->
+        <div class="sidebar">
 
-            <!-- ================= SIDEBAR ================= -->
-            <aside class="sidebar admin">
-
-                <a class="brand" href="../index.html#admin-dashboard">
-                    <span class="logo">M</span> MotionRehab
-                </a>
-
-                <nav>
-                    <a class="nav" href="<%= request.getContextPath() %>/Admin_page/AdminDashboard.jsp">Dashboard</a>
-
-					<a class="nav" href="<%= request.getContextPath() %>/Admin_page/AdminAppointments.jsp">Appointments</a>
-					
-					<a class="nav" href="<%= request.getContextPath() %>/Admin_page/PatientProfile.jsp">Patients</a>
-					
-					<a class="nav" href="<%= request.getContextPath() %>/Admin_page/BillingRevenue.jsp">Billing & Revenue</a>
-					
-					<a class="nav" href="<%= request.getContextPath() %>/Admin_page/PatientDetail.jsp">Staff Directory</a>
-                </nav>
-
-                <div class="side-bottom">
-                    <a href="#">Settings</a>
-                    <a href="#">Log out</a>
-                </div>
-
-            </aside>
-
-            <!-- ================= MAIN PAGE ================= -->
-            <div class="page">
-
-                <!-- TOPBAR -->
-                <header class="topbar">
-                    <h1>Appointments</h1>
-
-                    <div class="top-actions">
-
-                        <div class="search">
-                            Search...
-                        </div>
-
-                        <button class="icon">!</button>
-
-                        <div class="profile">
-                            Dr. Emily Chen
-                            <span>Clinic Administrator</span>
-                            <b class="avatar a2"></b>
-                        </div>
-
-                    </div>
-                </header>
-
-                <!-- ================= CONTENT ================= -->
-                <div class="content table-page">
-
-                    <!-- TITLE ROW -->
-                    <div class="title-row">
-                        <div>
-                            <h2>Manage Appointments</h2>
-                            <p>View, schedule and manage all patient appointments.</p>
-                        </div>
-
-                        <button class="primary">+ New Appointment</button>
-                    </div>
-
-                    <!-- FILTER SECTION -->
-                    <div class="card filters">
-
-                        <div class="tabs">
-                            <a class="active" href="#">All Appointments</a>
-                            <a href="#">Today</a>
-                            <a href="#">Upcoming</a>
-                            <a href="#">Pending</a>
-                        </div>
-
-                        <input type="text" placeholder="Search patient or doctor...">
-
-                        <button>Oct 24 - Oct 30, 2023</button>
-
-                    </div>
-
-                    <!-- APPOINTMENT TABLE -->
-                    <div class="card table-card">
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Patient</th>
-                                    <th>Date & Time</th>
-                                    <th>Doctor</th>
-                                    <th>Treatment</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                <tr>
-                                    <td>
-                                        <b class="avatar mini a3"></b>
-                                        John Doe
-                                        <small>#PT-8842</small>
-                                    </td>
-
-                                    <td>
-                                        <b>09:00 AM - 10:00 AM</b>
-                                        <small>Today, Oct 26</small>
-                                    </td>
-
-                                    <td>Dr. M. Smith</td>
-                                    <td>Manual Therapy</td>
-                                    <td><span class="pill green">Confirmed</span></td>
-                                    <td><button>Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <b class="avatar mini a1"></b>
-                                        Alice Wong
-                                        <small>#PT-9931</small>
-                                    </td>
-
-                                    <td>
-                                        <b>10:30 AM - 11:30 AM</b>
-                                        <small>Today, Oct 26</small>
-                                    </td>
-
-                                    <td>Dr. S. Evans</td>
-                                    <td>Post-op Rehab</td>
-                                    <td><span class="pill orange">In Progress</span></td>
-                                    <td><button>Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <b class="avatar mini a4"></b>
-                                        Robert Fox
-                                        <small>#PT-7720</small>
-                                    </td>
-
-                                    <td>
-                                        <b>11:15 AM - 12:00 PM</b>
-                                        <small>Today, Oct 26</small>
-                                    </td>
-
-                                    <td>Dr. M. Smith</td>
-                                    <td>Sports Injury</td>
-                                    <td><span class="pill yellow">Pending</span></td>
-                                    <td><button>Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <b class="avatar mini a5"></b>
-                                        Sarah Jenkins
-                                        <small>#PT-8099</small>
-                                    </td>
-
-                                    <td>
-                                        <b>01:00 PM - 02:00 PM</b>
-                                        <small>Today, Oct 26</small>
-                                    </td>
-
-                                    <td>Dr. D. Clark</td>
-                                    <td>Consultation</td>
-                                    <td><span class="pill green">Confirmed</span></td>
-                                    <td><button>Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <b class="avatar mini a6"></b>
-                                        Maria Garcia
-                                        <small>#PT-8102</small>
-                                    </td>
-
-                                    <td>
-                                        <b>02:30 PM - 03:30 PM</b>
-                                        <small>Today, Oct 26</small>
-                                    </td>
-
-                                    <td>Dr. D. Clark</td>
-                                    <td>Neurological Rehab</td>
-                                    <td><span class="pill red">Cancelled</span></td>
-                                    <td><button>Edit</button></td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                </div>
-
+            <div class="brand">
+                <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="MotionRehab Logo">
+                <span>MotionRehab</span>
             </div>
+
+            <nav class="nav-menu">
+			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+			    <a class="nav-item active" href="${pageContext.request.contextPath}/admin/appointments">Appointments</a>
+			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
+			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
+			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
+			</nav>
+
+            <div class="nav-bottom">
+                <a class="nav-item" href="#">Settings</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+            </div>
+
+        </div>
+
+        <!-- Page -->
+        <section class="page">
+
+            <!-- Topbar -->
+            <header class="topbar">
+
+                <h1>Appointments</h1>
+
+                <div class="top-actions">
+
+                    <div class="top-search">
+                        Search...
+                    </div>
+
+                    <button class="bell-btn">⌕</button>
+
+                    <div class="profile">
+                        <div>
+                            <strong>Dr. Emily Chen</strong>
+                            <span>Clinic Administrator</span>
+                        </div>
+                        <div class="profile-img"></div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Content -->
+            <section class="content">
+
+                <!-- Title -->
+                <div class="title-row">
+                    <div>
+                        <h2>Manage Appointments</h2>
+                        <p>View, schedule and manage all patient appointments.</p>
+                    </div>
+
+                    <a class="primary-btn" href="${pageContext.request.contextPath}/admin/add-appointment" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; height: 46px; box-sizing: border-box;">+ New Appointment</a>
+                </div>
+
+                <!-- Success / Notification Banners -->
+                <% if (request.getParameter("success") != null) { %>
+                    <% if ("1".equals(request.getParameter("success"))) { %>
+                        <p class="success-message" style="background: #dcfce7; color: #15803d; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
+                            ✔ Appointment scheduled successfully.
+                        </p>
+                    <% } else if ("2".equals(request.getParameter("success"))) { %>
+                        <p class="success-message" style="background: #e0f2fe; color: #0369a1; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
+                            ✔ Appointment rescheduled / updated successfully.
+                        </p>
+                    <% } else if ("3".equals(request.getParameter("success"))) { %>
+                        <p class="success-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
+                            ✔ Appointment cancelled successfully.
+                        </p>
+                    <% } %>
+                <% } %>
+
+                <% 
+                    String currentFilter = (String) request.getAttribute("currentFilter");
+                    if (currentFilter == null) currentFilter = "all";
+                    
+                    String currentSearch = (String) request.getAttribute("currentSearch");
+                    if (currentSearch == null) currentSearch = "";
+                %>
+
+                <!-- Filters -->
+                <div class="filter-card">
+
+                    <div class="tabs">
+                        <a class="<%= "all".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=all&search=<%= currentSearch %>">All Appointments</a>
+                        <a class="<%= "today".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=today&search=<%= currentSearch %>">Today</a>
+                        <a class="<%= "upcoming".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=upcoming&search=<%= currentSearch %>">Upcoming</a>
+                        <a class="<%= "pending".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=pending&search=<%= currentSearch %>">Pending</a>
+                    </div>
+
+                    <form action="${pageContext.request.contextPath}/admin/appointments" method="get" style="display: flex; gap: 8px; width: 100%; grid-column: span 3;">
+                        <input type="hidden" name="filter" value="<%= currentFilter %>">
+                        <div class="filter-search" style="flex: 1; padding: 0; position: relative;">
+                            <input 
+                                type="text" 
+                                name="search" 
+                                value="<%= currentSearch %>" 
+                                placeholder="Search patient, staff ID, reason, status..." 
+                                style="width: 100%; height: 42px; border: 1px solid #e5e7eb; border-radius: 8px; padding-left: 42px; font-size: 15px; outline: none; background: #ffffff;"
+                            >
+                        </div>
+                        <button type="submit" class="primary-btn" style="padding: 0 18px; height: 42px; font-size: 14px;">Search</button>
+                    </form>
+
+                </div>
+
+                <!-- Table -->
+                <div class="table-card">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Date & Time</th>
+                                <th>Assigned Staff</th>
+                                <th>Reason / Treatment</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <%
+                                ArrayList<AppointmentModel> appts = (ArrayList<AppointmentModel>) request.getAttribute("appointmentsList");
+                                if (appts != null && !appts.isEmpty()) {
+                                    for (AppointmentModel appt : appts) {
+                                        String pillClass = "gray";
+                                        if ("Confirmed".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "green";
+                                        } else if ("In Progress".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "orange";
+                                        } else if ("Pending".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "yellow";
+                                        } else if ("Cancelled".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "red";
+                                        } else if ("Rescheduled".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "orange";
+                                        } else if ("Completed".equalsIgnoreCase(appt.getStatus())) {
+                                            pillClass = "gray";
+                                        }
+                            %>
+
+                            <tr>
+                                <td>
+                                    <div class="person">
+                                        <span class="avatar a1"></span>
+                                        <div>
+                                            <strong><%= appt.getPatientName() %></strong>
+                                            <small>#PT-<%= appt.getPatientId() %></small>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <strong><%= appt.getAppointmentTime() %></strong>
+                                    <small><%= appt.getAppointmentDate() %></small>
+                                </td>
+
+                                <td>
+                                    <div class="doctor">
+                                        <span class="avatar small a2"></span>
+                                        <strong>Staff #<%= appt.getStaffId() %></strong>
+                                    </div>
+                                </td>
+
+                                <td><%= appt.getReason() %></td>
+
+                                <td>
+                                    <span class="pill <%= pillClass %>"><%= appt.getStatus() %></span>
+                                </td>
+
+                                <td>
+                                    <div class="actions">
+                                        <a href="${pageContext.request.contextPath}/admin/edit-appointment?id=<%= appt.getAppointmentId() %>" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #e5e7eb; border-radius: 6px; background: #ffffff; color: #111827;" title="Reschedule / Edit">✎</a>
+                                        <% if (!"Cancelled".equalsIgnoreCase(appt.getStatus())) { %>
+                                            <a href="${pageContext.request.contextPath}/admin/cancel-appointment?id=<%= appt.getAppointmentId() %>" onclick="return confirm('Are you sure you want to cancel this appointment?');" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #e5e7eb; border-radius: 6px; background: #ffffff; color: #b91c1c;" title="Cancel Appointment">×</a>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <%
+                                    }
+                                } else {
+                            %>
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #6b7280; padding: 40px 0;">
+                                    No appointments found matching your filters.
+                                </td>
+                            </tr>
+                            <% } %>
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="table-footer">
+                        <p>Showing <%= appts != null ? appts.size() : 0 %> entries</p>
+                    </div>
+
+                </div>
+
+            </section>
 
         </section>
 
     </main>
 
 </body>
+
 </html>
