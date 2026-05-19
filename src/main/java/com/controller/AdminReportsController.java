@@ -28,7 +28,7 @@ public class AdminReportsController extends HttpServlet {
 
             request.setAttribute("last30DaysRevenue", revenue);
 
-            request.getRequestDispatcher("/Admin_page/GenerateReports.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/Admin_page/GenerateReports.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

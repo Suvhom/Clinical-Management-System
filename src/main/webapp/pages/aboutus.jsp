@@ -14,7 +14,7 @@
 
     <!-- Logo -->
  <div class="logo">
-  <img src="${pageContext.request.contextPath}../../images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
+  <img src="${pageContext.request.contextPath}../../Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
   <span>MotionRehab</span>
 </div>
 
@@ -44,7 +44,7 @@
     <!-- Dr. Suvhom KC -->
     <div class="team-card">
       <div class="card-avatar">
-        <img src="${pageContext.request.contextPath}../../images/img4.jpeg" alt="Dr. Suvhom KC" onerror="this.style.display='none';this.parentNode.textContent='AS'">
+        <img src="${pageContext.request.contextPath}../../Images/img4.jpeg" alt="Dr. Suvhom KC" onerror="this.style.display='none';this.parentNode.textContent='AS'">
       </div>
       <div class="card-body">
         <div class="card-name">Dr. Suvhom KC</div>
@@ -62,7 +62,7 @@
     <!-- Dr. Suyesh Bhattari -->
     <div class="team-card">
       <div class="card-avatar">
-        <img src="${pageContext.request.contextPath}../../images/img2.jpg" alt="Dr. Suyesh Bhattari" onerror="this.style.display='none';this.parentNode.textContent='SP'">
+        <img src="${pageContext.request.contextPath}../../Images/img2.jpg" alt="Dr. Suyesh Bhattari" onerror="this.style.display='none';this.parentNode.textContent='SP'">
       </div>
       <div class="card-body">
         <div class="card-name">Dr. Suyesh Bhattari</div>
@@ -80,7 +80,7 @@
     <!-- Dr. Dibish -->
     <div class="team-card">
       <div class="card-avatar">
-        <img src="${pageContext.request.contextPath}../../images/img3.jpeg" alt="Dr. Dibish Pokhrel" onerror="this.style.display='none';this.parentNode.textContent='SS'">
+        <img src="${pageContext.request.contextPath}../../Images/img3.jpeg" alt="Dr. Dibish Pokhrel" onerror="this.style.display='none';this.parentNode.textContent='SS'">
       </div>
       <div class="card-body">
         <div class="card-name">Dr. Dibish Pokhrel</div>
@@ -98,7 +98,7 @@
     <!-- Dr. Aaraj Shrestha -->
     <div class="team-card">
       <div class="card-avatar">
-        <img src="${pageContext.request.contextPath}../../images/img.jpeg" alt="Dr. Aaraj Shrestha" onerror="this.style.display='none';this.parentNode.textContent='PM'">
+        <img src="${pageContext.request.contextPath}../../Images/img.jpeg" alt="Dr. Aaraj Shrestha" onerror="this.style.display='none';this.parentNode.textContent='PM'">
       </div>
       <div class="card-body">
         <div class="card-name">Dr. Aaraj Shrestha</div>
@@ -116,7 +116,7 @@
     <!-- Dr. Asim Bhusal -->
     <div class="team-card">
       <div class="card-avatar">
-        <img src="${pageContext.request.contextPath}../../images/img5.jpeg" alt="Dr. Asim Bhusal" onerror="this.style.display='none';this.parentNode.textContent='OB'">
+        <img src="${pageContext.request.contextPath}../../Images/img5.jpeg" alt="Dr. Asim Bhusal" onerror="this.style.display='none';this.parentNode.textContent='OB'">
       </div>
       <div class="card-body">
         <div class="card-name">Dr. Asim Bhusal</div>
@@ -157,7 +157,7 @@
     <div class="footer-brand">
       <div class="footer-logo">
         <div class="logo">
-        <img src="${pageContext.request.contextPath}../../images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
+        <img src="${pageContext.request.contextPath}../../Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
         <span>MotionRehab</span>
 </div>
       </div>

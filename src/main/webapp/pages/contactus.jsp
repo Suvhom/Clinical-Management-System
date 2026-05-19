@@ -15,7 +15,7 @@
 
     <!-- Logo -->
  <div class="logo">
-  <img src="${pageContext.request.contextPath}../../images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
+  <img src="${pageContext.request.contextPath}../../Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
   <span>MotionRehab</span>
 </div>	
 
@@ -90,7 +90,7 @@
            rel="noopener noreferrer"
            title="Open in OpenStreetMap">
           <img
-            src="${pageContext.request.contextPath}../../images/map_image.png"
+            src="${pageContext.request.contextPath}../../Images/map_image.png"
             style="width:100%; height:170px; object-fit:cover; display:block; border-radius:8px 8px 0 0;"
             onerror="this.onerror=null; this.src='https://staticmap.openstreetmap.de/staticmap.php?center=27.6939,85.3157&zoom=16&size=320x170&markers=27.6939,85.3157,red-pushpin';"
           />
@@ -104,7 +104,7 @@
       <!-- Info cards -->
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}../../images/phone.png" alt="Phone" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}../../Images/phone.png" alt="Phone" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Phone</span>
@@ -114,7 +114,7 @@
 
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}../../images/mail.png" alt="Email" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}../../Images/mail.png" alt="Email" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Email</span>
@@ -124,7 +124,7 @@
 
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}../../images/clock.png" alt="Working Hours" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}../../Images/clock.png" alt="Working Hours" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Working Hours</span>
@@ -159,7 +159,7 @@
     <div class="footer-brand">
       <div class="footer-logo">
         <div class="logo">
-        <img src="${pageContext.request.contextPath}../../images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
+        <img src="${pageContext.request.contextPath}../../Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
         <span>MotionRehab</span>
 </div>
       </div>

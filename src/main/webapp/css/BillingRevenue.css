@@ -6,17 +6,24 @@
 }
 
 /* Title Row */
-.title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
-}
+
 
 .title-row h2 {
     font-size: 30px;
     color: #111827;
     margin-bottom: 8px;
+}
+
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }
 
 .title-row p {
@@ -26,13 +33,14 @@
 
 /* Buttons */
 .primary {
+	 text-decoration: none;
     border: none;
     background: #1677d8;
     color: #ffffff;
     padding: 13px 22px;
     border-radius: 10px;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: normal;
     cursor: pointer;
 }
 

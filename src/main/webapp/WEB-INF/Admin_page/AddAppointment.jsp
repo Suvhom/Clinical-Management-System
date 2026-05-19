@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.model.AddPatientModel" %>
-
+<%@ page isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
 

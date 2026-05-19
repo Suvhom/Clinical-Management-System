@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page isELIgnored="false" %>
 
 
 <!DOCTYPE html>
@@ -9,34 +9,30 @@
 <meta charset="UTF-8">
 <title>Generate Report</title>
 
-<link rel="stylesheet" href="<%= request.getContextPath() %>/Admin_page/BillingRevenue.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/GenerateReport.css">
+
 </head>
 
 <body>
 
-<main class="screens standalone">
-<section class="screen active">
+<main class="layout">
 
-    <!-- Sidebar -->
-    <aside class="sidebar admin">
+<div class="sidebar">
+    <div class="brand">
+        <img src="${pageContext.request.contextPath}/Images/Logo.png">
+        <span>MotionRehab</span>
+    </div>
 
-        <a class="brand" href="<%= request.getContextPath() %>/Admin_page/AdminDashboard.jsp">
-            <span class="logo">M</span>
-            MotionRehab
-        </a>
+    <nav class="nav-menu">
+        <a class="nav-item" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+        <a class="nav-item" href="${pageContext.request.contextPath}/admin/appointments">Appointments</a>
+        <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
+        <a class="nav-item active" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
+        <a class="nav-item" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
+    </nav>
+</div>
 
-        <nav>
-            <a class="nav" href="<%= request.getContextPath() %>/Admin_page/AdminDashboard.jsp">Dashboard</a>
-            <a class="nav" href="<%= request.getContextPath() %>/Admin_page/AdminAppointments.jsp">Appointments</a>
-            <a class="nav" href="<%= request.getContextPath() %>/Admin_page/PatientProfile.jsp">Patients</a>
-            <a class="nav active" href="<%= request.getContextPath() %>/Admin_page/BillingRevenue.jsp">Billing & Revenue</a>
-            <a class="nav" href="<%= request.getContextPath() %>/Admin_page/PatientDetail.jsp">Staff Directory</a>
-        </nav>
-
-        <div class="side-bottom">
-            <a href="#">Settings</a>
-            <a href="#">Log out</a>
-        </div>
+<section class="page">
 
     </aside>
 
@@ -47,10 +43,9 @@
             <h1>Generate Report</h1>
 
             <div class="top-actions">
-                <a href="<%= request.getContextPath() %>/Admin_page/BillingRevenue.jsp" class="primary">
-                    Back to Billing
-                </a>
-
+                <a href="${pageContext.request.contextPath}/admin/billing" class="primary">
+				    Back to Billing
+				</a>
                
 
                 <div class="profile">

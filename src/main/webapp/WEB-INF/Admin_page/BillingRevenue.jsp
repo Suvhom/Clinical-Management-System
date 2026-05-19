@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.ArrayList" %>
-
+<%@ page isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
 
@@ -79,10 +79,16 @@
                         <h2>Billing & Revenue</h2>
                         <p>Track invoices, payments and clinic revenue.</p>
                     </div>
-
-                    <a class="primary" href="${pageContext.request.contextPath}/admin/create-invoice" style="text-decoration: none; font-weight: 700; display: inline-block;">
-                        + Create Invoice
-                    </a>
+				
+				                   <div class="title-actions">
+				    <a class="primary" href="${pageContext.request.contextPath}/admin/create-invoice">
+				        + Create Invoice
+				    </a>
+				
+				    <a class="primary" href="${pageContext.request.contextPath}/AdminReports">
+				        Generate Report
+				    </a>
+				</div>
                 </div>
 
                 <% if (request.getParameter("success") != null) { %>
@@ -96,7 +102,7 @@
                     int outstandingBalance = stats != null ? stats.getOrDefault("outstandingBalance", 0) : 0;
                     int paidInvoicesCount = stats != null ? stats.getOrDefault("paidInvoicesCount", 0) : 0;
                 %>
-
+	
                 <!-- Stat Cards -->
                 <div class="stats-row">
 

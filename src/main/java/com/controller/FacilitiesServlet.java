@@ -19,7 +19,7 @@ public class FacilitiesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/WEB-INF/pages/facilities.jsp")
+        request.getRequestDispatcher("/pages/facilities.jsp")
                .forward(request, response);
     }
 

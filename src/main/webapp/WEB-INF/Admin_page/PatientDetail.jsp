@@ -3,7 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.model.AddPatientModel" %>
 <%@ page import="com.model.AppointmentModel" %>
-
+<%@ page isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
 
