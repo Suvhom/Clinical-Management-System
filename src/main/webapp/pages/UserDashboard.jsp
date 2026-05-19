@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
+<%@ page isELIgnored="false" %>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -33,7 +34,16 @@
                 <header class="topbar">
                     <h1>${greeting}, ${patient.patientName}!</h1>
                     <div class="top-actions">
-                        <div class="search">Search appointments, exercises...</div>
+                    
+                    
+                    
+                        <form action="${pageContext.request.contextPath}/UserDashboardSearchServlet" method="get" class="search-form">
+						    <input type="text" name="keyword" placeholder="Search appointments, exercises..." class="dashboard-search">
+						    <button type="submit">Search</button>
+						</form>
+						
+						
+						
                         <div class="profile">
                             <div class="profile-text">
                                 <span class="profile-name">${patient.patientName}</span>

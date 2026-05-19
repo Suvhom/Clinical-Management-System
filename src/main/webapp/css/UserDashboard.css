@@ -275,6 +275,8 @@ nav {
   user-select: none;
 }
 
+
+
 .search::before {
   content: "";
   position: absolute;
@@ -294,6 +296,42 @@ nav {
   height: 2px;
   background: #8a98a8;
   transform: rotate(45deg) translateY(3px);
+}
+
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-search {
+  width: 280px;
+  height: 42px;
+  border: 1px solid #dfe8ef;
+  border-radius: 25px;
+  padding: 0 18px;
+  font-size: 14px;
+  outline: none;
+}
+
+.dashboard-search:focus {
+  border-color: #0f7ddd;
+}
+
+.search-form button {
+  height: 42px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 25px;
+  background: #0f7ddd;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background: #0d6ec8;
 }
 
 /* =====================
