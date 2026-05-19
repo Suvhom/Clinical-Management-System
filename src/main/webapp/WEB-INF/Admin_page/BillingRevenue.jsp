@@ -80,15 +80,15 @@
                         <p>Track invoices, payments and clinic revenue.</p>
                     </div>
 				
-				                   <div class="title-actions">
-				    <a class="primary" href="${pageContext.request.contextPath}/admin/create-invoice">
-				        + Create Invoice
-				    </a>
-				
-				    <a class="primary" href="${pageContext.request.contextPath}/AdminReports">
-				        Generate Report
-				    </a>
-				</div>
+			<div class="title-actions">
+    <a class="action-btn" href="${pageContext.request.contextPath}/admin/create-invoice">
+        + Create Invoice
+    </a>
+
+    <a class="action-btn" href="${pageContext.request.contextPath}/AdminReports">
+        Generate Report
+    </a>
+</div>
                 </div>
 
                 <% if (request.getParameter("success") != null) { %>
