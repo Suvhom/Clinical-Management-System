@@ -10,13 +10,10 @@ public class TreatmentDao {
 	public int findMatchingFacilityId(String keyword) throws Exception {
 	    Connection con = DBconfig.getConnection();
 
-	    String sql = "SELECT treatment_id FROM treatment "
-	               + "WHERE treatment_name LIKE ? OR description LIKE ? "
-	               + "ORDER BY CASE "
-	               + "WHEN treatment_name LIKE ? THEN 1 "
-	               + "WHEN description LIKE ? THEN 2 "
-	               + "END LIMIT 1";
-
+	    String sql = "SELECT treatment_id FROM treatment WHERE treatment_name LIKE ? OR description LIKE ? "
+	            + "ORDER BY CASE WHEN treatment_name LIKE ? THEN 1 WHEN description LIKE ? THEN 2 END LIMIT 1";
+	    
+	    
 	    PreparedStatement pst = con.prepareStatement(sql);
 
 	    String searchValue = "%" + keyword + "%";
