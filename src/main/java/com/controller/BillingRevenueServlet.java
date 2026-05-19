@@ -18,6 +18,7 @@ public class BillingRevenueServlet extends HttpServlet {
 
     @Override
     public void init() {
+        new com.dao.BillingDao();
         dashboardDao = new DashboardDao();
     }
 

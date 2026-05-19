@@ -1,13 +1,13 @@
 package com.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
-import com.dao.AddPatientDao;
-import com.dao.AppointmentDao;
-import com.model.AddPatientModel;
-import com.model.AppointmentModel;
+
+import com.dao.BillingDao;
+import com.dao.DashboardDao;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,20 +18,14 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CreateInvoiceServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private AppointmentDao appointmentDao = new AppointmentDao();
-    private AddPatientDao patientDao = new AddPatientDao();
+    private BillingDao billingDao = new BillingDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // Fetch all patients for selection dropdown
-        ArrayList<AddPatientModel> patientsList = patientDao.getAllPatients();
-        request.setAttribute("patientsList", patientsList);
 
-        // Fetch all staff members dynamically from the database
-        ArrayList<String[]> staffList = appointmentDao.getAvailableStaff();
-        request.setAttribute("staffList", staffList);
+        ArrayList<String[]> appointmentsList = billingDao.getPatientAppointments();
+        request.setAttribute("appointmentsList", appointmentsList);
 
         request.getRequestDispatcher("/WEB-INF/Admin_page/CreateInvoice.jsp")
                .forward(request, response);
@@ -42,19 +36,18 @@ public class CreateInvoiceServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String patientIdStr = request.getParameter("patientId");
-        String staffIdStr = request.getParameter("staffId");
-        String dateStr = request.getParameter("invoiceDate");
-        String timeStr = request.getParameter("invoiceTime");
-        String reason = request.getParameter("reason");
-        String invoiceStatus = request.getParameter("status"); // Paid, Pending, Overdue
+        String appointmentIdStr = request.getParameter("appointmentId");
+        String totalAmountStr = request.getParameter("totalAmount");
+        String paymentStatus = request.getParameter("paymentStatus");
+        String paymentMethod = request.getParameter("paymentMethod");
+        String billingDateStr = request.getParameter("billingDate");
 
-        // Validation
-        if (patientIdStr == null || patientIdStr.trim().isEmpty() ||
-            staffIdStr == null || staffIdStr.trim().isEmpty() ||
-            dateStr == null || dateStr.trim().isEmpty() ||
-            timeStr == null || timeStr.trim().isEmpty() ||
-            reason == null || reason.trim().isEmpty() ||
-            invoiceStatus == null || invoiceStatus.trim().isEmpty()) {
+        if (patientIdStr == null || patientIdStr.trim().isEmpty()
+                || appointmentIdStr == null || appointmentIdStr.trim().isEmpty()
+                || totalAmountStr == null || totalAmountStr.trim().isEmpty()
+                || paymentStatus == null || paymentStatus.trim().isEmpty()
+                || paymentMethod == null || paymentMethod.trim().isEmpty()
+                || billingDateStr == null || billingDateStr.trim().isEmpty()) {
 
             request.setAttribute("errorMessage", "All required billing fields must be completed!");
             doGet(request, response);
@@ -63,69 +56,35 @@ public class CreateInvoiceServlet extends HttpServlet {
 
         try {
             int patientId = Integer.parseInt(patientIdStr);
-            int staffId = Integer.parseInt(staffIdStr);
-            Date date = Date.valueOf(dateStr);
-            
-            if (timeStr.length() == 5) {
-                timeStr += ":00";
-            }
-            Time time = Time.valueOf(timeStr);
+            int appointmentId = Integer.parseInt(appointmentIdStr);
+            BigDecimal totalAmount = new BigDecimal(totalAmountStr);
+            Date billingDate = Date.valueOf(billingDateStr);
 
-            // Map Invoice Status to Appointment Status for seamless database support
-            String apptStatus = "Pending";
-            if ("Paid".equalsIgnoreCase(invoiceStatus)) {
-                apptStatus = "Completed";
-            } else if ("Pending".equalsIgnoreCase(invoiceStatus)) {
-                apptStatus = "Confirmed";
-            } else if ("Overdue".equalsIgnoreCase(invoiceStatus)) {
-                apptStatus = "Pending";
+            if (totalAmount.compareTo(BigDecimal.ZERO) < 0) {
+                request.setAttribute("errorMessage", "Total amount cannot be negative.");
+                doGet(request, response);
+                return;
             }
 
-            // Create model
-            AppointmentModel appt = new AppointmentModel();
-            appt.setPatientId(patientId);
-            appt.setStaffId(staffId);
-            appt.setAppointmentDate(date);
-            appt.setAppointmentTime(time);
-            appt.setReason(reason.trim());
-            appt.setStatus(apptStatus);
+            boolean success = billingDao.addBilling(
+                    patientId,
+                    appointmentId,
+                    totalAmount,
+                    paymentStatus.trim(),
+                    paymentMethod.trim(),
+                    billingDate);
 
-            boolean success = appointmentDao.addAppointment(appt);
             if (success) {
-                int newApptId = 0;
-                try (java.sql.Connection conn = com.utils.DBconfig.getConnection();
-                     java.sql.PreparedStatement ps = conn.prepareStatement("SELECT MAX(appointment_id) FROM appointment");
-                     java.sql.ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        newApptId = rs.getInt(1);
-                    }
-                } catch (Exception e) {}
-
-                com.dao.DashboardDao dashDao = new com.dao.DashboardDao();
-                if ("Completed".equals(apptStatus)) {
-                    dashDao.insertActivity("Payment completed for appointment ID #" + (newApptId > 0 ? newApptId : ""));
-                } else {
-                    String pName = "Patient #" + patientId;
-                    AddPatientModel pModel = patientDao.getPatientById(patientId);
-                    if (pModel != null) {
-                        pName = pModel.getPatientName();
-                    }
-                    String sName = "Staff #" + staffId;
-                    com.model.StaffModel sModel = new com.dao.StaffDao().getStaffById(staffId);
-                    if (sModel != null) {
-                        sName = sModel.getStaffName();
-                    }
-                    dashDao.insertActivity("Appointment booked for " + pName + " with " + sName);
-                }
-
+                DashboardDao dashDao = new DashboardDao();
+                dashDao.insertActivity("Invoice created for appointment ID #" + appointmentId);
                 response.sendRedirect(request.getContextPath() + "/admin/billing?success=1");
             } else {
-                request.setAttribute("errorMessage", "Failed to write invoice to database.");
+                request.setAttribute("errorMessage", "Failed to save invoice to database.");
                 doGet(request, response);
             }
 
         } catch (Exception e) {
-            request.setAttribute("errorMessage", "Error compiling invoice: " + e.getMessage());
+            request.setAttribute("errorMessage", "Error creating invoice: " + e.getMessage());
             doGet(request, response);
         }
     }

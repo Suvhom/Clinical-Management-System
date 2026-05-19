@@ -12,9 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reschedule / Edit Appointment - MotionRehab</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AddPatient.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AddPatient.css">
 </head>
 
 <body>
@@ -51,25 +51,18 @@
             <header class="topbar">
 
                 <h1>Edit Appointment</h1>
-
                 <div class="top-actions">
-
-                    <div class="search">
-                        Search...
-                    </div>
-
-                    <button class="icon">!</button>
+                    <button class="icon" type="button">!</button>
 
                     <div class="profile">
                         <div>
                             <strong>Dr. Suvhom K.C</strong>
                             <span>Clinic Administrator</span>
                         </div>
-                        <b class="avatar a2"></b>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
 
                 </div>
-
             </header>
 
             <!-- Content -->
@@ -146,10 +139,10 @@
 
                                 <div class="input-group">
                                     <label for="appointmentDate">Appointment Date</label>
-                                    <input 
-                                        type="date" 
+                                    <input
+                                        type="date"
                                         id="appointmentDate"
-                                        name="appointmentDate" 
+                                        name="appointmentDate"
                                         value="<%= appt.getAppointmentDate() %>"
                                         required>
                                 </div>
@@ -163,10 +156,10 @@
                                             timeStr = timeStr.substring(0, 5);
                                         }
                                     %>
-                                    <input 
-                                        type="time" 
+                                    <input
+                                        type="time"
                                         id="appointmentTime"
-                                        name="appointmentTime" 
+                                        name="appointmentTime"
                                         value="<%= timeStr %>"
                                         required>
                                 </div>

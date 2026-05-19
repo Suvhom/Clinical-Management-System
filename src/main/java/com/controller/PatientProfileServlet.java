@@ -22,7 +22,14 @@ public class PatientProfileServlet extends HttpServlet {
             throws ServletException, IOException {
 
         AddPatientDao dao = new AddPatientDao();
-        ArrayList<AddPatientModel> patients = dao.getAllPatients();
+        String search = request.getParameter("search");
+        ArrayList<AddPatientModel> patients;
+
+        if (search != null && !search.trim().isEmpty()) {
+            patients = dao.searchPatients(search.trim());
+        } else {
+            patients = dao.getAllPatients();
+        }
 
         request.setAttribute("patients", patients);
 

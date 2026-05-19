@@ -1,17 +1,7 @@
-<%@ page import="com.model.AddPatientModel" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%
-    AddPatientModel patient = (AddPatientModel) request.getAttribute("patient");
-
-    if (patient == null) {
-%>
-        <p>Patient not found.</p>
-<%
-        return;
-    }
-%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -20,15 +10,17 @@
     <meta charset="UTF-8">
     <title>Edit Patient - MotionRehab</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AddPatient.css">
+    <!-- External CSS files -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AddPatient.css">
 </head>
 
 <body>
 
 <main class="layout">
 
+    <!-- Sidebar -->
     <div class="sidebar">
 
         <div class="brand">
@@ -51,133 +43,209 @@
 
     </div>
 
+    <!-- Page Area -->
     <section class="page">
 
+        <!-- Topbar -->
         <header class="topbar">
 
             <h1>Edit Patient</h1>
+                <div class="top-actions">
+                    <button class="icon" type="button">!</button>
 
-            <div class="top-actions">
-
-                <div class="search">
-                    Search patients, doctors...
-                </div>
-
-                <button class="icon">!</button>
-
-                <div class="profile">
-                    <div>
-                        <strong>Dr. Suvhom K.C</strong>
-                        <span>Clinic Administrator</span>
+                    <div class="profile">
+                        <div>
+                            <strong>Dr. Suvhom K.C</strong>
+                            <span>Clinic Administrator</span>
+                        </div>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
 
-                    <b class="avatar a2"></b>
                 </div>
+            </header>
 
-            </div>
-
-        </header>
-
+        <!-- Main Content -->
         <div class="content">
 
+            <!-- Breadcrumb -->
             <div class="breadcrumb">
                 <a href="${pageContext.request.contextPath}/admin/patients">Patients Directory</a>
                 <span>›</span>
                 <p>Edit Patient</p>
             </div>
 
-            <% if (request.getParameter("error") != null) { %>
+            <!-- Error Message -->
+            <c:if test="${not empty param.error}">
                 <p class="error-message">
                     Patient could not be updated. Please try again.
                 </p>
-            <% } %>
+            </c:if>
 
-            <div class="form-card">
+            <c:choose>
 
-                <form action="${pageContext.request.contextPath}/admin/update-patient" method="post">
+                <c:when test="${not empty patient}">
 
-                    <input type="hidden" name="patientId" value="<%= patient.getPatientId() %>">
+                    <!-- Form Card -->
+                    <div class="form-card">
 
-                    <section class="form-section">
+                        <form action="${pageContext.request.contextPath}/admin/update-patient" method="post">
 
-                        <h2>Edit Patient Information</h2>
+                            <input type="hidden" name="patientId" value="${patient.patientId}">
 
-                        <div class="form-grid">
+                            <section class="form-section">
 
-                            <div class="input-group">
-                                <label>Patient Name</label>
-                                <input type="text" name="patientName" value="<%= patient.getPatientName() %>" required>
+                                <h2>Edit Patient Information</h2>
+
+                                <div class="form-grid">
+
+                                    <div class="input-group">
+                                        <label for="patientName">Patient Name</label>
+                                        <input
+                                            type="text"
+                                            id="patientName"
+                                            name="patientName"
+                                            value="${patient.patientName}"
+                                            required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="email">Email Address</label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            value="${patient.email}">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input
+                                            type="text"
+                                            id="phone"
+                                            name="phone"
+                                            value="${patient.phone}">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="gender">Gender</label>
+                                        <select id="gender" name="gender">
+                                            <option value="">Select gender</option>
+
+                                            <option value="Male"
+                                                <c:if test="${patient.gender == 'Male'}">selected</c:if>>
+                                                Male
+                                            </option>
+
+                                            <option value="Female"
+                                                <c:if test="${patient.gender == 'Female'}">selected</c:if>>
+                                                Female
+                                            </option>
+
+                                            <option value="Other"
+                                                <c:if test="${patient.gender == 'Other'}">selected</c:if>>
+                                                Other
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="dateOfBirth">Date of Birth</label>
+                                        <input
+                                            type="date"
+                                            id="dateOfBirth"
+                                            name="dateOfBirth"
+                                            value="${patient.dateOfBirth}">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="adminId">Admin ID</label>
+                                        <input
+                                            type="number"
+                                            id="adminId"
+                                            name="adminId"
+                                            value="${patient.adminId}"
+                                            placeholder="Leave empty if not needed">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="staffId">Assigned Staff ID</label>
+                                        <input
+                                            type="number"
+                                            id="staffId"
+                                            name="staffId"
+                                            value="${patient.staffId}"
+                                            placeholder="Leave empty if not assigned">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="username">Username</label>
+                                        <input
+                                            type="text"
+                                            id="username"
+                                            name="username"
+                                            value="${patient.username}"
+                                            required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="password">Password</label>
+                                        <input
+                                            type="text"
+                                            id="password"
+                                            name="password"
+                                            value="${patient.password}"
+                                            required>
+                                    </div>
+
+                                    <div class="input-group full">
+                                        <label for="address">Address</label>
+                                        <input
+                                            type="text"
+                                            id="address"
+                                            name="address"
+                                            value="${patient.address}">
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                            <!-- Buttons -->
+                            <div class="form-actions">
+
+                                <a href="${pageContext.request.contextPath}/admin/patients" class="cancel-btn">
+                                    Cancel
+                                </a>
+
+                                <button type="submit" class="save-btn">
+                                    Update Patient
+                                </button>
+
                             </div>
 
-                            <div class="input-group">
-                                <label>Email Address</label>
-                                <input type="email" name="email" value="<%= patient.getEmail() == null ? "" : patient.getEmail() %>">
-                            </div>
-
-                            <div class="input-group">
-                                <label>Phone Number</label>
-                                <input type="text" name="phone" value="<%= patient.getPhone() == null ? "" : patient.getPhone() %>">
-                            </div>
-
-                            <div class="input-group">
-                                <label>Gender</label>
-                                <select name="gender">
-                                    <option value="">Select gender</option>
-                                    <option value="Male" <%= "Male".equals(patient.getGender()) ? "selected" : "" %>>Male</option>
-                                    <option value="Female" <%= "Female".equals(patient.getGender()) ? "selected" : "" %>>Female</option>
-                                    <option value="Other" <%= "Other".equals(patient.getGender()) ? "selected" : "" %>>Other</option>
-                                </select>
-                            </div>
-
-                            <div class="input-group">
-                                <label>Date of Birth</label>
-                                <input type="date" name="dateOfBirth" value="<%= patient.getDateOfBirth() == null ? "" : patient.getDateOfBirth() %>">
-                            </div>
-
-                            <div class="input-group">
-                                <label>Admin ID</label>
-                                <input type="number" name="adminId" value="<%= patient.getAdminId() == null ? "" : patient.getAdminId() %>">
-                            </div>
-
-                            <div class="input-group">
-                                <label>Assigned Staff ID</label>
-                                <input type="number" name="staffId" value="<%= patient.getStaffId() == null ? "" : patient.getStaffId() %>">
-                            </div>
-
-                            <div class="input-group">
-                                <label>Username</label>
-                                <input type="text" name="username" value="<%= patient.getUsername() == null ? "" : patient.getUsername() %>" required>
-                            </div>
-
-                            <div class="input-group">
-                                <label>Password</label>
-                                <input type="text" name="password" value="<%= patient.getPassword() == null ? "" : patient.getPassword() %>" required>
-                            </div>
-
-                            <div class="input-group full">
-                                <label>Address</label>
-                                <input type="text" name="address" value="<%= patient.getAddress() == null ? "" : patient.getAddress() %>">
-                            </div>
-
-                        </div>
-
-                    </section>
-
-                    <div class="form-actions">
-
-                        <a href="${pageContext.request.contextPath}/admin/patients" class="cancel-btn">
-                            Cancel
-                        </a>
-
-                        <button type="submit" class="save-btn">
-                            Update Patient
-                        </button>
+                        </form>
 
                     </div>
 
-                </form>
+                </c:when>
 
-            </div>
+                <c:otherwise>
+
+                    <div class="form-card">
+                        <p class="error-message">
+                            Patient not found.
+                        </p>
+
+                        <div class="form-actions">
+                            <a href="${pageContext.request.contextPath}/admin/patients" class="cancel-btn">
+                                Back to Patients
+                            </a>
+                        </div>
+                    </div>
+
+                </c:otherwise>
+
+            </c:choose>
 
         </div>
 

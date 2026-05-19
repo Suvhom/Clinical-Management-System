@@ -416,4 +416,19 @@ public class AppointmentDao {
         }
         return false;
     }
+
+    public boolean deleteAppointment(int appointmentId) {
+        String sql = "DELETE FROM appointment WHERE appointment_id = ?";
+        try (Connection conn = DBconfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            if (conn == null) return false;
+            ps.setInt(1, appointmentId);
+            int rows = ps.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            System.out.println("ERROR DELETING APPOINTMENT BY ID " + appointmentId + ": " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

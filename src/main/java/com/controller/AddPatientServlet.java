@@ -43,11 +43,16 @@ public class AddPatientServlet extends HttpServlet {
             patient.setStaffId(Integer.parseInt(staffId));
         }
 
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String gender = request.getParameter("gender");
+        String address = request.getParameter("address");
+
         patient.setPatientName(request.getParameter("patientName"));
-        patient.setEmail(request.getParameter("email"));
-        patient.setPhone(request.getParameter("phone"));
-        patient.setGender(request.getParameter("gender"));
-        patient.setAddress(request.getParameter("address"));
+        patient.setEmail(email != null && !email.trim().isEmpty() ? email.trim() : null);
+        patient.setPhone(phone != null && !phone.trim().isEmpty() ? phone.trim() : null);
+        patient.setGender(gender != null && !gender.trim().isEmpty() ? gender.trim() : null);
+        patient.setAddress(address != null && !address.trim().isEmpty() ? address.trim() : null);
         patient.setUsername(request.getParameter("username"));
         patient.setPassword(request.getParameter("password"));
 

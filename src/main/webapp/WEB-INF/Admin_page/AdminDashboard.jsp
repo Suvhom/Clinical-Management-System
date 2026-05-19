@@ -8,10 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard - MotionRehab</title>
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminDashboard.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminDashboard.css">
 </head>
 
 <body>
@@ -40,7 +40,7 @@
             </div>
 
         </div>
-       
+
         <!-- Main Page Area -->
         <section class="page">
 
@@ -48,25 +48,18 @@
             <header class="topbar">
 
                 <h1>Admin Overview</h1>
-
                 <div class="top-actions">
-
-                    <div class="search">
-                        Search patients, doctors...
-                    </div>
-
-                    <button class="icon">!</button>
+                    <button class="icon" type="button">!</button>
 
                     <div class="profile">
                         <div>
                             <strong>Dr. Suvhom K.C</strong>
                             <span>Clinic Administrator</span>
                         </div>
-                        <b class="avatar a2"></b>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
 
                 </div>
-
             </header>
 
             <!-- Page Content -->
@@ -150,11 +143,11 @@
                                         String time = appt[3];
                                         String reason = appt[4];
                                         String status = appt[5];
-                                        
+
                                         // Pick an avatar color dynamically
                                         String avatarClass = "a" + avatarIdx;
                                         avatarIdx = (avatarIdx % 6) + 1;
-                                        
+
                                         // Map status pill color
                                         String pillClass = "yellow";
                                         if ("Completed".equalsIgnoreCase(status) || "Confirmed".equalsIgnoreCase(status)) {
@@ -209,10 +202,10 @@
                                         String phone = staff[3];
                                         String email = staff[4];
                                         String availability = staff[5];
-                                        
+
                                         String avatarClass = "a" + avatarIdx;
                                         avatarIdx = (avatarIdx % 6) + 1;
-                                        
+
                                         boolean isBusy = "Busy".equalsIgnoreCase(availability);
                             %>
                                 <div style="display: flex; align-items: start; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9;">

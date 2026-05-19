@@ -35,6 +35,22 @@ public class AddAppointmentServlet extends HttpServlet {
         ArrayList<String[]> staffList = appointmentDao.getAvailableStaff();
         request.setAttribute("staffList", staffList);
 
+        // Bind quick action patient pre-selection
+        String patientIdParam = request.getParameter("patientId");
+        if (patientIdParam != null && !patientIdParam.trim().isEmpty()) {
+            try {
+                request.setAttribute("selectedPatientId", Integer.parseInt(patientIdParam.trim()));
+            } catch (NumberFormatException e) {
+                // Ignore
+            }
+        }
+
+        // Bind quick action staff pre-selection
+        String staffIdParam = request.getParameter("staffId");
+        if (staffIdParam != null && !staffIdParam.trim().isEmpty()) {
+            request.setAttribute("enteredStaffId", staffIdParam.trim());
+        }
+
         request.getRequestDispatcher("/WEB-INF/Admin_page/AddAppointment.jsp")
                .forward(request, response);
     }

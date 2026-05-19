@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/registers.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/registers.css">
 </head>
 <body>
 

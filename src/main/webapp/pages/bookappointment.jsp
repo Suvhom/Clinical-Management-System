@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Book Your Appointment</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bookappointment.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/bookappointment.css">
 </head>
 <body>
 <main class="appointment-page">

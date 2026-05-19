@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Exercise Form - MotionRehab</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AddExerciseForm.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AddExerciseForm.css">
 </head>
 
 <body>
@@ -46,17 +46,19 @@
                 <!-- TOPBAR -->
                 <header class="topbar">
                     <h1>Prescribe Exercise</h1>
+                <div class="top-actions">
+                    <button class="icon" type="button">!</button>
 
-                    <div class="top-actions">
-                        <button class="icon">!</button>
-
-                        <div class="profile">
-                            Dr. Emily Chen
+                    <div class="profile">
+                        <div>
+                            <strong>Dr. Suvhom K.C</strong>
                             <span>Clinic Administrator</span>
-                            <b class="avatar a2"></b>
                         </div>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
-                </header>
+
+                </div>
+            </header>
 
                 <!-- CONTENT -->
                 <div class="content narrow">

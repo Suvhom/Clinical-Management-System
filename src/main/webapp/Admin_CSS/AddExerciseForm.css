@@ -443,6 +443,17 @@ dd { margin: 6px 0 0; font-weight: 800; }
 }
 .avatar.mini { width: 30px; height: 30px; margin-right: 10px; }
 .avatar.large { width: 90px; height: 90px; border-radius: 8px; }
+.profile .profile-avatar {
+  width: 48px;
+  height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+  border: 2px solid #e5e7eb;
+}
 .a1 { background: linear-gradient(135deg, #d1ae8c, #176c79); }
 .a2 { background: linear-gradient(135deg, #dfc2a4, #143f2e); }
 .a3 { background: linear-gradient(135deg, #d7b090, #5c716e); }

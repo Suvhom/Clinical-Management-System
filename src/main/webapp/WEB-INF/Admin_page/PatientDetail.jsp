@@ -12,9 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Detail - MotionRehab</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PatientDetail.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/PatientDetail.css">
 </head>
 
 <body>
@@ -43,7 +43,7 @@
             </div>
 
         </div>
-       
+
         <!-- Main Page Area -->
         <section class="page">
 
@@ -51,25 +51,18 @@
             <header class="topbar">
 
                 <h1>Admin Overview</h1>
-
                 <div class="top-actions">
-
-                    <div class="search">
-                        Search...
-                    </div>
-
-                    <button class="icon">!</button>
+                    <button class="icon" type="button">!</button>
 
                     <div class="profile">
                         <div>
                             <strong>Dr. Suvhom K.C</strong>
                             <span>Clinic Administrator</span>
                         </div>
-                        <b class="avatar a2"></b>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
 
                 </div>
-
             </header>
 
             <!-- Content -->
@@ -78,7 +71,7 @@
                 <%
                     AddPatientModel patient = (AddPatientModel) request.getAttribute("patient");
                     ArrayList<AppointmentModel> apptsList = (ArrayList<AppointmentModel>) request.getAttribute("appointmentsList");
-                    
+
                     if (patient == null) {
                 %>
                 <div style="padding: 40px; text-align: center; background: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb;">
@@ -152,7 +145,7 @@
                             <div class="history-item" style="border-left: 4px solid <%= "red".equals(pillClass) ? "#ef4444" : "green".equals(pillClass) ? "#22c55e" : "yellow".equals(pillClass) ? "#eab308" : "orange".equals(pillClass) ? "#f97316" : "#9ca3af" %>; padding-left: 14px; margin-bottom: 16px;">
                                 <strong><%= a.getAppointmentDate() %> at <%= a.getAppointmentTime() %></strong>
                                 <p style="margin: 4px 0 2px 0; font-weight: 700; font-size: 15px;">
-                                    <%= a.getReason() %> 
+                                    <%= a.getReason() %>
                                     <span class="pill <%= pillClass %>" style="padding: 2px 8px; font-size: 11px; min-width: auto; margin-left: 6px;"><%= a.getStatus() %></span>
                                 </p>
                                 <p style="color: #6b7280; font-size: 13px; margin: 0;">

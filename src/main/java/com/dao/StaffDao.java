@@ -273,4 +273,19 @@ public class StaffDao {
             return rows > 0;
         }
     }
+
+    public boolean deleteStaff(int id) {
+        String sql = "DELETE FROM staff WHERE staff_id = ?";
+        try (Connection conn = DBconfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            if (conn == null) return false;
+            ps.setInt(1, id);
+            int rows = ps.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            System.out.println("ERROR DELETING STAFF BY ID " + id + ": " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

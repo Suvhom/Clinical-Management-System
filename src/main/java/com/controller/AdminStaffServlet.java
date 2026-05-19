@@ -39,9 +39,10 @@ public class AdminStaffServlet extends HttpServlet {
         for (StaffModel s : allStaff) {
             boolean keep = true;
 
-            // Apply Search filter (name, spec, qualification, phone, email, address)
+            // Apply Search filter (ID, name, spec, qualification, phone, email, address)
             if (search != null && !search.isEmpty()) {
-                boolean match = (s.getStaffName() != null && s.getStaffName().toLowerCase().contains(search)) ||
+                boolean match = String.valueOf(s.getStaffId()).contains(search) ||
+                                (s.getStaffName() != null && s.getStaffName().toLowerCase().contains(search)) ||
                                 (s.getSpecialization() != null && s.getSpecialization().toLowerCase().contains(search)) ||
                                 (s.getQualification() != null && s.getQualification().toLowerCase().contains(search)) ||
                                 (s.getPhone() != null && s.getPhone().toLowerCase().contains(search)) ||

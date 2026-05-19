@@ -10,9 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billing & Revenue - MotionRehab</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/BillingRevenue.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/BillingRevenue.css">
 </head>
 
 <body>
@@ -41,7 +41,7 @@
             </div>
 
         </div>
-       
+
         <!-- Main Page Area -->
         <section class="page">
 
@@ -49,27 +49,20 @@
             <header class="topbar">
 
                 <h1>Admin Overview</h1>
-
                 <div class="top-actions">
-
-                    <div class="search">
-                        Search patients, doctors...
-                    </div>
-
-                    <button class="icon">!</button>
+                    <button class="icon" type="button">!</button>
 
                     <div class="profile">
                         <div>
                             <strong>Dr. Suvhom K.C</strong>
                             <span>Clinic Administrator</span>
                         </div>
-                        <b class="avatar a2"></b>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
 
                 </div>
-
             </header>
-            
+
             <!-- Content -->
             <div class="content">
 
@@ -80,9 +73,14 @@
                         <p>Track invoices, payments and clinic revenue.</p>
                     </div>
 
-                    <a class="primary" href="${pageContext.request.contextPath}/admin/create-invoice" style="text-decoration: none; font-weight: 700; display: inline-block;">
-                        + Create Invoice
-                    </a>
+                    <div class="billing-actions">
+                        <a class="primary report-btn" href="${pageContext.request.contextPath}/admin/reports">
+                            Generate Report
+                        </a>
+                        <a class="primary" href="${pageContext.request.contextPath}/admin/create-invoice" style="text-decoration: none; font-weight: 700; display: inline-block;">
+                            + Create Invoice
+                        </a>
+                    </div>
                 </div>
 
                 <% if (request.getParameter("success") != null) { %>
@@ -167,7 +165,7 @@
                                         else if ("Pending".equalsIgnoreCase(t[5])) pillColor = "yellow";
                                         else if ("Overdue".equalsIgnoreCase(t[5])) pillColor = "red";
                                         else if ("Void".equalsIgnoreCase(t[5])) pillColor = "gray";
-                                        
+
                                         String avatarClass = "a" + ((idx % 6) + 1);
                                         idx++;
                             %>

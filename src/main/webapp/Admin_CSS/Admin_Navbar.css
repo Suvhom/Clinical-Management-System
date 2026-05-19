@@ -154,6 +154,18 @@
     margin-top: 4px;
 }
 
+.profile .profile-avatar {
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+    border: 2px solid #e5e7eb;
+}
+
 /* Responsive */
 @media (max-width: 800px) {
     body {

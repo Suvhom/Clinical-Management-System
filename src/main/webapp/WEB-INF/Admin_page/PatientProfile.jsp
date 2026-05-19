@@ -1,7 +1,7 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.model.AddPatientModel" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -10,15 +10,17 @@
     <meta charset="UTF-8">
     <title>Patients - MotionRehab</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PatientProfile.css">
+    <!-- Importing External CSS files -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/PatientProfile.css">
 </head>
 
 <body>
 
 <main class="layout">
 
+    <!-- Sidebar -->
     <div class="sidebar">
 
         <div class="brand">
@@ -41,61 +43,99 @@
 
     </div>
 
+    <!-- Page Area -->
     <section class="page">
 
+        <!-- Topbar -->
         <header class="topbar">
 
             <h1>Patients</h1>
+                <div class="top-actions">
+                    <button class="icon" type="button">!</button>
 
-            <div class="top-actions">
-
-                <div class="search">
-                    Search patients, doctors...
-                </div>
-
-                <button class="icon">!</button>
-
-                <div class="profile">
-                    <div>
-                        <strong>Dr. Suvhom K.C</strong>
-                        <span>Clinic Administrator</span>
+                    <div class="profile">
+                        <div>
+                            <strong>Dr. Suvhom K.C</strong>
+                            <span>Clinic Administrator</span>
+                        </div>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
 
-                    <b class="avatar a2"></b>
                 </div>
+            </header>
 
-            </div>
-
-        </header>
-
+        <!-- Main Content -->
         <div class="content">
 
+            <!-- Page Heading -->
             <div class="title-row">
+
                 <div>
                     <h2>Patients Directory</h2>
                     <p>View and manage registered patients</p>
                 </div>
 
-                <a class="primary" href="${pageContext.request.contextPath}/admin/add-patient">
-                    + Add New Patient
-                </a>
+                <a class="primary" href="${pageContext.request.contextPath}/admin/add-patient">  + Add New Patient </a>
+
             </div>
 
-            <% if (request.getParameter("success") != null) { %>
+            <!-- Messages -->
+            <c:if test="${not empty param.success}">
                 <p class="success-message">Patient added successfully.</p>
-            <% } %>
+            </c:if>
 
-            <% if (request.getParameter("updated") != null) { %>
+            <c:if test="${not empty param.updated}">
                 <p class="success-message">Patient updated successfully.</p>
-            <% } %>
+            </c:if>
 
-            <% if (request.getParameter("deleted") != null) { %>
-                <p class="success-message" style="background: #fee2e2; color: #b91c1c; border-color: #fca5a5; padding: 12px 18px; border-radius: 10px; font-weight: 600; margin-bottom: 20px;">Patient record and all their appointments were deleted successfully.</p>
-            <% } %>
+            <c:if test="${not empty param.successUpload}">
+                <p class="success-message">Exercise uploaded successfully for the patient.</p>
+            </c:if>
 
+            <c:if test="${not empty param.deleted}">
+                <p class="delete-message">
+                    Patient record and related appointments were deleted successfully.
+                </p>
+            </c:if>
+
+            <c:if test="${not empty param.error}">
+                <p class="error-message">
+                    Something went wrong. Please try again.
+                </p>
+            </c:if>
+
+            <!-- Search Bar -->
+            <div class="search-row">
+
+                <form action="${pageContext.request.contextPath}/admin/patients" method="get" class="patient-search-form">
+
+                    <div class="search-input-wrap">
+                        <input
+                            type="text"
+                            name="search"
+                            placeholder="Search by patient name or ID"
+                            value="${param.search}">
+                    </div>
+
+                    <button type="submit" class="search-btn">
+                        Search
+                    </button>
+
+                    <c:if test="${not empty param.search}">
+                        <a href="${pageContext.request.contextPath}/admin/patients" class="clear-btn">
+                            Clear
+                        </a>
+                    </c:if>
+
+                </form>
+
+            </div>
+
+            <!-- Patients Table -->
             <div class="table-card">
 
                 <table>
+
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -112,49 +152,68 @@
 
                     <tbody>
 
-                    <%
-                        ArrayList<AddPatientModel> patients =
-                            (ArrayList<AddPatientModel>) request.getAttribute("patients");
+                        <c:choose>
 
-                        if (patients != null && !patients.isEmpty()) {
-                            for (AddPatientModel patient : patients) {
-                    %>
+                            <c:when test="${not empty patients}">
 
-                        <tr>
-                            <td><%= patient.getPatientId() %></td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}/admin/patient-detail?id=<%= patient.getPatientId() %>" style="color: #1677d8; font-weight: 700; text-decoration: none; hover: text-decoration: underline;">
-                                    <%= patient.getPatientName() %>
-                                </a>
-                            </td>
-                            <td><%= patient.getEmail() %></td>
-                            <td><%= patient.getPhone() %></td>
-                            <td><%= patient.getGender() %></td>
-                            <td><%= patient.getDateOfBirth() %></td>
-                            <td><%= patient.getUsername() %></td>
-                            <td><%= patient.getCreatedAt() %></td>
-                            <td>
-                                <a class="edit-btn"
-                                   href="${pageContext.request.contextPath}/admin/edit-patient?id=<%= patient.getPatientId() %>">
-                                    Edit
-                                </a>
-                            </td>
-                        </tr>
+                                <c:forEach var="patient" items="${patients}">
 
-                    <%
-                            }
-                        } else {
-                    %>
+                                    <tr>
+                                        <td>${patient.patientId}</td>
 
-                        <tr>
-                            <td colspan="9">No patients found.</td>
-                        </tr>
+                                        <td>
+                                            <a class="patient-link"
+                                               href="${pageContext.request.contextPath}/admin/patient-detail?id=${patient.patientId}">
+                                                ${empty patient.patientName ? '-' : patient.patientName}
+                                            </a>
+                                        </td>
 
-                    <%
-                        }
-                    %>
+                                        <td>${empty patient.email ? '-' : patient.email}</td>
+                                        <td>${empty patient.phone ? '-' : patient.phone}</td>
+                                        <td>${empty patient.gender ? '-' : patient.gender}</td>
+                                        <td>${empty patient.dateOfBirth ? '-' : patient.dateOfBirth}</td>
+                                        <td>${empty patient.username ? '-' : patient.username}</td>
+                                        <td>${empty patient.createdAt ? '-' : patient.createdAt}</td>
+
+                                        <td>
+
+                                        <!-- Action to Edit delete and upload exercise for patient -->
+                                            <div class="action-group">
+
+                                                <a class="edit-btn"
+                                                   href="${pageContext.request.contextPath}/admin/edit-patient?id=${patient.patientId}">
+                                                    Edit
+                                                </a>
+
+                                                <a class="upload-btn"
+                                                   href="${pageContext.request.contextPath}/admin/upload-exercise?patientId=${patient.patientId}">
+                                                    Upload Exercise
+                                                </a>
+
+                                                <a class="delete-btn"
+                                                   href="${pageContext.request.contextPath}/admin/delete-patient?id=${patient.patientId}"
+                                                   onclick="return confirm('Are you sure you want to delete this patient record?');">
+                                                    Delete
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </c:forEach>
+
+                            </c:when>
+
+                            <c:otherwise>
+                                <tr>
+                                    <td colspan="9">No patients found.</td>
+                                </tr>
+                            </c:otherwise>
+
+                        </c:choose>
 
                     </tbody>
+
                 </table>
 
             </div>

@@ -1,6 +1,7 @@
 package com.model;
 import java.sql.Date;
 public class PatientModel {
+//	Declare all necessarry variables
 	    private String firstName;
 	    private String lastName;
 	    private String userName;
@@ -11,7 +12,8 @@ public class PatientModel {
 	    private String password;
 	    private int program;
 	    private String image;
-
+	    
+// Getter & Setter Method
 	    public String getFirstName() { return firstName; }
 	    public void setFirstName(String firstName) { this.firstName = firstName; }
 

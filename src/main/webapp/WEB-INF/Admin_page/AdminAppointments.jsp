@@ -11,9 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Appointments - MotionRehab</title>
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminAppointments.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminAppointments.css">
 </head>
 
 <body>
@@ -50,25 +50,18 @@
             <header class="topbar">
 
                 <h1>Appointments</h1>
-
                 <div class="top-actions">
-
-                    <div class="top-search">
-                        Search...
-                    </div>
-
-                    <button class="bell-btn">⌕</button>
+                    <button class="icon" type="button">!</button>
 
                     <div class="profile">
                         <div>
-                            <strong>Dr. Emily Chen</strong>
+                            <strong>Dr. Suvhom K.C</strong>
                             <span>Clinic Administrator</span>
                         </div>
-                        <div class="profile-img"></div>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
 
                 </div>
-
             </header>
 
             <!-- Content -->
@@ -98,13 +91,17 @@
                         <p class="success-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
                             ✔ Appointment cancelled successfully.
                         </p>
+                    <% } else if ("4".equals(request.getParameter("success"))) { %>
+                        <p class="success-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #b91c1c;">
+                            ✔ Appointment has been deleted successfully from the database.
+                        </p>
                     <% } %>
                 <% } %>
 
-                <% 
+                <%
                     String currentFilter = (String) request.getAttribute("currentFilter");
                     if (currentFilter == null) currentFilter = "all";
-                    
+
                     String currentSearch = (String) request.getAttribute("currentSearch");
                     if (currentSearch == null) currentSearch = "";
                 %>
@@ -122,11 +119,11 @@
                     <form action="${pageContext.request.contextPath}/admin/appointments" method="get" style="display: flex; gap: 8px; width: 100%; grid-column: span 3;">
                         <input type="hidden" name="filter" value="<%= currentFilter %>">
                         <div class="filter-search" style="flex: 1; padding: 0; position: relative;">
-                            <input 
-                                type="text" 
-                                name="search" 
-                                value="<%= currentSearch %>" 
-                                placeholder="Search patient, staff ID, reason, status..." 
+                            <input
+                                type="text"
+                                name="search"
+                                value="<%= currentSearch %>"
+                                placeholder="Search patient, staff ID, reason, status..."
                                 style="width: 100%; height: 42px; border: 1px solid #e5e7eb; border-radius: 8px; padding-left: 42px; font-size: 15px; outline: none; background: #ffffff;"
                             >
                         </div>
@@ -205,9 +202,7 @@
                                 <td>
                                     <div class="actions">
                                         <a href="${pageContext.request.contextPath}/admin/edit-appointment?id=<%= appt.getAppointmentId() %>" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #e5e7eb; border-radius: 6px; background: #ffffff; color: #111827;" title="Reschedule / Edit">✎</a>
-                                        <% if (!"Cancelled".equalsIgnoreCase(appt.getStatus())) { %>
-                                            <a href="${pageContext.request.contextPath}/admin/cancel-appointment?id=<%= appt.getAppointmentId() %>" onclick="return confirm('Are you sure you want to cancel this appointment?');" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #e5e7eb; border-radius: 6px; background: #ffffff; color: #b91c1c;" title="Cancel Appointment">×</a>
-                                        <% } %>
+                                        <a href="${pageContext.request.contextPath}/admin/delete-appointment?id=<%= appt.getAppointmentId() %>" onclick="return confirm('Are you sure you want to delete this appointment record?');" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #fee2e2; border-radius: 6px; background: #fee2e2; color: #b91c1c;" title="Delete Appointment">🗑</a>
                                     </div>
                                 </td>
                             </tr>

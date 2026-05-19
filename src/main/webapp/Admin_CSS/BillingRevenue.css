@@ -40,6 +40,26 @@
     background: #0f6fc4;
 }
 
+.billing-actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.billing-actions a {
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.report-btn {
+    background: #16a34a;
+}
+
+.report-btn:hover {
+    background: #15803d;
+}
+
 /* Cards */
 .card {
     background: #ffffff;
@@ -288,6 +308,16 @@ tr:last-child td {
 
     .primary {
         width: 100%;
+    }
+
+    .billing-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .billing-actions a {
+        width: 100%;
+        text-align: center;
     }
 
     .stats-row {
