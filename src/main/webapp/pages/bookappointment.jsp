@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,9 +31,9 @@
         <h2>Book Appointment</h2>
         <p class="subtitle">Complete all fields below to request your visit.</p>
 
-        <% if (request.getAttribute("successMessage") != null) { %>
-          <p class="alert success"><%= request.getAttribute("successMessage") %></p>
-        <% } %>
+        <c:if test="${not empty successMessage}">
+          <p class="alert success">${successMessage}</p>
+        </c:if>
 
         <form class="booking-form" action="${pageContext.request.contextPath}/appointment" method="post">
           <label>

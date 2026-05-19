@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.model.AppointmentModel" %>
+
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <!doctype html>
 <html lang="en">
@@ -11,228 +12,349 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Appointments - MotionRehab</title>
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminAppointments.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminAppointments.css?v=2">
+
+    <style>
+        .new-appointment-btn {
+            text-decoration: none !important;
+        }
+
+        .filter-card {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 18px !important;
+            flex-wrap: wrap !important;
+        }
+
+        .appointment-search-form {
+            display: flex !important;
+            align-items: center !important;
+            gap: 14px !important;
+            width: min(100%, 620px) !important;
+        }
+
+        .appointment-search-form .filter-search {
+            flex: 1 !important;
+            width: auto !important;
+            height: 44px !important;
+        }
+
+        .filter-search input {
+            width: 100% !important;
+            height: 100% !important;
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+        }
+
+        .search-btn {
+            height: 44px !important;
+            min-width: 110px !important;
+            width: auto !important;
+        }
+    </style>
 </head>
 
 <body>
 
-    <main class="layout">
+<main class="layout">
 
-        <!-- Sidebar -->
-        <div class="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar">
 
-            <div class="brand">
-                <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="MotionRehab Logo">
-                <span>MotionRehab</span>
-            </div>
-
-            <nav class="nav-menu">
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
-			    <a class="nav-item active" href="${pageContext.request.contextPath}/admin/appointments">Appointments</a>
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
-			    <a class="nav-item" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
-			</nav>
-
-            <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
-            </div>
-
+        <div class="brand">
+            <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="MotionRehab Logo">
+            <span>MotionRehab</span>
         </div>
 
-        <!-- Page -->
-        <section class="page">
+        <nav class="nav-menu">
+            <a class="nav-item" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
+            <a class="nav-item active" href="${pageContext.request.contextPath}/admin/appointments">Appointments</a>
+            <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
+            <a class="nav-item" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
+            <a class="nav-item" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
+        </nav>
 
-            <!-- Topbar -->
-            <header class="topbar">
+        <div class="nav-bottom">
+            <a class="nav-item" href="#">Settings</a>
+            <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+        </div>
 
-                <h1>Appointments</h1>
-                <div class="top-actions">
-                    <button class="icon" type="button">!</button>
+    </div>
 
-                    <div class="profile">
-                        <div>
-                            <strong>Dr. Suvhom K.C</strong>
-                            <span>Clinic Administrator</span>
-                        </div>
-                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
-                    </div>
+    <!-- Page -->
+    <section class="page">
 
-                </div>
-            </header>
+        <!-- Topbar -->
+        <header class="topbar">
 
-            <!-- Content -->
-            <section class="content">
+            <h1>Appointments</h1>
 
-                <!-- Title -->
-                <div class="title-row">
+            <div class="top-actions">
+
+                <button class="icon" type="button">!</button>
+
+                <div class="profile">
                     <div>
-                        <h2>Manage Appointments</h2>
-                        <p>View, schedule and manage all patient appointments.</p>
+                        <strong>Dr. Suvhom K.C</strong>
+                        <span>Clinic Administrator</span>
                     </div>
 
-                    <a class="primary-btn" href="${pageContext.request.contextPath}/admin/add-appointment" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; height: 46px; box-sizing: border-box;">+ New Appointment</a>
+                    <img class="profile-avatar"
+                         src="${pageContext.request.contextPath}/Images/Admin_Profile.png"
+                         alt="Admin profile"
+                         width="48"
+                         height="48">
                 </div>
 
-                <!-- Success / Notification Banners -->
-                <% if (request.getParameter("success") != null) { %>
-                    <% if ("1".equals(request.getParameter("success"))) { %>
-                        <p class="success-message" style="background: #dcfce7; color: #15803d; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
-                            ✔ Appointment scheduled successfully.
-                        </p>
-                    <% } else if ("2".equals(request.getParameter("success"))) { %>
-                        <p class="success-message" style="background: #e0f2fe; color: #0369a1; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
-                            ✔ Appointment rescheduled / updated successfully.
-                        </p>
-                    <% } else if ("3".equals(request.getParameter("success"))) { %>
-                        <p class="success-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px;">
-                            ✔ Appointment cancelled successfully.
-                        </p>
-                    <% } else if ("4".equals(request.getParameter("success"))) { %>
-                        <p class="success-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #b91c1c;">
-                            ✔ Appointment has been deleted successfully from the database.
-                        </p>
-                    <% } %>
-                <% } %>
+            </div>
 
-                <%
-                    String currentFilter = (String) request.getAttribute("currentFilter");
-                    if (currentFilter == null) currentFilter = "all";
+        </header>
 
-                    String currentSearch = (String) request.getAttribute("currentSearch");
-                    if (currentSearch == null) currentSearch = "";
-                %>
+        <!-- Content -->
+        <section class="content">
 
-                <!-- Filters -->
-                <div class="filter-card">
+            <!-- Title -->
+            <div class="title-row">
 
-                    <div class="tabs">
-                        <a class="<%= "all".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=all&search=<%= currentSearch %>">All Appointments</a>
-                        <a class="<%= "today".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=today&search=<%= currentSearch %>">Today</a>
-                        <a class="<%= "upcoming".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=upcoming&search=<%= currentSearch %>">Upcoming</a>
-                        <a class="<%= "pending".equals(currentFilter) ? "active" : "" %>" href="${pageContext.request.contextPath}/admin/appointments?filter=pending&search=<%= currentSearch %>">Pending</a>
-                    </div>
-
-                    <form action="${pageContext.request.contextPath}/admin/appointments" method="get" style="display: flex; gap: 8px; width: 100%; grid-column: span 3;">
-                        <input type="hidden" name="filter" value="<%= currentFilter %>">
-                        <div class="filter-search" style="flex: 1; padding: 0; position: relative;">
-                            <input
-                                type="text"
-                                name="search"
-                                value="<%= currentSearch %>"
-                                placeholder="Search patient, staff ID, reason, status..."
-                                style="width: 100%; height: 42px; border: 1px solid #e5e7eb; border-radius: 8px; padding-left: 42px; font-size: 15px; outline: none; background: #ffffff;"
-                            >
-                        </div>
-                        <button type="submit" class="primary-btn" style="padding: 0 18px; height: 42px; font-size: 14px;">Search</button>
-                    </form>
-
+                <div>
+                    <h2>Manage Appointments</h2>
+                    <p>View, schedule and manage all patient appointments.</p>
                 </div>
 
-                <!-- Table -->
-                <div class="table-card">
+                <a class="primary-btn new-appointment-btn"
+                   href="${pageContext.request.contextPath}/admin/add-appointment">
+                    + New Appointment
+                </a>
 
-                    <table>
+            </div>
 
-                        <thead>
-                            <tr>
-                                <th>Patient</th>
-                                <th>Date & Time</th>
-                                <th>Assigned Staff</th>
-                                <th>Reason / Treatment</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
+            <!-- Success Messages -->
+            <c:if test="${not empty param.success}">
 
-                        <tbody>
+                <c:choose>
 
-                            <%
-                                ArrayList<AppointmentModel> appts = (ArrayList<AppointmentModel>) request.getAttribute("appointmentsList");
-                                if (appts != null && !appts.isEmpty()) {
-                                    for (AppointmentModel appt : appts) {
-                                        String pillClass = "gray";
-                                        if ("Confirmed".equalsIgnoreCase(appt.getStatus())) {
-                                            pillClass = "green";
-                                        } else if ("In Progress".equalsIgnoreCase(appt.getStatus())) {
-                                            pillClass = "orange";
-                                        } else if ("Pending".equalsIgnoreCase(appt.getStatus())) {
-                                            pillClass = "yellow";
-                                        } else if ("Cancelled".equalsIgnoreCase(appt.getStatus())) {
-                                            pillClass = "red";
-                                        } else if ("Rescheduled".equalsIgnoreCase(appt.getStatus())) {
-                                            pillClass = "orange";
-                                        } else if ("Completed".equalsIgnoreCase(appt.getStatus())) {
-                                            pillClass = "gray";
-                                        }
-                            %>
+                    <c:when test="${param.success == '1'}">
+                        <p class="success-message">
+                            Appointment scheduled successfully.
+                        </p>
+                    </c:when>
 
-                            <tr>
-                                <td>
-                                    <div class="person">
-                                        <span class="avatar a1"></span>
-                                        <div>
-                                            <strong><%= appt.getPatientName() %></strong>
-                                            <small>#PT-<%= appt.getPatientId() %></small>
-                                        </div>
-                                    </div>
-                                </td>
+                    <c:when test="${param.success == '2'}">
+                        <p class="success-message info-message">
+                            Appointment rescheduled / updated successfully.
+                        </p>
+                    </c:when>
 
-                                <td>
-                                    <strong><%= appt.getAppointmentTime() %></strong>
-                                    <small><%= appt.getAppointmentDate() %></small>
-                                </td>
+                    <c:when test="${param.success == '3'}">
+                        <p class="success-message warning-message">
+                            Appointment cancelled successfully.
+                        </p>
+                    </c:when>
 
-                                <td>
-                                    <div class="doctor">
-                                        <span class="avatar small a2"></span>
-                                        <strong>Staff #<%= appt.getStaffId() %></strong>
-                                    </div>
-                                </td>
+                    <c:when test="${param.success == '4'}">
+                        <p class="success-message delete-message">
+                            Appointment has been deleted successfully from the database.
+                        </p>
+                    </c:when>
 
-                                <td><%= appt.getReason() %></td>
+                </c:choose>
 
-                                <td>
-                                    <span class="pill <%= pillClass %>"><%= appt.getStatus() %></span>
-                                </td>
+            </c:if>
 
-                                <td>
-                                    <div class="actions">
-                                        <a href="${pageContext.request.contextPath}/admin/edit-appointment?id=<%= appt.getAppointmentId() %>" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #e5e7eb; border-radius: 6px; background: #ffffff; color: #111827;" title="Reschedule / Edit">✎</a>
-                                        <a href="${pageContext.request.contextPath}/admin/delete-appointment?id=<%= appt.getAppointmentId() %>" onclick="return confirm('Are you sure you want to delete this appointment record?');" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #fee2e2; border-radius: 6px; background: #fee2e2; color: #b91c1c;" title="Delete Appointment">🗑</a>
-                                    </div>
-                                </td>
-                            </tr>
+            <!-- Filters -->
+            <div class="filter-card">
 
-                            <%
-                                    }
-                                } else {
-                            %>
-                            <tr>
-                                <td colspan="6" style="text-align: center; color: #6b7280; padding: 40px 0;">
-                                    No appointments found matching your filters.
-                                </td>
-                            </tr>
-                            <% } %>
+                <div class="tabs">
 
-                        </tbody>
+                    <a class="${empty currentFilter || currentFilter == 'all' ? 'active' : ''}"
+                       href="${pageContext.request.contextPath}/admin/appointments?filter=all&search=${empty currentSearch ? '' : currentSearch}">
+                        All Appointments
+                    </a>
 
-                    </table>
+                    <a class="${currentFilter == 'today' ? 'active' : ''}"
+                       href="${pageContext.request.contextPath}/admin/appointments?filter=today&search=${empty currentSearch ? '' : currentSearch}">
+                        Today
+                    </a>
 
-                    <div class="table-footer">
-                        <p>Showing <%= appts != null ? appts.size() : 0 %> entries</p>
-                    </div>
+                    <a class="${currentFilter == 'upcoming' ? 'active' : ''}"
+                       href="${pageContext.request.contextPath}/admin/appointments?filter=upcoming&search=${empty currentSearch ? '' : currentSearch}">
+                        Upcoming
+                    </a>
+
+                    <a class="${currentFilter == 'pending' ? 'active' : ''}"
+                       href="${pageContext.request.contextPath}/admin/appointments?filter=pending&search=${empty currentSearch ? '' : currentSearch}">
+                        Pending
+                    </a>
 
                 </div>
 
-            </section>
+                <form action="${pageContext.request.contextPath}/admin/appointments"
+                      method="get"
+                      class="appointment-search-form">
+
+                    <input type="hidden"
+                           name="filter"
+                           value="${empty currentFilter ? 'all' : currentFilter}">
+
+                    <div class="filter-search">
+                        <input
+                            type="text"
+                            name="search"
+                            value="${empty currentSearch ? '' : currentSearch}"
+                            placeholder="Search patient, staff ID, reason, status...">
+                    </div>
+
+                    <button type="submit" class="primary-btn search-btn">
+                        Search
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- Table -->
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Date & Time</th>
+                            <th>Assigned Staff</th>
+                            <th>Reason / Treatment</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <c:choose>
+
+                            <c:when test="${not empty appointmentsList}">
+
+                                <c:forEach var="appt" items="${appointmentsList}">
+
+                                    <c:set var="pillClass" value="gray" />
+
+                                    <c:choose>
+                                        <c:when test="${appt.status == 'Confirmed'}">
+                                            <c:set var="pillClass" value="green" />
+                                        </c:when>
+
+                                        <c:when test="${appt.status == 'In Progress'}">
+                                            <c:set var="pillClass" value="orange" />
+                                        </c:when>
+
+                                        <c:when test="${appt.status == 'Pending'}">
+                                            <c:set var="pillClass" value="yellow" />
+                                        </c:when>
+
+                                        <c:when test="${appt.status == 'Cancelled'}">
+                                            <c:set var="pillClass" value="red" />
+                                        </c:when>
+
+                                        <c:when test="${appt.status == 'Rescheduled'}">
+                                            <c:set var="pillClass" value="orange" />
+                                        </c:when>
+
+                                        <c:when test="${appt.status == 'Completed'}">
+                                            <c:set var="pillClass" value="gray" />
+                                        </c:when>
+                                    </c:choose>
+
+                                    <tr>
+
+                                        <td>
+                                            <div class="person">
+                                                <span class="avatar a1"></span>
+
+                                                <div>
+                                                    <strong>${empty appt.patientName ? '-' : appt.patientName}</strong>
+                                                    <small>#PT-${appt.patientId}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <strong>${empty appt.appointmentTime ? '-' : appt.appointmentTime}</strong>
+                                            <small>${empty appt.appointmentDate ? '-' : appt.appointmentDate}</small>
+                                        </td>
+
+                                        <td>
+                                            <div class="doctor">
+                                                <span class="avatar small a2"></span>
+                                                <strong>Staff #${appt.staffId}</strong>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            ${empty appt.reason ? '-' : appt.reason}
+                                        </td>
+
+                                        <td>
+                                            <span class="pill ${pillClass}">
+                                                ${empty appt.status ? '-' : appt.status}
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <div class="actions">
+
+                                                <a class="action-btn edit-action"
+                                                   href="${pageContext.request.contextPath}/admin/edit-appointment?id=${appt.appointmentId}"
+                                                   title="Reschedule / Edit">
+                                                   
+                                                </a>
+
+                                                <a class="action-btn delete-action"
+                                                   href="${pageContext.request.contextPath}/admin/delete-appointment?id=${appt.appointmentId}"
+                                                   onclick="return confirm('Are you sure you want to delete this appointment record?');"
+                                                   title="Delete Appointment">
+                                                   
+                                                </a>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+                                </c:forEach>
+
+                            </c:when>
+
+                            <c:otherwise>
+
+                                <tr>
+                                    <td colspan="6" class="empty-row">
+                                        No appointments found matching your filters.
+                                    </td>
+                                </tr>
+
+                            </c:otherwise>
+
+                        </c:choose>
+
+                    </tbody>
+
+                </table>
+
+                <div class="table-footer">
+                    <p>Showing ${empty appointmentsList ? 0 : fn:length(appointmentsList)} entries</p>
+                </div>
+
+            </div>
 
         </section>
 
-    </main>
+    </section>
+
+</main>
 
 </body>
 

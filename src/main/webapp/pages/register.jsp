@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +28,9 @@
             <h2>Get started</h2>
             <p class="subtitle">Create your MotionRehab patient account</p>
 
-            <% if (request.getAttribute("errorMessage") != null) { %>
-                <p class="alert error"><%= request.getAttribute("errorMessage") %></p>
-            <% } %>
+            <c:if test="${not empty errorMessage}">
+                <p class="alert error">${errorMessage}</p>
+            </c:if>
 
             <form id="registerForm"
                   action="${pageContext.request.contextPath}/register"

@@ -60,6 +60,25 @@
     background: #15803d;
 }
 
+.success-message,
+.error-message {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.success-message {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
 /* Cards */
 .card {
     background: #ffffff;

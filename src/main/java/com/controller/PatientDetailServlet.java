@@ -46,6 +46,18 @@ public class PatientDetailServlet extends HttpServlet {
                     ArrayList<AppointmentModel> appointmentsList = appointmentDao.getAppointmentsByPatientId(patientId);
                     request.setAttribute("patient", patient);
                     request.setAttribute("appointmentsList", appointmentsList);
+
+                    AppointmentModel upcomingAppointment = null;
+                    if (appointmentsList != null) {
+                        for (AppointmentModel appointment : appointmentsList) {
+                            String status = appointment.getStatus();
+                            if (!"Cancelled".equalsIgnoreCase(status) && !"Completed".equalsIgnoreCase(status)) {
+                                upcomingAppointment = appointment;
+                                break;
+                            }
+                        }
+                    }
+                    request.setAttribute("upcomingAppointment", upcomingAppointment);
                 }
             }
 

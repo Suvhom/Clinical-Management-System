@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.model.StaffModel" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -66,10 +66,6 @@
             <!-- Content -->
             <div class="content">
 
-                <%
-                    StaffModel staff = (StaffModel) request.getAttribute("staff");
-                %>
-
                 <!-- Breadcrumb -->
                 <div class="breadcrumb">
                     <a href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
@@ -77,19 +73,18 @@
                     <p>Edit Staff Member</p>
                 </div>
 
-                <!-- Error Messages -->
-                <% if (request.getAttribute("errorMessage") != null) { %>
-                    <p class="error-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #b91c1c;">
-                        <%= request.getAttribute("errorMessage") %>
+                <c:if test="${not empty errorMessage}">
+                    <p class="error-message">
+                        ${errorMessage}
                     </p>
-                <% } %>
+                </c:if>
 
                 <!-- Form Card -->
                 <div class="form-card">
 
                     <form action="${pageContext.request.contextPath}/admin/update-staff" method="post">
 
-                        <input type="hidden" name="staffId" value="<%= staff.getStaffId() %>">
+                        <input type="hidden" name="staffId" value="${staff.staffId}">
 
                         <section class="form-section">
 
@@ -99,63 +94,63 @@
 
                                 <div class="input-group">
                                     <label for="staffName">Staff / Doctor Name</label>
-                                    <input type="text" id="staffName" name="staffName" value="<%= staff.getStaffName() %>" required>
+                                    <input type="text" id="staffName" name="staffName" value="${staff.staffName}" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="specialization">Specialization</label>
                                     <select id="specialization" name="specialization" required>
-                                        <option value="General Physiotherapy" <%= "General Physiotherapy".equals(staff.getSpecialization()) ? "selected" : "" %>>General Physiotherapy</option>
-                                        <option value="Sports Injury Rehab" <%= "Sports Injury Rehab".equals(staff.getSpecialization()) ? "selected" : "" %>>Sports Injury Rehab</option>
-                                        <option value="Back and Neck Pain" <%= "Back and Neck Pain".equals(staff.getSpecialization()) ? "selected" : "" %>>Back and Neck Pain</option>
-                                        <option value="Post-Surgical Rehab" <%= "Post-Surgical Rehab".equals(staff.getSpecialization()) ? "selected" : "" %>>Post-Surgical Rehab</option>
-                                        <option value="Manual Therapy" <%= "Manual Therapy".equals(staff.getSpecialization()) ? "selected" : "" %>>Manual Therapy</option>
-                                        <option value="Neurological Rehab" <%= "Neurological Rehab".equals(staff.getSpecialization()) ? "selected" : "" %>>Neurological Rehab</option>
+                                        <option value="General Physiotherapy" ${staff.specialization == 'General Physiotherapy' ? 'selected' : ''}>General Physiotherapy</option>
+                                        <option value="Sports Injury Rehab" ${staff.specialization == 'Sports Injury Rehab' ? 'selected' : ''}>Sports Injury Rehab</option>
+                                        <option value="Back and Neck Pain" ${staff.specialization == 'Back and Neck Pain' ? 'selected' : ''}>Back and Neck Pain</option>
+                                        <option value="Post-Surgical Rehab" ${staff.specialization == 'Post-Surgical Rehab' ? 'selected' : ''}>Post-Surgical Rehab</option>
+                                        <option value="Manual Therapy" ${staff.specialization == 'Manual Therapy' ? 'selected' : ''}>Manual Therapy</option>
+                                        <option value="Neurological Rehab" ${staff.specialization == 'Neurological Rehab' ? 'selected' : ''}>Neurological Rehab</option>
                                     </select>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="qualification">Qualifications</label>
-                                    <input type="text" id="qualification" name="qualification" value="<%= staff.getQualification() %>" required>
+                                    <input type="text" id="qualification" name="qualification" value="${staff.qualification}" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="experience">Years of Experience</label>
-                                    <input type="number" id="experience" name="experience" value="<%= staff.getExperience() %>" min="0" required>
+                                    <input type="number" id="experience" name="experience" value="${staff.experience}" min="0" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="email">Email Address</label>
-                                    <input type="email" id="email" name="email" value="<%= staff.getEmail() %>" required>
+                                    <input type="email" id="email" name="email" value="${staff.email}" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="phone">Phone Number</label>
-                                    <input type="text" id="phone" name="phone" value="<%= staff.getPhone() %>" required>
+                                    <input type="text" id="phone" name="phone" value="${staff.phone}" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="gender">Gender</label>
                                     <select id="gender" name="gender" required>
-                                        <option value="Male" <%= "Male".equalsIgnoreCase(staff.getGender()) ? "selected" : "" %>>Male</option>
-                                        <option value="Female" <%= "Female".equalsIgnoreCase(staff.getGender()) ? "selected" : "" %>>Female</option>
-                                        <option value="Other" <%= "Other".equalsIgnoreCase(staff.getGender()) ? "selected" : "" %>>Other</option>
+                                        <option value="Male" ${staff.gender == 'Male' ? 'selected' : ''}>Male</option>
+                                        <option value="Female" ${staff.gender == 'Female' ? 'selected' : ''}>Female</option>
+                                        <option value="Other" ${staff.gender == 'Other' ? 'selected' : ''}>Other</option>
                                     </select>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="status">Working Status</label>
                                     <select id="status" name="status" required>
-                                        <option value="Active" <%= "Active".equalsIgnoreCase(staff.getStatus()) ? "selected" : "" %>>Active</option>
-                                        <option value="Busy" <%= "Busy".equalsIgnoreCase(staff.getStatus()) ? "selected" : "" %>>Busy</option>
-                                        <option value="On Leave" <%= "On Leave".equalsIgnoreCase(staff.getStatus()) ? "selected" : "" %>>On Leave</option>
-                                        <option value="Inactive" <%= "Inactive".equalsIgnoreCase(staff.getStatus()) ? "selected" : "" %>>Inactive</option>
+                                        <option value="Active" ${staff.status == 'Active' ? 'selected' : ''}>Active</option>
+                                        <option value="Busy" ${staff.status == 'Busy' ? 'selected' : ''}>Busy</option>
+                                        <option value="On Leave" ${staff.status == 'On Leave' ? 'selected' : ''}>On Leave</option>
+                                        <option value="Inactive" ${staff.status == 'Inactive' ? 'selected' : ''}>Inactive</option>
                                     </select>
                                 </div>
 
                                 <div class="input-group full">
                                     <label for="address">Residential Address</label>
-                                    <input type="text" id="address" name="address" value="<%= staff.getAddress() %>" required>
+                                    <input type="text" id="address" name="address" value="${staff.address}" required>
                                 </div>
 
                             </div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -67,18 +68,17 @@
                         Back to Patient Detail
                     </a>
 
-                    <!-- SUCCESS / ERROR MESSAGE -->
-                    <% if (request.getAttribute("success") != null) { %>
-                        <p style="color: green; font-weight: bold;">
-                            <%= request.getAttribute("success") %>
+                    <c:if test="${not empty success}">
+                        <p class="success-message">
+                            ${success}
                         </p>
-                    <% } %>
+                    </c:if>
 
-                    <% if (request.getAttribute("error") != null) { %>
-                        <p style="color: red; font-weight: bold;">
-                            <%= request.getAttribute("error") %>
+                    <c:if test="${not empty error}">
+                        <p class="error-message">
+                            ${error}
                         </p>
-                    <% } %>
+                    </c:if>
 
                     <!-- FORM -->
                     <form class="card form-card"

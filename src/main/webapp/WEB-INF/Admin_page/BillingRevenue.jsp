@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!doctype html>
 <html lang="en">
@@ -83,42 +83,34 @@
                     </div>
                 </div>
 
-                <% if (request.getParameter("success") != null) { %>
-                    <p class="success-message" style="background: #dcfce7; color: #15803d; border-color: #bbf7d0; padding: 12px 18px; border-radius: 10px; font-weight: 600; margin-bottom: 20px;">Invoice generated and committed successfully.</p>
-                <% } %>
-
-                <%
-                    Map<String, Integer> stats = (Map<String, Integer>) request.getAttribute("stats");
-                    int totalRevenue = stats != null ? stats.getOrDefault("totalRevenue", 0) : 0;
-                    int monthlyRevenue = stats != null ? stats.getOrDefault("monthlyRevenue", 0) : 0;
-                    int outstandingBalance = stats != null ? stats.getOrDefault("outstandingBalance", 0) : 0;
-                    int paidInvoicesCount = stats != null ? stats.getOrDefault("paidInvoicesCount", 0) : 0;
-                %>
+                <c:if test="${not empty param.success}">
+                    <p class="success-message">Invoice generated and committed successfully.</p>
+                </c:if>
 
                 <!-- Stat Cards -->
                 <div class="stats-row">
 
                     <div class="stat card">
                         <span>Total Revenue</span>
-                        <b>NRP <%= String.format("%,d", totalRevenue) %></b>
+                        <b>NRP <fmt:formatNumber value="${empty stats.totalRevenue ? 0 : stats.totalRevenue}" type="number" /></b>
                         <small class="ok">Gross cash collections</small>
                     </div>
 
                     <div class="stat card">
                         <span>Monthly Revenue</span>
-                        <b>NRP <%= String.format("%,d", monthlyRevenue) %></b>
+                        <b>NRP <fmt:formatNumber value="${empty stats.monthlyRevenue ? 0 : stats.monthlyRevenue}" type="number" /></b>
                         <small class="ok">This calendar month</small>
                     </div>
 
                     <div class="stat card">
                         <span>Outstanding Balance</span>
-                        <b>NRP <%= String.format("%,d", outstandingBalance) %></b>
+                        <b>NRP <fmt:formatNumber value="${empty stats.outstandingBalance ? 0 : stats.outstandingBalance}" type="number" /></b>
                         <small class="bad">Pending dues</small>
                     </div>
 
                     <div class="stat card">
                         <span>Paid Invoices</span>
-                        <b><%= paidInvoicesCount %></b>
+                        <b>${empty stats.paidInvoicesCount ? 0 : stats.paidInvoicesCount}</b>
                         <small>Completed treatments</small>
                     </div>
 
@@ -147,45 +139,36 @@
                         </thead>
 
                         <tbody>
-                            <%
-                                ArrayList<String[]> transactions = (ArrayList<String[]>) request.getAttribute("transactions");
-                                if (transactions == null || transactions.isEmpty()) {
-                            %>
+                            <c:choose>
+                                <c:when test="${empty transactions}">
                                 <tr>
                                     <td colspan="6" style="text-align: center; color: #6b7280; padding: 40px; font-size: 15px;">
                                         No billing invoices found. Create appointments to generate clinical transactions dynamically!
                                     </td>
                                 </tr>
-                            <%
-                                } else {
-                                    int idx = 1;
-                                    for (String[] t : transactions) {
-                                        String pillColor = "gray";
-                                        if ("Paid".equalsIgnoreCase(t[5])) pillColor = "green";
-                                        else if ("Pending".equalsIgnoreCase(t[5])) pillColor = "yellow";
-                                        else if ("Overdue".equalsIgnoreCase(t[5])) pillColor = "red";
-                                        else if ("Void".equalsIgnoreCase(t[5])) pillColor = "gray";
-
-                                        String avatarClass = "a" + ((idx % 6) + 1);
-                                        idx++;
-                            %>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach var="t" items="${transactions}" varStatus="status">
                                 <tr>
-                                    <td><strong><%= t[0] %></strong></td>
+                                    <td><strong>${t[0]}</strong></td>
                                     <td>
                                         <div class="patient-cell" style="display: flex; align-items: center; gap: 10px;">
-                                            <span class="avatar mini <%= avatarClass %>"></span>
-                                            <strong><%= t[1] %></strong>
+                                            <span class="avatar mini a${(status.index mod 6) + 1}"></span>
+                                            <strong>${t[1]}</strong>
                                         </div>
                                     </td>
-                                    <td><%= t[2] %></td>
-                                    <td><%= t[3] %></td>
-                                    <td><strong><%= t[4] %></strong></td>
-                                    <td><span class="pill <%= pillColor %>"><%= t[5] %></span></td>
+                                    <td>${t[2]}</td>
+                                    <td>${t[3]}</td>
+                                    <td><strong>${t[4]}</strong></td>
+                                    <td>
+                                        <span class="pill ${t[5] == 'Paid' ? 'green' : t[5] == 'Pending' ? 'yellow' : t[5] == 'Overdue' ? 'red' : 'gray'}">
+                                            ${t[5]}
+                                        </span>
+                                    </td>
                                 </tr>
-                            <%
-                                    }
-                                }
-                            %>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
                         </tbody>
                     </table>
 

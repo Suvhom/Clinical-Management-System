@@ -355,3 +355,126 @@ td > strong {
         text-align: center;
     }
 }
+
+/* Search and button fixes */
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.new-appointment-btn,
+.new-appointment-btn:hover,
+.action-btn,
+.action-btn:hover {
+    text-decoration: none;
+}
+
+.filter-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.appointment-search-form {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: min(100%, 620px);
+}
+
+.appointment-search-form .filter-search {
+    flex: 1;
+}
+
+.filter-search {
+    width: 100%;
+    height: 44px;
+}
+
+.filter-search::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #64748b;
+    border-radius: 50%;
+}
+
+.filter-search::after {
+    content: "";
+    position: absolute;
+    left: 28px;
+    top: 28px;
+    width: 7px;
+    height: 2px;
+    background: #64748b;
+    transform: rotate(45deg);
+    transform-origin: left center;
+}
+
+.filter-search input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #111827;
+    font-size: 14px;
+}
+
+.filter-search input::placeholder {
+    color: #9ca3af;
+}
+
+.search-btn {
+    height: 44px;
+    min-width: 110px;
+    padding: 0 24px;
+}
+
+.action-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    border-radius: 6px;
+    color: #111827;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn:hover {
+    background: #f3f4f6;
+}
+
+@media (max-width: 1200px) {
+    .filter-card {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .appointment-search-form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 800px) {
+    .tabs {
+        width: 100%;
+    }
+
+    .appointment-search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-btn {
+        width: 100%;
+    }
+}

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.Map" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!doctype html>
 <html lang="en">
@@ -18,7 +19,6 @@
 
     <main class="layout">
 
-        <!-- Sidebar -->
         <div class="sidebar">
 
             <div class="brand">
@@ -41,10 +41,8 @@
 
         </div>
 
-        <!-- Main Page Area -->
         <section class="page">
 
-            <!-- Topbar -->
             <header class="topbar">
 
                 <h1>Admin Overview</h1>
@@ -62,57 +60,44 @@
                 </div>
             </header>
 
-            <!-- Page Content -->
             <div class="content">
 
-                <%
-                    Map<String, Integer> overviewCounts = (Map<String, Integer>) request.getAttribute("overviewCounts");
-                    int totalPatients = overviewCounts != null ? overviewCounts.getOrDefault("totalPatients", 0) : 0;
-                    int totalStaff = overviewCounts != null ? overviewCounts.getOrDefault("totalStaff", 0) : 0;
-                    int appointmentsToday = overviewCounts != null ? overviewCounts.getOrDefault("appointmentsToday", 0) : 0;
-                    int monthlyRevenue = overviewCounts != null ? overviewCounts.getOrDefault("monthlyRevenue", 0) : 0;
-                    int activeDoctors = overviewCounts != null ? overviewCounts.getOrDefault("activeDoctors", 0) : 0;
-                %>
-
-                <!-- Statistics Cards -->
                 <section class="stats-grid" style="grid-template-columns: repeat(5, 1fr) !important;">
 
                     <div class="card stat">
                         <span>Total Patients</span>
-                        <b><%= String.format("%,d", totalPatients) %></b>
+                        <b><fmt:formatNumber value="${empty overviewCounts.totalPatients ? 0 : overviewCounts.totalPatients}" type="number" /></b>
                         <small class="ok">Registered patients</small>
                     </div>
 
                     <div class="card stat">
                         <span>Total Staff</span>
-                        <b><%= totalStaff %></b>
+                        <b>${empty overviewCounts.totalStaff ? 0 : overviewCounts.totalStaff}</b>
                         <small>All staff members</small>
                     </div>
 
                     <div class="card stat">
                         <span>Active Staff</span>
-                        <b><%= activeDoctors %></b>
+                        <b>${empty overviewCounts.activeDoctors ? 0 : overviewCounts.activeDoctors}</b>
                         <small class="ok">Physiotherapists online</small>
                     </div>
 
                     <div class="card stat">
                         <span>Appointments Today</span>
-                        <b><%= appointmentsToday %></b>
+                        <b>${empty overviewCounts.appointmentsToday ? 0 : overviewCounts.appointmentsToday}</b>
                         <small>Active bookings</small>
                     </div>
 
                     <div class="card stat">
                         <span>Monthly Revenue</span>
-                        <b>NRP <%= String.format("%,d", monthlyRevenue) %></b>
+                        <b>NRP <fmt:formatNumber value="${empty overviewCounts.monthlyRevenue ? 0 : overviewCounts.monthlyRevenue}" type="number" /></b>
                         <small class="ok">Current month</small>
                     </div>
 
                 </section>
 
-                <!-- Dashboard Main Grid -->
                 <section class="dashboard-grid">
 
-                    <!-- Today's Appointments -->
                     <article class="card appointments">
 
                         <div class="card-head">
@@ -124,134 +109,87 @@
 
                         <table>
                             <tbody>
-                            <%
-                                java.util.ArrayList<String[]> todayAppts = (java.util.ArrayList<String[]>) request.getAttribute("todayAppointments");
-                                if (todayAppts == null || todayAppts.isEmpty()) {
-                            %>
-                                <tr>
-                                    <td colspan="5" style="text-align: center; color: #6b7280; padding: 30px;">
-                                        No appointments scheduled for today.
-                                    </td>
-                                </tr>
-                            <%
-                                } else {
-                                    int avatarIdx = 1;
-                                    for (String[] appt : todayAppts) {
-                                        String id = appt[0];
-                                        String patientName = appt[1];
-                                        String staffName = appt[2];
-                                        String time = appt[3];
-                                        String reason = appt[4];
-                                        String status = appt[5];
-
-                                        // Pick an avatar color dynamically
-                                        String avatarClass = "a" + avatarIdx;
-                                        avatarIdx = (avatarIdx % 6) + 1;
-
-                                        // Map status pill color
-                                        String pillClass = "yellow";
-                                        if ("Completed".equalsIgnoreCase(status) || "Confirmed".equalsIgnoreCase(status)) {
-                                            pillClass = "green";
-                                        } else if ("In Progress".equalsIgnoreCase(status) || "Rescheduled".equalsIgnoreCase(status)) {
-                                            pillClass = "orange";
-                                        } else if ("Cancelled".equalsIgnoreCase(status)) {
-                                            pillClass = "red";
-                                        }
-                            %>
-                                <tr>
-                                    <td><%= time %></td>
-                                    <td>
-                                        <b class="avatar mini <%= avatarClass %>"></b>
-                                        <%= patientName %>
-                                        <br>
-                                        <small>#PT-<%= id %></small>
-                                    </td>
-                                    <td><%= staffName %></td>
-                                    <td><%= reason %></td>
-                                    <td>
-                                        <span class="pill <%= pillClass %>"><%= status %></span>
-                                    </td>
-                                </tr>
-                            <%
-                                    }
-                                }
-                            %>
+                                <c:choose>
+                                    <c:when test="${empty todayAppointments}">
+                                        <tr>
+                                            <td colspan="5" style="text-align: center; color: #6b7280; padding: 30px;">
+                                                No appointments scheduled for today.
+                                            </td>
+                                        </tr>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="appt" items="${todayAppointments}" varStatus="status">
+                                            <tr>
+                                                <td>${appt[3]}</td>
+                                                <td>
+                                                    <b class="avatar mini a${(status.index mod 6) + 1}"></b>
+                                                    ${appt[1]}
+                                                    <br>
+                                                    <small>#PT-${appt[0]}</small>
+                                                </td>
+                                                <td>${appt[2]}</td>
+                                                <td>${appt[4]}</td>
+                                                <td>
+                                                    <span class="pill ${appt[5] == 'Completed' || appt[5] == 'Confirmed' ? 'green' : appt[5] == 'In Progress' || appt[5] == 'Rescheduled' ? 'orange' : appt[5] == 'Cancelled' ? 'red' : 'yellow'}">
+                                                        ${appt[5]}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </tbody>
                         </table>
 
                     </article>
 
-                    <!-- Right Side Column -->
                     <aside class="right-col">
 
-                        <!-- Available Staff -->
                         <article class="card">
                             <h2>Available Staff</h2>
                             <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 15px;">
-                            <%
-                                java.util.ArrayList<String[]> availStaff = (java.util.ArrayList<String[]>) request.getAttribute("availableStaff");
-                                if (availStaff == null || availStaff.isEmpty()) {
-                            %>
-                                <p style="color: #6b7280; font-size: 15px;">No active staff found.</p>
-                            <%
-                                } else {
-                                    int avatarIdx = 2;
-                                    for (String[] staff : availStaff) {
-                                        String name = staff[1];
-                                        String spec = staff[2];
-                                        String phone = staff[3];
-                                        String email = staff[4];
-                                        String availability = staff[5];
-
-                                        String avatarClass = "a" + avatarIdx;
-                                        avatarIdx = (avatarIdx % 6) + 1;
-
-                                        boolean isBusy = "Busy".equalsIgnoreCase(availability);
-                            %>
-                                <div style="display: flex; align-items: start; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9;">
-                                    <b class="avatar mini <%= avatarClass %>" style="margin-top: 4px;"></b>
-                                    <div style="flex-grow: 1;">
-                                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                                            <strong style="font-size: 16px; color: #1e293b;"><%= name %></strong>
-                                            <span class="dot <%= isBusy ? "busy" : "" %>" title="<%= availability %>"></span>
-                                        </div>
-                                        <div style="font-size: 14px; color: #64748b; margin-top: 3px;"><%= spec %></div>
-                                        <div style="font-size: 13px; color: #94a3b8; margin-top: 4px; display: flex; flex-direction: column; gap: 2px;">
-                                            <span>📞 <%= phone %></span>
-                                            <span>✉️ <%= email %></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            <%
-                                    }
-                                }
-                            %>
+                                <c:choose>
+                                    <c:when test="${empty availableStaff}">
+                                        <p style="color: #6b7280; font-size: 15px;">No active staff found.</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="staff" items="${availableStaff}" varStatus="status">
+                                            <div style="display: flex; align-items: start; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9;">
+                                                <b class="avatar mini a${((status.index + 1) mod 6) + 1}" style="margin-top: 4px;"></b>
+                                                <div style="flex-grow: 1;">
+                                                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                                                        <strong style="font-size: 16px; color: #1e293b;">${staff[1]}</strong>
+                                                        <span class="dot ${staff[5] == 'Busy' ? 'busy' : ''}" title="${staff[5]}"></span>
+                                                    </div>
+                                                    <div style="font-size: 14px; color: #64748b; margin-top: 3px;">${staff[2]}</div>
+                                                    <div style="font-size: 13px; color: #94a3b8; margin-top: 4px; display: flex; flex-direction: column; gap: 2px;">
+                                                        <span>Phone: ${staff[3]}</span>
+                                                        <span>Email: ${staff[4]}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </article>
 
-                        <!-- Recent Activity -->
                         <article class="card activity">
                             <h2>Recent Activity</h2>
                             <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 15px;">
-                            <%
-                                java.util.ArrayList<String[]> recentActs = (java.util.ArrayList<String[]>) request.getAttribute("recentActivities");
-                                if (recentActs == null || recentActs.isEmpty()) {
-                            %>
-                                <p style="color: #6b7280; font-size: 15px;">No recent activities logged.</p>
-                            <%
-                                } else {
-                                    for (String[] act : recentActs) {
-                                        String message = act[0];
-                                        String timeDiff = act[1];
-                            %>
-                                <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 12px; border-bottom: 1px dotted #f1f5f9;">
-                                    <span style="font-size: 15px; color: #334155; line-height: 1.4;"><%= message %></span>
-                                    <small style="color: #94a3b8; font-size: 13px;"><%= timeDiff %></small>
-                                </div>
-                            <%
-                                    }
-                                }
-                            %>
+                                <c:choose>
+                                    <c:when test="${empty recentActivities}">
+                                        <p style="color: #6b7280; font-size: 15px;">No recent activities logged.</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="act" items="${recentActivities}">
+                                            <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 12px; border-bottom: 1px dotted #f1f5f9;">
+                                                <span style="font-size: 15px; color: #334155; line-height: 1.4;">${act[0]}</span>
+                                                <small style="color: #94a3b8; font-size: 13px;">${act[1]}</small>
+                                            </div>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </article>
 
@@ -264,8 +202,6 @@
         </section>
 
     </main>
-
-
 
 </body>
 

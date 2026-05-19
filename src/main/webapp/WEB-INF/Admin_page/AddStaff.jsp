@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -72,12 +73,11 @@
                     <p>Add Staff Member</p>
                 </div>
 
-                <!-- Error Messages -->
-                <% if (request.getAttribute("errorMessage") != null) { %>
-                    <p class="error-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #b91c1c;">
-                        <%= request.getAttribute("errorMessage") %>
+                <c:if test="${not empty errorMessage}">
+                    <p class="error-message">
+                        ${errorMessage}
                     </p>
-                <% } %>
+                </c:if>
 
                 <!-- Form Card -->
                 <div class="form-card">

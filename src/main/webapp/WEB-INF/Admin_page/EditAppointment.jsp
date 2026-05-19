@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.model.AddPatientModel" %>
-<%@ page import="com.model.AppointmentModel" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -68,10 +66,6 @@
             <!-- Content -->
             <div class="content">
 
-                <%
-                    AppointmentModel appt = (AppointmentModel) request.getAttribute("appointment");
-                %>
-
                 <!-- Breadcrumb -->
                 <div class="breadcrumb">
                     <a href="${pageContext.request.contextPath}/admin/appointments">Appointments Directory</a>
@@ -79,19 +73,18 @@
                     <p>Reschedule / Edit Appointment</p>
                 </div>
 
-                <!-- Error Messages -->
-                <% if (request.getAttribute("errorMessage") != null) { %>
-                    <p class="error-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #b91c1c;">
-                        <%= request.getAttribute("errorMessage") %>
+                <c:if test="${not empty errorMessage}">
+                    <p class="error-message">
+                        ${errorMessage}
                     </p>
-                <% } %>
+                </c:if>
 
                 <!-- Form Card -->
                 <div class="form-card">
 
                     <form action="${pageContext.request.contextPath}/admin/update-appointment" method="post">
 
-                        <input type="hidden" name="appointmentId" value="<%= appt.getAppointmentId() %>">
+                        <input type="hidden" name="appointmentId" value="${appointment.appointmentId}">
 
                         <section class="form-section">
 
@@ -102,38 +95,22 @@
                                 <div class="input-group">
                                     <label for="patientId">Select Patient</label>
                                     <select id="patientId" name="patientId" required>
-                                        <%
-                                            ArrayList<AddPatientModel> patients = (ArrayList<AddPatientModel>) request.getAttribute("patientsList");
-                                            if (patients != null) {
-                                                for (AddPatientModel patient : patients) {
-                                                    boolean isSel = (patient.getPatientId() == appt.getPatientId());
-                                        %>
-                                            <option value="<%= patient.getPatientId() %>" <%= isSel ? "selected" : "" %>>
-                                                <%= patient.getPatientName() %> (#PT-<%= patient.getPatientId() %>)
+                                        <c:forEach var="patient" items="${patientsList}">
+                                            <option value="${patient.patientId}" ${patient.patientId == appointment.patientId ? 'selected' : ''}>
+                                                ${patient.patientName} (#PT-${patient.patientId})
                                             </option>
-                                        <%
-                                                }
-                                            }
-                                        %>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="staffId">Assigned Physiotherapist / Staff</label>
                                     <select id="staffId" name="staffId" required>
-                                        <%
-                                            ArrayList<String[]> staffList = (ArrayList<String[]>) request.getAttribute("staffList");
-                                            if (staffList != null) {
-                                                for (String[] staff : staffList) {
-                                                    boolean isSel = (Integer.parseInt(staff[0]) == appt.getStaffId());
-                                        %>
-                                            <option value="<%= staff[0] %>" <%= isSel ? "selected" : "" %>>
-                                                <%= staff[1] %> (#<%= staff[0] %>)
+                                        <c:forEach var="staff" items="${staffList}">
+                                            <option value="${staff[0]}" ${staff[0] == appointment.staffId ? 'selected' : ''}>
+                                                ${staff[1]} (#${staff[0]})
                                             </option>
-                                        <%
-                                                }
-                                            }
-                                        %>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
@@ -143,47 +120,40 @@
                                         type="date"
                                         id="appointmentDate"
                                         name="appointmentDate"
-                                        value="<%= appt.getAppointmentDate() %>"
+                                        value="${appointment.appointmentDate}"
                                         required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="appointmentTime">Preferred Time Slot</label>
-                                    <%
-                                        // Format java.sql.Time (HH:MM:SS) to standard HTML time input (HH:MM)
-                                        String timeStr = appt.getAppointmentTime().toString();
-                                        if (timeStr.length() > 5) {
-                                            timeStr = timeStr.substring(0, 5);
-                                        }
-                                    %>
                                     <input
                                         type="time"
                                         id="appointmentTime"
                                         name="appointmentTime"
-                                        value="<%= timeStr %>"
+                                        value="${appointment.appointmentTime}"
                                         required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="reason">Treatment / Visit Reason</label>
                                     <select id="reason" name="reason" required>
-                                        <option value="General Physiotherapy" <%= "General Physiotherapy".equals(appt.getReason()) ? "selected" : "" %>>General Physiotherapy</option>
-                                        <option value="Sports Injury Rehab" <%= "Sports Injury Rehab".equals(appt.getReason()) ? "selected" : "" %>>Sports Injury Rehab</option>
-                                        <option value="Back and Neck Pain" <%= "Back and Neck Pain".equals(appt.getReason()) ? "selected" : "" %>>Back and Neck Pain</option>
-                                        <option value="Post-Surgical Rehab" <%= "Post-Surgical Rehab".equals(appt.getReason()) ? "selected" : "" %>>Post-Surgical Rehab</option>
-                                        <option value="Manual Therapy" <%= "Manual Therapy".equals(appt.getReason()) ? "selected" : "" %>>Manual Therapy</option>
-                                        <option value="Neurological Rehab" <%= "Neurological Rehab".equals(appt.getReason()) ? "selected" : "" %>>Neurological Rehab</option>
+                                        <option value="General Physiotherapy" ${appointment.reason == 'General Physiotherapy' ? 'selected' : ''}>General Physiotherapy</option>
+                                        <option value="Sports Injury Rehab" ${appointment.reason == 'Sports Injury Rehab' ? 'selected' : ''}>Sports Injury Rehab</option>
+                                        <option value="Back and Neck Pain" ${appointment.reason == 'Back and Neck Pain' ? 'selected' : ''}>Back and Neck Pain</option>
+                                        <option value="Post-Surgical Rehab" ${appointment.reason == 'Post-Surgical Rehab' ? 'selected' : ''}>Post-Surgical Rehab</option>
+                                        <option value="Manual Therapy" ${appointment.reason == 'Manual Therapy' ? 'selected' : ''}>Manual Therapy</option>
+                                        <option value="Neurological Rehab" ${appointment.reason == 'Neurological Rehab' ? 'selected' : ''}>Neurological Rehab</option>
                                     </select>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="status">Appointment Status</label>
                                     <select id="status" name="status" required>
-                                        <option value="Pending" <%= "Pending".equalsIgnoreCase(appt.getStatus()) ? "selected" : "" %>>Pending</option>
-                                        <option value="Confirmed" <%= "Confirmed".equalsIgnoreCase(appt.getStatus()) ? "selected" : "" %>>Confirmed</option>
-                                        <option value="Completed" <%= "Completed".equalsIgnoreCase(appt.getStatus()) ? "selected" : "" %>>Completed</option>
-                                        <option value="Cancelled" <%= "Cancelled".equalsIgnoreCase(appt.getStatus()) ? "selected" : "" %>>Cancelled</option>
-                                        <option value="Rescheduled" <%= "Rescheduled".equalsIgnoreCase(appt.getStatus()) ? "selected" : "" %>>Rescheduled</option>
+                                        <option value="Pending" ${appointment.status == 'Pending' ? 'selected' : ''}>Pending</option>
+                                        <option value="Confirmed" ${appointment.status == 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                                        <option value="Completed" ${appointment.status == 'Completed' ? 'selected' : ''}>Completed</option>
+                                        <option value="Cancelled" ${appointment.status == 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                                        <option value="Rescheduled" ${appointment.status == 'Rescheduled' ? 'selected' : ''}>Rescheduled</option>
                                     </select>
                                 </div>
 

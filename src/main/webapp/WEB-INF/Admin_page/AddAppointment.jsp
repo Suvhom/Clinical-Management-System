@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.model.AddPatientModel" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -74,12 +73,11 @@
                     <p>Schedule Appointment</p>
                 </div>
 
-                <!-- Error Messages -->
-                <% if (request.getAttribute("errorMessage") != null) { %>
-                    <p class="error-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #b91c1c;">
-                        <%= request.getAttribute("errorMessage") %>
+                <c:if test="${not empty errorMessage}">
+                    <p class="error-message">
+                        ${errorMessage}
                     </p>
-                <% } %>
+                </c:if>
 
                 <!-- Form Card -->
                 <div class="form-card">
@@ -96,20 +94,11 @@
                                     <label for="patientId">Select Patient</label>
                                     <select id="patientId" name="patientId" required>
                                         <option value="">Choose patient...</option>
-                                        <%
-                                            ArrayList<AddPatientModel> patients = (ArrayList<AddPatientModel>) request.getAttribute("patientsList");
-                                            Integer selectedPatientId = (Integer) request.getAttribute("selectedPatientId");
-                                            if (patients != null) {
-                                                for (AddPatientModel patient : patients) {
-                                                    boolean isSel = selectedPatientId != null && selectedPatientId == patient.getPatientId();
-                                        %>
-                                            <option value="<%= patient.getPatientId() %>" <%= isSel ? "selected" : "" %>>
-                                                <%= patient.getPatientName() %> (#PT-<%= patient.getPatientId() %>)
+                                        <c:forEach var="patient" items="${patientsList}">
+                                            <option value="${patient.patientId}" ${selectedPatientId == patient.patientId ? 'selected' : ''}>
+                                                ${patient.patientName} (#PT-${patient.patientId})
                                             </option>
-                                        <%
-                                                }
-                                            }
-                                        %>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
@@ -117,20 +106,11 @@
                                     <label for="staffId">Assigned Physiotherapist / Staff</label>
                                     <select id="staffId" name="staffId" required>
                                         <option value="">Choose staff...</option>
-                                        <%
-                                            ArrayList<String[]> staffList = (ArrayList<String[]>) request.getAttribute("staffList");
-                                            String enteredStaffId = (String) request.getAttribute("enteredStaffId");
-                                            if (staffList != null) {
-                                                for (String[] staff : staffList) {
-                                                    boolean isSel = enteredStaffId != null && enteredStaffId.equals(staff[0]);
-                                        %>
-                                            <option value="<%= staff[0] %>" <%= isSel ? "selected" : "" %>>
-                                                <%= staff[1] %> (#<%= staff[0] %>)
+                                        <c:forEach var="staff" items="${staffList}">
+                                            <option value="${staff[0]}" ${enteredStaffId == staff[0] ? 'selected' : ''}>
+                                                ${staff[1]} (#${staff[0]})
                                             </option>
-                                        <%
-                                                }
-                                            }
-                                        %>
+                                        </c:forEach>
                                     </select>
                                 </div>
 
@@ -140,7 +120,7 @@
                                         type="date"
                                         id="appointmentDate"
                                         name="appointmentDate"
-                                        value="<%= request.getAttribute("enteredDate") != null ? request.getAttribute("enteredDate") : "" %>"
+                                        value="${empty enteredDate ? '' : enteredDate}"
                                         required>
                                 </div>
 
@@ -150,23 +130,20 @@
                                         type="time"
                                         id="appointmentTime"
                                         name="appointmentTime"
-                                        value="<%= request.getAttribute("enteredTime") != null ? request.getAttribute("enteredTime") : "" %>"
+                                        value="${empty enteredTime ? '' : enteredTime}"
                                         required>
                                 </div>
 
                                 <div class="input-group full">
                                     <label for="reason">Treatment / Visit Reason</label>
-                                    <%
-                                        String enteredReason = (String) request.getAttribute("enteredReason");
-                                    %>
                                     <select id="reason" name="reason" required>
                                         <option value="">Select Treatment Reason</option>
-                                        <option value="General Physiotherapy" <%= "General Physiotherapy".equals(enteredReason) ? "selected" : "" %>>General Physiotherapy</option>
-                                        <option value="Sports Injury Rehab" <%= "Sports Injury Rehab".equals(enteredReason) ? "selected" : "" %>>Sports Injury Rehab</option>
-                                        <option value="Back and Neck Pain" <%= "Back and Neck Pain".equals(enteredReason) ? "selected" : "" %>>Back and Neck Pain</option>
-                                        <option value="Post-Surgical Rehab" <%= "Post-Surgical Rehab".equals(enteredReason) ? "selected" : "" %>>Post-Surgical Rehab</option>
-                                        <option value="Manual Therapy" <%= "Manual Therapy".equals(enteredReason) ? "selected" : "" %>>Manual Therapy</option>
-                                        <option value="Neurological Rehab" <%= "Neurological Rehab".equals(enteredReason) ? "selected" : "" %>>Neurological Rehab</option>
+                                        <option value="General Physiotherapy" ${enteredReason == 'General Physiotherapy' ? 'selected' : ''}>General Physiotherapy</option>
+                                        <option value="Sports Injury Rehab" ${enteredReason == 'Sports Injury Rehab' ? 'selected' : ''}>Sports Injury Rehab</option>
+                                        <option value="Back and Neck Pain" ${enteredReason == 'Back and Neck Pain' ? 'selected' : ''}>Back and Neck Pain</option>
+                                        <option value="Post-Surgical Rehab" ${enteredReason == 'Post-Surgical Rehab' ? 'selected' : ''}>Post-Surgical Rehab</option>
+                                        <option value="Manual Therapy" ${enteredReason == 'Manual Therapy' ? 'selected' : ''}>Manual Therapy</option>
+                                        <option value="Neurological Rehab" ${enteredReason == 'Neurological Rehab' ? 'selected' : ''}>Neurological Rehab</option>
                                     </select>
                                 </div>
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,12 +53,11 @@
                     </button>
                 </div>
 
-                <!-- Error Message -->
-                <% if (request.getAttribute("errorMessage") != null) { %>
+                <c:if test="${not empty errorMessage}">
                     <p class="alert error">
-                        <%= request.getAttribute("errorMessage") %>
+                        ${errorMessage}
                     </p>
-                <% } %>
+                </c:if>
 
                 <!-- Login Form -->
                 <form id="loginForm" action="${pageContext.request.contextPath}/login" method="post">

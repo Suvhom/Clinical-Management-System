@@ -131,18 +131,15 @@
                                         <select id="gender" name="gender">
                                             <option value="">Select gender</option>
 
-                                            <option value="Male"
-                                                <c:if test="${patient.gender == 'Male'}">selected</c:if>>
+                                            <option value="Male" ${patient.gender == 'Male' ? 'selected' : ''}>
                                                 Male
                                             </option>
 
-                                            <option value="Female"
-                                                <c:if test="${patient.gender == 'Female'}">selected</c:if>>
+                                            <option value="Female" ${patient.gender == 'Female' ? 'selected' : ''}>
                                                 Female
                                             </option>
 
-                                            <option value="Other"
-                                                <c:if test="${patient.gender == 'Other'}">selected</c:if>>
+                                            <option value="Other" ${patient.gender == 'Other' ? 'selected' : ''}>
                                                 Other
                                             </option>
                                         </select>

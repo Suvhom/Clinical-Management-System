@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!doctype html>
 <html lang="en">
@@ -67,11 +67,11 @@
                     <p style="margin:0; font-weight: 600; color: #111827;">Create Invoice</p>
                 </div>
 
-                <% if (request.getAttribute("errorMessage") != null) { %>
-                    <p class="error-message" style="background: #fee2e2; color: #b91c1c; padding: 12px 18px; border-radius: 8px; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #b91c1c;">
-                        <%= request.getAttribute("errorMessage") %>
+                <c:if test="${not empty errorMessage}">
+                    <p class="error-message">
+                        ${errorMessage}
                     </p>
-                <% } %>
+                </c:if>
 
                 <div class="form-card" style="background: #ffffff; border-radius: 20px; padding: 28px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);">
 
@@ -87,18 +87,11 @@
                                     <label for="appointmentId" style="font-weight: 600; color: #374151;">Appointment ID</label>
                                     <select id="appointmentId" name="appointmentId" required style="height: 48px; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 12px; outline: none; background: #ffffff;">
                                         <option value="">Choose appointment...</option>
-                                        <%
-                                            ArrayList<String[]> appointments = (ArrayList<String[]>) request.getAttribute("appointmentsList");
-                                            if (appointments != null) {
-                                                for (String[] appointment : appointments) {
-                                        %>
-                                            <option value="<%= appointment[0] %>" data-patient-id="<%= appointment[1] %>">
-                                                #<%= appointment[0] %> - <%= appointment[2] %> (<%= appointment[3] %>, <%= appointment[4] %>)
+                                        <c:forEach var="appointment" items="${appointmentsList}">
+                                            <option value="${appointment[0]}" data-patient-id="${appointment[1]}">
+                                                #${appointment[0]} - ${appointment[2]} (${appointment[3]}, ${appointment[4]})
                                             </option>
-                                        <%
-                                                }
-                                            }
-                                        %>
+                                        </c:forEach>
                                     </select>
                                 </div>
 

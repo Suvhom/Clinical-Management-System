@@ -420,6 +420,21 @@ dd { margin: 6px 0 0; font-weight: 800; }
   border-radius: 6px;
   font-weight: 900;
 }
+.success-message,
+.error-message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+.success-message {
+  background: #dcfce7;
+  color: #15803d;
+}
+.error-message {
+  background: #fee2e2;
+  color: #b91c1c;
+}
 .event small { float: right; }
 .prescribe {
   text-align: center;
