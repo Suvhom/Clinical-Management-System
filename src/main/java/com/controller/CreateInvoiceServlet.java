@@ -8,6 +8,7 @@ import com.dao.AddPatientDao;
 import com.dao.AppointmentDao;
 import com.model.AddPatientModel;
 import com.model.AppointmentModel;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

@@ -1,4 +1,5 @@
 package com.controller;
+import com.model.PatientModel;
 import com.service.PatientService;
 
 import jakarta.servlet.ServletException;
@@ -9,8 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Base64;
 
-
-import com.model.PatientModel;
 import com.service.PatientService;
 
 /**
