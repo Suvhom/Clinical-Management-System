@@ -1,0 +1,295 @@
+@charset "UTF-8";
+
+/* Content Area */
+.content {
+    width: 100%;
+    padding: 38px 40px;
+}
+
+/* Statistics Grid */
+.stats-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 28px;
+    margin-bottom: 30px;
+}
+
+/* Cards */
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.stat {
+    min-height: 170px;
+}
+
+.stat span {
+    color: #5f6b7a;
+    font-size: 16px;
+}
+
+.stat b {
+    display: block;
+    font-size: 34px;
+    letter-spacing: 4px;
+    margin: 18px 0;
+    color: #111827;
+}
+
+.stat small {
+    color: #5f6b7a;
+    font-size: 15px;
+}
+
+.stat small.ok {
+    color: #008236;
+}
+
+/* Dashboard Main Grid */
+.dashboard-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(330px, 1fr);
+    gap: 30px;
+    align-items: start;
+}
+
+/* Appointments Card */
+.appointments {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+}
+
+.card-head h2,
+.card h2 {
+    font-size: 24px;
+    color: #111827;
+}
+
+.card-head button,
+.card-head a {
+    border: none;
+    background: #2563eb;
+    color: #ffffff;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.card-head button:hover,
+.card-head a:hover {
+    background: #1d4ed8;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 19px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 16px;
+    vertical-align: middle;
+    color: #111827;
+}
+
+td small {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status Pills */
+.pill {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.pill.green {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.pill.orange {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.pill.yellow {
+    background: #fef9c3;
+    color: #a16207;
+}
+
+.pill.red {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Right Column */
+.right-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.right-col p {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.activity p {
+    display: block;
+    line-height: 1.6;
+}
+
+.activity small {
+    display: block;
+    color: #8b95a1;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* Avatars */
+.avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #bfdbfe;
+    flex-shrink: 0;
+}
+
+.avatar.mini {
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+.a1 {
+    background: #fecaca;
+}
+
+.a2 {
+    background: #bfdbfe;
+}
+
+.a3 {
+    background: #bbf7d0;
+}
+
+.a4 {
+    background: #fde68a;
+}
+
+.a5 {
+    background: #ddd6fe;
+}
+
+.a6 {
+    background: #fed7aa;
+}
+
+/* Staff Status Dot */
+.dot {
+    margin-left: auto;
+    width: 11px;
+    height: 11px;
+    background: #22c55e;
+    border-radius: 50%;
+}
+
+.dot.busy {
+    background: #f97316;
+}
+
+/* Responsive Dashboard Content */
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .content {
+        padding: 22px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    table {
+        min-width: 700px;
+    }
+}
+
+/* Analytics Grid & Charts styling */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.chart-card,
+.chart-card-sm {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-card h3,
+.chart-card-sm h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 18px;
+}
+
+.chart-container {
+    position: relative;
+    height: 280px;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
