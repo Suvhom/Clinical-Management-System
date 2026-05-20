@@ -63,7 +63,7 @@ public class LoginFilter implements Filter {
             }
         }
 
-        // There is no session, no valid cookie. So, redirect to login
+        // If there is no session and no valid cookie, it redirects to login page
         httpResp.sendRedirect(httpReq.getContextPath() + "/login");
     }
 

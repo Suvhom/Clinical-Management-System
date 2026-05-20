@@ -7,7 +7,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import com.model.PatientModel;
 
-@WebServlet("/UpdateProfile")
+@WebServlet(urlPatterns = "/UpdateProfile", asyncSupported = true)
 @MultipartConfig
 public class UpdateServlet extends HttpServlet {
 

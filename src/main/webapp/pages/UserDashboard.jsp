@@ -20,11 +20,9 @@
                     <a class="nav" href="${pageContext.request.contextPath}/BookAppointment"><span>BK</span>Book Appointment</a>
                     <a class="nav" href="${pageContext.request.contextPath}/AppointmentHistory"><span>AH</span>Appointment History</a>
                     <a class="nav" href="${pageContext.request.contextPath}/ExercisePlans"><span>EX</span>Exercise Plans</a>
-                    <a class="nav" href="${pageContext.request.contextPath}/MedicalRecords"><span>MR</span>Medical Records</a>
                     <a class="nav" href="${pageContext.request.contextPath}/Billing"><span>BL</span>Billing</a>
                 </nav>
                 <div class="side-bottom">
-                    <a href="${pageContext.request.contextPath}/UpdateProfile">Settings</a>
                     <a href="${pageContext.request.contextPath}/logout">Log out</a>
                 </div>
             </aside>
@@ -59,18 +57,8 @@
                                 <h3>Knee Rehabilitation Session (Phase 2)</h3>
                                 <p>10:00 AM - 10:45 AM</p>
                             </div>
-                            <p>Dr. Emily Chen</p>
+                            <p>Dr. Asim Bhusal</p>
                             <p>Main Clinic, Room 3B</p>
-
-                            <form action="${pageContext.request.contextPath}/BookAppointment" method="post">
-                                <input type="hidden" name="action" value="reschedule">
-                                <button type="submit">Reschedule</button>
-                            </form>
-
-                            <form action="${pageContext.request.contextPath}/AppointmentHistory" method="post">
-                                <input type="hidden" name="action" value="checkin">
-                                <button type="submit" class="primary">Check In</button>
-                            </form>
                         </div>
                     </article>
 
@@ -78,12 +66,6 @@
                         <h2>Quick Actions</h2>
                         <form action="${pageContext.request.contextPath}/BookAppointment" method="get">
                             <button type="submit">Book New Appointment</button>
-                        </form>
-                        <form action="${pageContext.request.contextPath}/MessageTherapist" method="get">
-                            <button type="submit">Message Therapist</button>
-                        </form>
-                        <form action="${pageContext.request.contextPath}/MedicalRecords" method="get">
-                            <button type="submit">View Latest Report</button>
                         </form>
                     </article>
 
@@ -108,7 +90,6 @@
                         <div class="milestone">Achieve 90 Knee Flexion <small>Target: Next week</small></div>
                         <div class="milestone">Walk 1 mile unassisted  <small>Target: Dec 1st</small></div>
                     </article>
-
                 </div>
             </div>
         </section>

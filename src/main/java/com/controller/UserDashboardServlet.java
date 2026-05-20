@@ -8,7 +8,7 @@ import java.util.Calendar;
 import com.model.PatientModel;
 import com.dao.PatientDao;
 
-@WebServlet("/UserDashboard")
+@WebServlet(urlPatterns = "/UserDashboard", asyncSupported = true)
 public class UserDashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -37,14 +37,14 @@ public class UserDashboardServlet extends HttpServlet {
                 return;
             }
 
-            // Build greeting based on time
+            // Building greeting based on time
             Calendar cal = Calendar.getInstance();
             int hour = cal.get(Calendar.HOUR_OF_DAY);
             String greeting = hour < 12 ? "Good morning"
                             : hour < 17 ? "Good afternoon"
                             : "Good evening";
 
-            // Build avatar HTML in servlet 
+            // Using avatar HTML in servlet 
             String imgTag;
             String rawImage = freshPatient.getImage();
             if (rawImage != null && !rawImage.isEmpty()) {

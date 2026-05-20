@@ -6,7 +6,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import com.utils.CookieUtil;   
 
-@WebServlet("/logout")
+@WebServlet(urlPatterns = "/logout", asyncSupported = true)
 public class LogoutServlet extends HttpServlet {
 
     @Override
@@ -21,6 +21,6 @@ public class LogoutServlet extends HttpServlet {
 
         CookieUtil.deleteCookie(response, "username");
 
-        response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 }

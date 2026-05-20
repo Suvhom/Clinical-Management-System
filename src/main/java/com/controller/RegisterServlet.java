@@ -12,7 +12,7 @@ import java.util.Base64;
 import com.dao.PatientDao;
 import com.utils.PasswordUtil;
 
-@WebServlet("/register")
+@WebServlet(urlPatterns = "/register", asyncSupported = true)
 @MultipartConfig
 public class RegisterServlet extends HttpServlet {
 
@@ -105,11 +105,9 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
-    // Attach error message and stay on the register page
-    private void forwardWithError(HttpServletRequest request,
-                                  HttpServletResponse response,
-                                  String message)
-            throws ServletException, IOException {
+    // Attaching error message and stay on the register page
+    private void forwardWithError(HttpServletRequest request, HttpServletResponse response, String message) 
+    		throws ServletException, IOException {
         request.setAttribute("errorMessage", message);
         request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
     }

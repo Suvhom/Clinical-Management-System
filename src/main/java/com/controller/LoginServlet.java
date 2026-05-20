@@ -9,7 +9,7 @@ import com.dao.PatientDao;
 import com.utils.PasswordUtil;
 import com.utils.CookieUtil;  
 
-@WebServlet("/login")
+@WebServlet(urlPatterns = "/login", asyncSupported = true)
 public class LoginServlet extends HttpServlet {
 
     @Override

@@ -12,7 +12,7 @@ import com.model.PatientModel;
 import com.service.PatientService;
 
 
-@WebServlet("/ImageServlet")
+@WebServlet(urlPatterns = "/ImageServlet", asyncSupported = true)
 public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	   private PatientService service = new PatientService();
