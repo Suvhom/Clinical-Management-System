@@ -1,0 +1,134 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+
+
+/* About Page Hero Section */
+.hero {
+  padding: 4rem 1.5rem 3rem;
+  text-align: center;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e4;
+}
+
+.hero-badge {
+  font-size: 11px;
+  background: #e6f1fb;
+  color: #185fa5;
+  padding: 5px 16px;
+  border-radius: 999px;
+  margin-bottom: 1.2rem;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Team Section */
+.team-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+}
+
+.team-card {
+  background: #fff;
+  border: 1px solid #e8e8e4;
+  border-radius: 14px;
+  width: 220px;
+  transition: transform 0.2s;
+}
+
+.team-card:hover {
+  transform: translateY(-3px);
+}
+
+.card-avatar {
+  height: 170px;
+  background: #f1f5fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.card-role {
+  font-size: 12px;
+  color: #185fa5;
+}
+
+.card-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 10px 0;
+  color: #555;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  font-size: 11px;
+  background: #f1f5fb;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.btn-book {
+  color: #0B79D2;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .team-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero h1 {
+    font-size: 26px;
+  }
+
+  .cta {
+    padding: 50px 0;
+  }
+}

@@ -1,0 +1,84 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f4f7fb;
+  color: #111;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.cta {
+  background-color: #1683e2;
+  padding: 70px 0;
+  text-align: center;
+  color: white;
+}
+
+.cta-wrapper h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.cta-wrapper p {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #eaf4ff;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.cta-btn-primary,
+.cta-btn-secondary {
+  text-decoration: none;
+  padding: 12px 24px;
+  font-size: 14px;
+  border-radius: 3px;
+  width: 250px;
+}
+
+.cta-btn-primary {
+  background-color: white;
+  color: #1683e2;
+  font-weight: 600;
+}
+
+.cta-btn-secondary {
+  border: 1px solid #8fc4f5;
+  color: white;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
