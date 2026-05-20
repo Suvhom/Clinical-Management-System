@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/UpdateProfile.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/UpdateProfile.css">
 </head>
 <body>
 
@@ -17,9 +17,9 @@
     ${successMsg}
     ${errorMsg}
 
-    <!-- Update Profile Picture Form -->
+    
     <p class="section-title">Update Profile Picture</p>
-    <form action="<%= request.getContextPath() %>/UpdateProfile" method="POST" enctype="multipart/form-data">
+    <form action="${pageContext.request.contextPath}/UpdateProfile" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="type" value="image">
         <div class="input-group">
             <label for="image">Choose new image</label>
@@ -28,9 +28,9 @@
         <button type="submit" class="submit-btn">Update Picture</button>
     </form>
 
-    <!-- Update Password Form -->
+
     <p class="section-title">Update Password</p>
-    <form action="<%= request.getContextPath() %>/UpdateProfile" method="POST">
+    <form action="${pageContext.request.contextPath}/UpdateProfile" method="POST">
         <input type="hidden" name="type" value="password">
         <div class="input-group">
             <label for="currentPassword">Current Password</label>
@@ -50,8 +50,8 @@
         <button type="submit" class="submit-btn">Update Password</button>
     </form>
 
-    <!-- Logout -->
-    <a href="<%= request.getContextPath() %>/logout" class="logout-btn">Logout</a>
+ 
+    <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Logout</a>
 
 </div>
 
