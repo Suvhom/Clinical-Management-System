@@ -38,7 +38,12 @@ public class AddAdminServlet extends HttpServlet {
 
         if (isEmpty(username) || isEmpty(password) || isEmpty(fullName)
                 || isEmpty(email) || isEmpty(phone) || isEmpty(address)) {
-            response.sendRedirect(request.getContextPath() + "/admin/add-admin?error=1");
+            forwardWithError(request, response, "Please fill all admin form fields.");
+            return;
+        }
+
+        if (adminDao.usernameExists(username.trim())) {
+            forwardWithError(request, response, "This username already exists. Please choose another username.");
             return;
         }
 
@@ -55,8 +60,23 @@ public class AddAdminServlet extends HttpServlet {
         if (success) {
             response.sendRedirect(request.getContextPath() + "/admin/admins?success=1");
         } else {
-            response.sendRedirect(request.getContextPath() + "/admin/add-admin?error=1");
+            String detail = adminDao.getLastErrorMessage();
+            String message = detail == null || detail.trim().isEmpty()
+                    ? "Admin could not be saved. Please check the form and database table."
+                    : "Admin could not be saved: " + detail;
+            forwardWithError(request, response, message);
         }
+    }
+
+    private void forwardWithError(HttpServletRequest request, HttpServletResponse response, String message)
+            throws ServletException, IOException {
+        request.setAttribute("errorMessage", message);
+        request.setAttribute("usernameValue", request.getParameter("username"));
+        request.setAttribute("fullNameValue", request.getParameter("fullName"));
+        request.setAttribute("emailValue", request.getParameter("email"));
+        request.setAttribute("phoneValue", request.getParameter("phone"));
+        request.setAttribute("addressValue", request.getParameter("address"));
+        request.getRequestDispatcher("/WEB-INF/Admin_page/AddAdmin.jsp").forward(request, response);
     }
 
     private boolean isEmpty(String value) {

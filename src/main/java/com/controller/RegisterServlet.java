@@ -28,13 +28,13 @@ public class RegisterServlet extends HttpServlet {
 
         // Collect all form values
         String fullName        = request.getParameter("fullName");
-        String email           = request.getParameter("email");
+        String email           = request.getParameter("patientEmail");
         String phone           = request.getParameter("phone");
         String gender          = request.getParameter("gender");
         String address         = request.getParameter("address");
         String dateOfBirth     = request.getParameter("dateOfBirth");
-        String password        = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String password        = request.getParameter("newPatientPassword");
+        String confirmPassword = request.getParameter("confirmPatientPassword");
 
         // Create DAO here at the top so it's available everywhere
         PatientDao dao = new PatientDao();
@@ -53,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
 
         // checking if the email exists in database or not
         try {
-            if (dao.getPatientByUsername(email) != null) {
+            if (dao.getPatientByUsernameOrEmail(email.trim()) != null) {
                 forwardWithError(request, response, "An account with this email already exists. Please log in.");
                 return;
             }
@@ -97,11 +97,14 @@ public class RegisterServlet extends HttpServlet {
 
         // All good — save the new patient to the database
         try {
+            System.out.println("REGISTER DEBUG: Saving patient account for email = " + email);
             dao.insertPatient(fullName, email, phone, gender, address, dateOfBirth, email, hashedPassword, imageBase64);
+            System.out.println("REGISTER DEBUG: Patient account saved successfully.");
             response.sendRedirect(request.getContextPath() + "/login");
         } catch (Exception e) {
             e.printStackTrace();
-            forwardWithError(request, response, "Something went wrong on our end. Please try again.");
+            System.out.println("REGISTER DEBUG: Patient registration failed.");
+            forwardWithError(request, response, "Registration failed: " + e.getMessage());
         }
     }
 

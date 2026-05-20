@@ -5,6 +5,7 @@ import java.sql.Date;
 
 import com.dao.AddPatientDao;
 import com.model.AddPatientModel;
+import com.utils.PasswordUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -47,14 +48,22 @@ public class AddPatientServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String gender = request.getParameter("gender");
         String address = request.getParameter("address");
+        String patientName = request.getParameter("patientName");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
-        patient.setPatientName(request.getParameter("patientName"));
+        if (isEmpty(patientName) || isEmpty(username) || isEmpty(password)) {
+            response.sendRedirect(request.getContextPath() + "/admin/add-patient?error=1");
+            return;
+        }
+
+        patient.setPatientName(patientName.trim());
         patient.setEmail(email != null && !email.trim().isEmpty() ? email.trim() : null);
         patient.setPhone(phone != null && !phone.trim().isEmpty() ? phone.trim() : null);
         patient.setGender(gender != null && !gender.trim().isEmpty() ? gender.trim() : null);
         patient.setAddress(address != null && !address.trim().isEmpty() ? address.trim() : null);
-        patient.setUsername(request.getParameter("username"));
-        patient.setPassword(request.getParameter("password"));
+        patient.setUsername(username.trim());
+        patient.setPassword(PasswordUtil.getHashPassword(password));
 
         if (dateOfBirth != null && !dateOfBirth.trim().isEmpty()) {
             patient.setDateOfBirth(Date.valueOf(dateOfBirth));
@@ -82,5 +91,9 @@ public class AddPatientServlet extends HttpServlet {
             System.out.println("Patient add failed.");
             response.sendRedirect(request.getContextPath() + "/admin/add-patient?error=1");
         }
+    }
+
+    private boolean isEmpty(String value) {
+        return value == null || value.trim().isEmpty();
     }
 }

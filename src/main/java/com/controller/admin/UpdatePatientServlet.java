@@ -5,6 +5,7 @@ import java.sql.Date;
 
 import com.dao.AddPatientDao;
 import com.model.AddPatientModel;
+import com.utils.PasswordUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -49,7 +50,7 @@ public class UpdatePatientServlet extends HttpServlet {
             patient.setGender(gender != null && !gender.trim().isEmpty() ? gender.trim() : null);
             patient.setAddress(address != null && !address.trim().isEmpty() ? address.trim() : null);
             patient.setUsername(request.getParameter("username"));
-            patient.setPassword(request.getParameter("password"));
+            patient.setPassword(PasswordUtil.hashIfNeeded(request.getParameter("password")));
 
             if (dateOfBirth != null && !dateOfBirth.trim().isEmpty()) {
                 patient.setDateOfBirth(Date.valueOf(dateOfBirth));

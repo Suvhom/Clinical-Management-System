@@ -37,16 +37,31 @@ public class UpdateAdminServlet extends HttpServlet {
             return;
         }
 
-        if (isEmpty(username) || isEmpty(password) || isEmpty(fullName)
+        if (isEmpty(username) || isEmpty(fullName)
                 || isEmpty(email) || isEmpty(phone) || isEmpty(address)) {
             response.sendRedirect(request.getContextPath() + "/admin/edit-admin?id=" + adminId + "&error=1");
+            return;
+        }
+
+        if (adminDao.usernameExistsForAnotherAdmin(username.trim(), adminId)) {
+            response.sendRedirect(request.getContextPath() + "/admin/edit-admin?id=" + adminId + "&error=duplicate");
+            return;
+        }
+
+        AdminModel existingAdmin = adminDao.getAdminById(adminId);
+        if (existingAdmin == null) {
+            response.sendRedirect(request.getContextPath() + "/admin/admins?error=1");
             return;
         }
 
         AdminModel admin = new AdminModel();
         admin.setAdminId(adminId);
         admin.setUsername(username.trim());
-        admin.setPassword(PasswordUtil.getHashPassword(password.trim()));
+        if (isEmpty(password)) {
+            admin.setPassword(existingAdmin.getPassword());
+        } else {
+            admin.setPassword(PasswordUtil.getHashPassword(password.trim()));
+        }
         admin.setFullName(fullName.trim());
         admin.setEmail(email.trim());
         admin.setPhone(phone.trim());

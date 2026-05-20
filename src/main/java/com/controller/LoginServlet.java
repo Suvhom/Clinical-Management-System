@@ -29,10 +29,10 @@ public class LoginServlet extends HttpServlet {
                 PatientModel patient = dao.getPatientByUsername(username);
                 if (patient != null) {
                     HttpSession newSession = request.getSession(true);
-                    newSession.setAttribute("patient",    patient);
-                    newSession.setAttribute("username",   patient.getUsername());
-                    newSession.setAttribute("patient_id", patient.getPatientId());
+                    setPatientSession(newSession, patient);
                     newSession.setMaxInactiveInterval(30 * 60);
+                    System.out.println("LOGIN DEBUG: Existing patient session restored from cookie.");
+                    System.out.println("LOGIN DEBUG: Redirecting to /UserDashboard");
                     response.sendRedirect(request.getContextPath() + "/UserDashboard");
                     return;
                 }
@@ -48,45 +48,63 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String email    = request.getParameter("email");
-        String password = request.getParameter("password");
+        String loginId = request.getParameter("patientAccessInput");
+        String password = request.getParameter("patientSecretInput");
 
-        if (email == null || email.trim().isEmpty() ||
+        System.out.println("LOGIN DEBUG: Entered username/email = " + loginId);
+
+        if (loginId == null || loginId.trim().isEmpty() ||
             password == null || password.trim().isEmpty()) {
-            request.setAttribute("errorMessage", "Username and password are required.");
+            System.out.println("LOGIN DEBUG: Login failed because username/email or password was empty.");
+            request.setAttribute("errorMessage", "Invalid username/email or password.");
             request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
             return;
         }
 
         try {
             PatientDao dao = new PatientDao();
-            PatientModel patient = dao.getPatientByUsername(email.trim());
+            PatientModel patient = dao.getPatientByUsernameOrEmail(loginId.trim());
 
             if (patient == null) {
-                request.setAttribute("errorMessage", "No account found with that username.");
+                System.out.println("LOGIN DEBUG: Patient found = false");
+                request.setAttribute("errorMessage", "Invalid username/email or password.");
                 request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
                 return;
             }
 
-            if (!PasswordUtil.checkPassword(password, patient.getPassword())) {
-                request.setAttribute("errorMessage", "Incorrect password.");
+            System.out.println("LOGIN DEBUG: Patient found = true");
+            boolean passwordMatched = PasswordUtil.checkPassword(password, patient.getPassword());
+            System.out.println("LOGIN DEBUG: Password matched = " + passwordMatched);
+
+            if (!passwordMatched) {
+                request.setAttribute("errorMessage", "Invalid username/email or password.");
                 request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
                 return;
             }
 
             // Creates session
             HttpSession session = request.getSession(true);
-            session.setAttribute("patient",    patient);
-            session.setAttribute("username",   patient.getUsername());
-            session.setAttribute("patient_id", patient.getPatientId());
+            setPatientSession(session, patient);
             session.setMaxInactiveInterval(30 * 60);
 
+            System.out.println("LOGIN DEBUG: Login successful for patient ID = " + patient.getPatientId());
+            System.out.println("LOGIN DEBUG: Redirecting to /UserDashboard");
             response.sendRedirect(request.getContextPath() + "/UserDashboard");
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Something went wrong. Please try again.");
+            System.out.println("LOGIN DEBUG: Login failed because an exception occurred.");
+            request.setAttribute("errorMessage", "Invalid username/email or password.");
             request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
         }
+    }
+
+    private void setPatientSession(HttpSession session, PatientModel patient) {
+        session.setAttribute("patient", patient);
+        session.setAttribute("username", patient.getUsername());
+        session.setAttribute("patient_id", patient.getPatientId());
+        session.setAttribute("patientId", patient.getPatientId());
+        session.setAttribute("patientName", patient.getPatientName());
+        session.setAttribute("role", "patient");
     }
 }

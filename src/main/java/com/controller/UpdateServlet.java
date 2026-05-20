@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import com.model.PatientModel;
+import com.utils.PasswordUtil;
 
 @WebServlet(urlPatterns = "/UpdateProfile", asyncSupported = true)
 @MultipartConfig
@@ -66,13 +67,12 @@ public class UpdateServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        PatientModel patient = (PatientModel) session.getAttribute("patient");
-
-        if (patient == null) {
+        if (session == null || session.getAttribute("patient") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
+        PatientModel patient = (PatientModel) session.getAttribute("patient");
         String type     = request.getParameter("type");
         String username = patient.getUsername();
 
@@ -103,7 +103,9 @@ public class UpdateServlet extends HttpServlet {
             String newPassword     = request.getParameter("newPassword");
             String confirmPassword = request.getParameter("confirmPassword");
 
-            if (!patient.getPassword().equals(currentPassword)) {
+            if (currentPassword == null || newPassword == null || confirmPassword == null) {
+                session.setAttribute("error", "Please fill all password fields.");
+            } else if (!PasswordUtil.checkPassword(currentPassword, patient.getPassword())) {
                 session.setAttribute("error", "Current password is incorrect.");
             } else if (!newPassword.equals(confirmPassword)) {
                 session.setAttribute("error", "New passwords do not match.");
@@ -112,8 +114,9 @@ public class UpdateServlet extends HttpServlet {
             } else {
                 try {
                     com.dao.PatientDao dao = new com.dao.PatientDao();
-                    dao.updatePassword(username, newPassword);
-                    patient.setPassword(newPassword);
+                    String hashedPassword = PasswordUtil.getHashPassword(newPassword);
+                    dao.updatePassword(username, hashedPassword);
+                    patient.setPassword(hashedPassword);
                     session.setAttribute("patient", patient);
                     session.setAttribute("success", "Password updated successfully!");
                 } catch (Exception e) {
@@ -123,6 +126,6 @@ public class UpdateServlet extends HttpServlet {
             }
         }
 
-        response.sendRedirect(request.getContextPath() + "/UserDashboard");
+        response.sendRedirect(request.getContextPath() + "/UpdateProfile");
     }
 }
