@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0"
+         metadata-complete="true">
+
+  <display-name>ClinicalManagementSystem</display-name>
+
+  <servlet>
+    <servlet-name>UserDashboardcontroller</servlet-name>
+    <servlet-class>com.controller.UserDashboardcontroller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserDashboardcontroller</servlet-name>
+    <url-pattern>/UserDashboard</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>BookingAppointmentcontroller</servlet-name>
+    <servlet-class>com.controller.BookingAppointmentcontroller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BookingAppointmentcontroller</servlet-name>
+    <url-pattern>/BookingAppointment</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AppointmentHistorycontroller</servlet-name>
+    <servlet-class>com.controller.AppointmentHistorycontroller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AppointmentHistorycontroller</servlet-name>
+    <url-pattern>/AppointmentHistory</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ExercisePlancontroller</servlet-name>
+    <servlet-class>com.controller.ExercisePlancontroller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExercisePlancontroller</servlet-name>
+    <url-pattern>/ExercisePlan</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>MedicalRecordcontroller</servlet-name>
+    <servlet-class>com.controller.MedicalRecordcontroller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MedicalRecordcontroller</servlet-name>
+    <url-pattern>/MedicalRecord</url-pattern>
+  </servlet-mapping>
+
+</web-app>
