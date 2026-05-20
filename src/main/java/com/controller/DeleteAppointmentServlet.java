@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/delete-appointment")
+@WebServlet(urlPatterns = "/admin/delete-appointment", asyncSupported = true)
 public class DeleteAppointmentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private AppointmentDao appointmentDao = new AppointmentDao();

@@ -33,6 +33,7 @@
                 <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
                 <a class="nav-item" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
                 <a class="nav-item active" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/admins">Admin Directory</a>
             </nav>
 
             <div class="nav-bottom">
@@ -47,19 +48,15 @@
 
             <!-- Topbar -->
             <header class="topbar">
-
                 <h1>Add Staff Member</h1>
-                <div class="top-actions">
-                    <button class="icon" type="button">!</button>
 
+                <div class="top-actions">
                     <div class="profile">
                         <div>
-                            <strong>Dr. Suvhom K.C</strong>
-                            <span>Clinic Administrator</span>
+                            <strong>Clinic Administrator</strong>
                         </div>
                         <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
-
                 </div>
             </header>
 
@@ -69,7 +66,7 @@
                 <!-- Breadcrumb -->
                 <div class="breadcrumb">
                     <a href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
-                    <span>›</span>
+                    <span>&gt;</span>
                     <p>Add Staff Member</p>
                 </div>
 

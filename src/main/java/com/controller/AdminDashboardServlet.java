@@ -7,7 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import com.dao.DashboardDao;
 
-@WebServlet("/admin/dashboard")
+@WebServlet(urlPatterns = "/admin/dashboard", asyncSupported = true)
 public class AdminDashboardServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

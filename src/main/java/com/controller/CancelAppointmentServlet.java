@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/cancel-appointment")
+@WebServlet(urlPatterns = "/admin/cancel-appointment", asyncSupported = true)
 public class CancelAppointmentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private AppointmentDao appointmentDao = new AppointmentDao();

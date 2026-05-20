@@ -14,7 +14,7 @@
         <section class="error-box">
             <h1>404</h1>
             <p>Oops! The page you&rsquo;re looking for can&rsquo;t be found.</p>
-            <a href="${pageContext.request.contextPath}/login" class="home-btn">
+            <a href="${pageContext.request.contextPath}/admin/dashboard" class="home-btn">
                 Go to Homepage
             </a>
         </section>

@@ -32,6 +32,7 @@
                     <a class="nav active" href = "${pageContext.request.contextPath}/admin/patients">Patients</a>
                     <a class="nav" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
                     <a class="nav" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
+                    <a class="nav" href="${pageContext.request.contextPath}/admin/admins">Admin Directory</a>
                 </nav>
 
                 <div class="side-bottom">
@@ -46,18 +47,15 @@
 
                 <!-- TOPBAR -->
                 <header class="topbar">
-                    <h1>Prescribe Exercise</h1>
-                <div class="top-actions">
-                    <button class="icon" type="button">!</button>
+                <h1>Prescribe Exercise</h1>
 
+                <div class="top-actions">
                     <div class="profile">
                         <div>
-                            <strong>Dr. Suvhom K.C</strong>
-                            <span>Clinic Administrator</span>
+                            <strong>Clinic Administrator</strong>
                         </div>
                         <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
-
                 </div>
             </header>
 

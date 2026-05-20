@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/create-invoice")
+@WebServlet(urlPatterns = "/admin/create-invoice", asyncSupported = true)
 public class CreateInvoiceServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

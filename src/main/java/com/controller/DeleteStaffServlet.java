@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/delete-staff")
+@WebServlet(urlPatterns = "/admin/delete-staff", asyncSupported = true)
 public class DeleteStaffServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

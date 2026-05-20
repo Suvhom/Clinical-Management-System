@@ -14,7 +14,7 @@
         <section class="error-box">
             <h1>500</h1>
             <p>Something went wrong. Please try again later.</p>
-            <a href="${pageContext.request.contextPath}/login" class="home-btn">
+            <a href="${pageContext.request.contextPath}/admin/dashboard" class="home-btn">
                 Go to Homepage
             </a>
         </section>

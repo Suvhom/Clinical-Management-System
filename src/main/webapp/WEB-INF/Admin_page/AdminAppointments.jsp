@@ -76,6 +76,7 @@
             <a class="nav-item" href="${pageContext.request.contextPath}/admin/patients">Patients</a>
             <a class="nav-item" href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
             <a class="nav-item" href="${pageContext.request.contextPath}/admin/staff">Staff Directory</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/admins">Admin Directory</a>
         </nav>
 
         <div class="nav-bottom">
@@ -89,30 +90,18 @@
     <section class="page">
 
         <!-- Topbar -->
-        <header class="topbar">
+                    <header class="topbar">
+                <h1>Appointments</h1>
 
-            <h1>Appointments</h1>
-
-            <div class="top-actions">
-
-                <button class="icon" type="button">!</button>
-
-                <div class="profile">
-                    <div>
-                        <strong>Dr. Suvhom K.C</strong>
-                        <span>Clinic Administrator</span>
+                <div class="top-actions">
+                    <div class="profile">
+                        <div>
+                            <strong>Clinic Administrator</strong>
+                        </div>
+                        <img class="profile-avatar" src="${pageContext.request.contextPath}/Images/Admin_Profile.png" alt="Admin profile" width="48" height="48">
                     </div>
-
-                    <img class="profile-avatar"
-                         src="${pageContext.request.contextPath}/Images/Admin_Profile.png"
-                         alt="Admin profile"
-                         width="48"
-                         height="48">
                 </div>
-
-            </div>
-
-        </header>
+            </header>
 
         <!-- Content -->
         <section class="content">
@@ -309,14 +298,14 @@
                                                 <a class="action-btn edit-action"
                                                    href="${pageContext.request.contextPath}/admin/edit-appointment?id=${appt.appointmentId}"
                                                    title="Reschedule / Edit">
-                                                   
+                                                   Edit
                                                 </a>
 
                                                 <a class="action-btn delete-action"
                                                    href="${pageContext.request.contextPath}/admin/delete-appointment?id=${appt.appointmentId}"
                                                    onclick="return confirm('Are you sure you want to delete this appointment record?');"
                                                    title="Delete Appointment">
-                                                   
+                                                   Delete
                                                 </a>
 
                                             </div>

@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/update-patient")
+@WebServlet(urlPatterns = "/admin/update-patient", asyncSupported = true)
 public class UpdatePatientServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

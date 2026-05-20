@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/add-appointment")
+@WebServlet(urlPatterns = "/admin/add-appointment", asyncSupported = true)
 public class AddAppointmentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private AppointmentDao appointmentDao = new AppointmentDao();

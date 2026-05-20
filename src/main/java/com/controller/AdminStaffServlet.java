@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/staff")
+@WebServlet(urlPatterns = "/admin/staff", asyncSupported = true)
 public class AdminStaffServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private StaffDao staffDao = new StaffDao();
