@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/FacilitiesServlet")
+@WebServlet(asyncSupported = true, urlPatterns = { "/FacilitiesServlet" })
 public class FacilitiesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,7 @@ public class FacilitiesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/pages/facilities.jsp")
+        request.getRequestDispatcher("WEB-INF/pages/facilities.jsp")
                .forward(request, response);
     }
 

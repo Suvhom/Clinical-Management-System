@@ -9,7 +9,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Import External CSS -->
-        <link rel="stylesheet" href="../css/Home_CSS.css">
+        <link href="<%= request.getContextPath() %>/css/Home_CSS.css" rel="stylesheet">
     </Head>
     <style>
         
@@ -29,10 +29,10 @@
 
     <!-- Navigation Links -->
     <ul class="nav-links">
-      <li><a href="pages/Home.jsp" class="nav-button">Home</a></li>
+      <li><a href="<%= request.getContextPath() %>/HomeServlet" class="nav-button">Home</a></li>
       <li><a href="<%= request.getContextPath() %>/FacilitiesServlet" class="nav-button">Facilities</a></li>
       <li><a href="<%= request.getContextPath() %>/Aboutus" class="nav-button">About Us</a></li>
-      <li><a href="pages/blog.jsp" class="nav-button">Blog</a></li>
+      <li><a href="<%= request.getContextPath() %>/BlogServlet" class="nav-button">Blog</a></li>
       <li><a href="<%= request.getContextPath() %>/Contactus" class="nav-button">Contact Us</a></li>
       <li><a href="#" class="book-btn">Book Appointment</a></li>
     </ul>

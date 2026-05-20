@@ -21,12 +21,12 @@
 
     <!-- Navigation Links -->
     <ul class="nav-links">
-      <li><a href="pages/Home.jsp" class="nav-button">Home</a></li>
+       <li><a href="<%= request.getContextPath() %>/HomeServlet" class="nav-button">Home</a></li>
       <li><a href="<%= request.getContextPath() %>/FacilitiesServlet" class="nav-button">Facilities</a></li>
       <li><a href="<%= request.getContextPath() %>/Aboutus" class="nav-button">About Us</a></li>
-      <li><a href="pages/blog.jsp" class="nav-button">Blog</a></li>
+      <li><a href="<%= request.getContextPath() %>/BlogServlet" class="nav-button">Blog</a></li>
       <li><a href="<%= request.getContextPath() %>/Contactus" class="nav-button">Contact Us</a></li>
-      <li><a href="#" class="book-btn">Book Appointment</a></li>
+       <li><a href="#" class="book-btn">Book Appointment</a></li>
     </ul>
 
   </div>

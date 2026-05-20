@@ -111,6 +111,6 @@ public class RegisterServlet extends HttpServlet {
                                   String message)
             throws ServletException, IOException {
         request.setAttribute("errorMessage", message);
-        request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
     }
 }

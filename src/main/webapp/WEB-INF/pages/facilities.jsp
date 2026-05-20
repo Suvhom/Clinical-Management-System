@@ -24,11 +24,11 @@
 
     <!-- Navigation Links -->
     <ul class="nav-links">
-      <li><a href="pages/Home.jsp" class="nav-button">Home</a></li>
+      <li><a href="<%= request.getContextPath() %>/HomeServlet" class="nav-button">Home</a></li>
       <li><a href="<%= request.getContextPath() %>/FacilitiesServlet" class="nav-button">Facilities</a></li>
       <li><a href="<%= request.getContextPath() %>/Aboutus" class="nav-button">About Us</a></li>
-      <li><a href="pages/blog.jsp" class="nav-button">Blog</a></li>
-      <li><a href="<%= request.getContextPath() %>/Contactus" class="nav-button">Contact Us</a></li>
+      <li><a href="<%= request.getContextPath() %>/BlogServlet" class="nav-button">Blog</a></li>
+      <li><a href="<%= request.getContextPath() %>/Contactus" class="nav-button">Contact Us</a></li>	
       <li><a href="#" class="book-btn">Book Appointment</a></li>
     </ul>
 
@@ -127,16 +127,25 @@
         </section>
     </main>
     
-    
-<footer class="footer">
-  <div class="footer-inner">
 
+<!-- Footer -->
+<footer class="footer">
+  <div class="container footer-top">
+
+    <!-- Left Section -->
     <div class="footer-brand">
-      <div class="logo">
+      <div class="footer-logo">
+        <div class="logo">
         <img src="<%= request.getContextPath() %>/Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
         <span>MotionRehab</span>
+</div>
       </div>
-      <p>Dedicating to providing exceptional physiotherapy care to help you move freely and live without limits. Your recovery starts here.</p>
+
+      <p>
+        Dedicating to providing exceptional physiotherapy care to help you move
+        freely and live without limits. Your recovery starts here.
+      </p>
+
       <div class="social-icons">
         <a href="#">f</a>
         <a href="#">◎</a>
@@ -144,6 +153,7 @@
       </div>
     </div>
 
+    <!-- Quick Links -->
     <div class="footer-links">
       <h3>Quick Links</h3>
       <ul>
@@ -155,16 +165,18 @@
       </ul>
     </div>
 
+    <!-- Services -->
     <div class="footer-links">
       <h3>Services</h3>
       <ul>
         <li><a href="#">Sports Injuries</a></li>
-        <li><a href="#">Back &amp; Neck Pain</a></li>
+        <li><a href="#">Back & Neck Pain</a></li>
         <li><a href="#">Post-Surgery Rehab</a></li>
         <li><a href="#">Acupuncture</a></li>
       </ul>
     </div>
 
+    <!-- Contact -->
     <div class="footer-contact">
       <h3>Contact</h3>
       <p>📍 Kirtipur, Pangga</p>
@@ -176,8 +188,8 @@
 
   <hr>
 
-  <div class="footer-bottom-bar">
-    <p>&copy; 2024 MotionRehab</p>
+  <div class="container footer-bottom">
+    <p></p>
     <div class="footer-bottom-links">
       <a href="#">Privacy Policy</a>
       <a href="#">Terms of Services</a>

@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Servlet implementation class Contactus
  */
-@WebServlet("/Contactus")
+@WebServlet(asyncSupported = true, urlPatterns = { "/Contactus" })
 public class Contactus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,7 @@ public class Contactus extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/pages/contactus.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/pages/contactus.jsp").forward(request, response);
 	}
 
 	/**

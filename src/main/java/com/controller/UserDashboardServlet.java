@@ -60,7 +60,7 @@ public class UserDashboardServlet extends HttpServlet {
             request.setAttribute("greeting", greeting);
             request.setAttribute("imgTag",   imgTag);
 
-            request.getRequestDispatcher("/pages/UserDashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/UserDashboard.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/ExercisePlans")
+@WebServlet(asyncSupported = true, urlPatterns = { "/ExercisePlans" })
 public class ExercisePlansServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -41,7 +41,7 @@ public class ExercisePlansServlet extends HttpServlet {
                 }
             }
 
-            request.getRequestDispatcher("/pages/ExercisePlans.jsp")
+            request.getRequestDispatcher("WEB-INF/pages/ExercisePlans.jsp")
                    .forward(request, response);
 
         } catch (Exception e) {

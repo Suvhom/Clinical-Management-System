@@ -58,7 +58,7 @@ public class UpdateServlet extends HttpServlet {
         request.setAttribute("successMsg",  successMsg);
         request.setAttribute("errorMsg",    errorMsg);
 
-        request.getRequestDispatcher("/pages/UpdateProfile.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/UpdateProfile.jsp").forward(request, response);
     }
 
     @Override

@@ -8,16 +8,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class Home
+ * Servlet implementation class BlogServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/Aboutus" })
-public class AboutusController extends HttpServlet {
+@WebServlet("/BlogServlet")
+public class BlogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AboutusController() {
+    public BlogServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,8 @@ public class AboutusController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/pages/aboutus.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/blog.jsp")
+        .forward(request, response);
 	}
 
 	/**
