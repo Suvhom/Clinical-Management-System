@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="<%= request.getContextPath() %>/css/blog.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
 <title>Blog</title>
 </head>
 <body>
@@ -16,11 +16,11 @@
   <span>MotionRehab</span>
 </div>
     <ul class="nav-links">
-       <li><a href="<%= request.getContextPath() %>/HomeServlet" class="nav-button">Home</a></li>
-      <li><a href="<%= request.getContextPath() %>/FacilitiesServlet" class="nav-button">Facilities</a></li>
-      <li><a href="<%= request.getContextPath() %>/Aboutus" class="nav-button">About Us</a></li>
-      <li><a href="<%= request.getContextPath() %>/BlogServlet" class="nav-button">Blog</a></li>
-      <li><a href="<%= request.getContextPath() %>/Contactus" class="nav-button">Contact Us</a></li>
+       <li><a href="${pageContext.request.contextPath}/HomeServlet" class="nav-button">Home</a></li>
+      <li><a href="${pageContext.request.contextPath}/FacilitiesServlet" class="nav-button">Facilities</a></li>
+      <li><a href="${pageContext.request.contextPath}/Aboutus" class="nav-button">About Us</a></li>
+      <li><a href="${pageContext.request.contextPath}/BlogServlet" class="nav-button">Blog</a></li>
+      <li><a href="${pageContext.request.contextPath}/Contactus" class="nav-button">Contact Us</a></li>
       <li><a href="#" class="book-btn">Book Appointment</a></li>
     </ul>
 

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="<%= request.getContextPath() %>/css/contactus.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/contactus.css" rel="stylesheet">
 </head>
 <body>
 	
@@ -15,17 +16,17 @@
 
     <!-- Logo -->
  <div class="logo">
-  <img src="${pageContext.request.contextPath}../../Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
+  <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
   <span>MotionRehab</span>
 </div>	
 
     <!-- Navigation Links -->
     <ul class="nav-links">
-       <li><a href="<%= request.getContextPath() %>/HomeServlet" class="nav-button">Home</a></li>
-      <li><a href="<%= request.getContextPath() %>/FacilitiesServlet" class="nav-button">Facilities</a></li>
-      <li><a href="<%= request.getContextPath() %>/Aboutus" class="nav-button">About Us</a></li>
-      <li><a href="<%= request.getContextPath() %>/BlogServlet" class="nav-button">Blog</a></li>
-      <li><a href="<%= request.getContextPath() %>/Contactus" class="nav-button">Contact Us</a></li>
+        <li><a href="${pageContext.request.contextPath}/HomeServlet" class="nav-button">Home</a></li>
+      <li><a href="${pageContext.request.contextPath}/FacilitiesServlet" class="nav-button">Facilities</a></li>
+      <li><a href="${pageContext.request.contextPath}/Aboutus" class="nav-button">About Us</a></li>
+      <li><a href="${pageContext.request.contextPath}/BlogServlet" class="nav-button">Blog</a></li>
+      <li><a href="${pageContext.request.contextPath}/Contactus" class="nav-button">Contact Us</a></li>
        <li><a href="#" class="book-btn">Book Appointment</a></li>
     </ul>
 
@@ -90,7 +91,7 @@
            rel="noopener noreferrer"
            title="Open in OpenStreetMap">
           <img
-            src="${pageContext.request.contextPath}../../Images/map_image.png"
+            src="${pageContext.request.contextPath}/Images/map_image.png"
             style="width:100%; height:170px; object-fit:cover; display:block; border-radius:8px 8px 0 0;"
             onerror="this.onerror=null; this.src='https://staticmap.openstreetmap.de/staticmap.php?center=27.6939,85.3157&zoom=16&size=320x170&markers=27.6939,85.3157,red-pushpin';"
           />
@@ -104,7 +105,7 @@
       <!-- Info cards -->
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}../../Images/phone.png" alt="Phone" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}/Images/phone.png" alt="Phone" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Phone</span>
@@ -114,7 +115,7 @@
 
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}../../Images/mail.png" alt="Email" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}/Images/mail.png" alt="Email" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Email</span>
@@ -124,7 +125,7 @@
 
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}../../Images/clock.png" alt="Working Hours" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}/Images/clock.png" alt="Working Hours" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Working Hours</span>
@@ -159,7 +160,7 @@
     <div class="footer-brand">
       <div class="footer-logo">
         <div class="logo">
-        <img src="${pageContext.request.contextPath}../../Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
+        <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
         <span>MotionRehab</span>
 </div>
       </div>

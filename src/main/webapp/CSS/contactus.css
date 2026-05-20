@@ -18,9 +18,9 @@ body {
   margin: auto;
 }
 
-/* Navbar */
+/* Nav Bar CSS */
 .navbar {
-  background-color: white;
+  background: #fff;
   padding: 15px 0;
   border-bottom: 1px solid #ddd;
 }
@@ -31,6 +31,7 @@ body {
   align-items: center;
 }
 
+/* Logo */
 .logo {
   display: flex;
   align-items: center;
@@ -40,8 +41,10 @@ body {
 .logo-img {
   width: 40px;
   height: 40px;
+  object-fit: contain;
 }
 
+/* Nav Links */
 .nav-links {
   display: flex;
   list-style: none;
@@ -49,22 +52,36 @@ body {
   align-items: center;
 }
 
-.nav-links a {
+/* Normal Nav Buttons */
+.nav-button {
   text-decoration: none;
   color: black;
   font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
+/* Hover effect (color + underline animation) */
+.nav-button:hover {
   color: #0B79D2;
 }
 
-.book-btn {
+/* Underline animation */
+.nav-button::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -4px;
   background-color: #0B79D2;
-  color: white !important;
-  padding: 10px 18px;
-  border-radius: 4px;
+  transition: width 0.3s ease;
 }
+
+.nav-button:hover::after {
+  width: 100%;
+}
+
 
 /* Hero Section */
 .hero {

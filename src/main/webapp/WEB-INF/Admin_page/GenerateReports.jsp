@@ -63,7 +63,7 @@
 
                 <div class="stat card">
                     <span>Revenue Report</span>
-                   <b>NRP <%= request.getAttribute("last30DaysRevenue") %></b>
+                   <b>NRP ${last30DaysRevenue}</b>	
                     <small>Paid transactions in last 30 days</small>
                 </div>
 
@@ -87,9 +87,9 @@
 
                     <tbody>
                         <tr>
-                            <td>Last 30 Days Revenue</td>
-                         <td>NRP <%= request.getAttribute("last30DaysRevenue") %></td>
-                            <td>Total amount from paid billing transactions within the last 30 days.</td>
+						<td>Last 30 Days Revenue</td>
+						<td>NRP ${last30DaysRevenue}</td>
+						<td>Total amount from paid billing transactions within the last 30 days.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -343,8 +343,8 @@ public class DashboardDao {
         try (Connection conn = DBconfig.getConnection()) {
             if (conn == null) return stats;
             
-            // Total Revenue (Only Completed Appointments)
-            String totalRevSql = "SELECT SUM(2500) FROM appointment WHERE status = 'Completed'";
+            // Total Revenue (Only paid billing records)
+            String totalRevSql = "SELECT SUM(total_amount) FROM billing WHERE payment_status = 'Paid'";
             try (PreparedStatement ps = conn.prepareStatement(totalRevSql);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -352,8 +352,8 @@ public class DashboardDao {
                 }
             }
             
-            // Monthly Revenue (Completed Appointments in Current Month)
-            String monthlyRevSql = "SELECT SUM(2500) FROM appointment WHERE status = 'Completed' AND MONTH(appointment_date) = MONTH(CURDATE())";
+            // Monthly Revenue (Paid billing records in current month)
+            String monthlyRevSql = "SELECT SUM(total_amount) FROM billing WHERE payment_status = 'Paid' AND MONTH(billing_date) = MONTH(CURDATE())";
             try (PreparedStatement ps = conn.prepareStatement(monthlyRevSql);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -361,8 +361,8 @@ public class DashboardDao {
                 }
             }
             
-            // Outstanding Balance (Pending = 1500, Confirmed/Rescheduled = 2000)
-            String outstandingSql = "SELECT SUM(CASE WHEN status IN ('Confirmed', 'Rescheduled') THEN 2000 WHEN status = 'Pending' THEN 1500 ELSE 0 END) FROM appointment";
+            // Outstanding Balance (pending and overdue billing records)
+            String outstandingSql = "SELECT SUM(total_amount) FROM billing WHERE payment_status IN ('Pending', 'Overdue')";
             try (PreparedStatement ps = conn.prepareStatement(outstandingSql);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -370,8 +370,8 @@ public class DashboardDao {
                 }
             }
             
-            // Paid Invoices Count (Completed Appointments)
-            String paidCountSql = "SELECT COUNT(*) FROM appointment WHERE status = 'Completed'";
+            // Paid Invoices Count
+            String paidCountSql = "SELECT COUNT(*) FROM billing WHERE payment_status = 'Paid'";
             try (PreparedStatement ps = conn.prepareStatement(paidCountSql);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -390,46 +390,30 @@ public class DashboardDao {
     public java.util.ArrayList<String[]> getRecentTransactions() {
         java.util.ArrayList<String[]> transactions = new java.util.ArrayList<>();
         
-        String sql = "SELECT a.appointment_id, p.patient_name, a.reason, a.appointment_date, a.status " +
-                     "FROM appointment a " +
-                     "JOIN patient p ON a.patient_id = p.patient_id " +
-                     "ORDER BY a.appointment_date DESC, a.appointment_time DESC";
+        String sql = "SELECT b.billing_id, p.patient_name, a.reason, b.billing_date, b.total_amount, b.payment_status " +
+                     "FROM billing b " +
+                     "JOIN patient p ON b.patient_id = p.patient_id " +
+                     "JOIN appointment a ON b.appointment_id = a.appointment_id " +
+                     "ORDER BY b.billing_date DESC, b.created_at DESC";
                      
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
              
             while (rs.next()) {
-                String id = String.valueOf(rs.getInt("appointment_id"));
+                String id = String.valueOf(rs.getInt("billing_id"));
                 String patientName = rs.getString("patient_name");
                 String reason = rs.getString("reason");
-                java.sql.Date date = rs.getDate("appointment_date");
-                String status = rs.getString("status");
+                java.sql.Date date = rs.getDate("billing_date");
+                String displayStatus = rs.getString("payment_status");
                 
-                String invoiceId = "#INV-APP-" + String.format("%04d", Integer.parseInt(id));
+                String invoiceId = "#INV-" + String.format("%04d", Integer.parseInt(id));
                 
                 // Formatted date
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMM dd, yyyy");
                 String formattedDate = sdf.format(date);
                 
-                // Calculate amount and display status
-                String displayStatus = "Pending";
-                int amount = 1500;
-                if ("Completed".equalsIgnoreCase(status)) {
-                    displayStatus = "Paid";
-                    amount = 2500;
-                } else if ("Confirmed".equalsIgnoreCase(status) || "Rescheduled".equalsIgnoreCase(status)) {
-                    displayStatus = "Pending";
-                    amount = 2000;
-                } else if ("Pending".equalsIgnoreCase(status)) {
-                    displayStatus = "Overdue";
-                    amount = 1500;
-                } else if ("Cancelled".equalsIgnoreCase(status)) {
-                    displayStatus = "Void";
-                    amount = 0;
-                }
-                
-                String formattedAmount = "NRP " + java.text.NumberFormat.getInstance().format(amount);
+                String formattedAmount = "NRP " + java.text.NumberFormat.getInstance().format(rs.getBigDecimal("total_amount"));
                 
                 transactions.add(new String[]{invoiceId, patientName, reason, formattedDate, formattedAmount, displayStatus});
             }
@@ -501,7 +485,7 @@ public class DashboardDao {
     // Get recent activities
     public java.util.ArrayList<String[]> getRecentActivities() {
         java.util.ArrayList<String[]> list = new java.util.ArrayList<>();
-        String sql = "SELECT message, created_at FROM activity_log ORDER BY created_at DESC, activity_id DESC LIMIT 10";
+        String sql = "SELECT message, created_at FROM activity_log ORDER BY created_at DESC, activity_id DESC LIMIT 6";
         
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
