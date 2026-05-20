@@ -48,7 +48,7 @@
         </div>
 
         <div class="bottom-menu">
-          <a href="${pageContext.request.contextPath}/Login">
+          <a href="${pageContext.request.contextPath}/login">
             Log out
           </a>
         </div>

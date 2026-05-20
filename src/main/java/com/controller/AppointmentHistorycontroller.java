@@ -25,7 +25,7 @@ public class AppointmentHistorycontroller extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("patient_id") == null) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
@@ -36,7 +36,7 @@ public class AppointmentHistorycontroller extends HttpServlet {
 
         request.setAttribute("appointments", appointments);
 
-        request.getRequestDispatcher("/WEB-INF/User_Pages/AppointmentHistory.jsp")
+        request.getRequestDispatcher("/webapp/AppointmentHistory.jsp")
                .forward(request, response);
     }
 }
