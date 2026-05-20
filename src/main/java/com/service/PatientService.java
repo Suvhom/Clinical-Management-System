@@ -6,7 +6,7 @@ import com.model.PatientModel;
 public class PatientService {
 	 private PatientDao dao = new PatientDao();
 
-	    public PatientModel getStudentByUsername(String username) {
+	    public PatientModel getPatientByUsername(String username) {
 	        try {
 	            return dao.getPatientByUsername(username);
 	        } catch (Exception e) {

@@ -1,5 +1,4 @@
 package com.controller;
-import com.service.PatientService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,13 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Base64;
 
-
 import com.model.PatientModel;
 import com.service.PatientService;
 
-/**
- * Servlet implementation class ImageServlet
- */
+
 @WebServlet(urlPatterns = "/ImageServlet", asyncSupported = true)
 public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,15 +25,15 @@ public class ImageServlet extends HttpServlet {
 	            String username = request.getParameter("username");
 
 	            // 2. Fetch student from DB via service layer
-	            PatientModel student = service.getStudentByUsername(username);
+	            PatientModel patient = service.getPatientByUsername(username);
 
 	            // 3. Validate
-	            if (student == null || student.getImage() == null || student.getImage().isEmpty()) {
+	            if (patient == null || patient.getImage() == null || patient.getImage().isEmpty()) {
 	                return;
 	            }
 
 	            // 4. Decode Base64 image string into raw bytes
-	            byte[] imageBytes = Base64.getDecoder().decode(student.getImage());
+	            byte[] imageBytes = Base64.getDecoder().decode(patient.getImage());
 
 	            // 5. Set response content type
 	            response.setContentType("image/jpeg");
