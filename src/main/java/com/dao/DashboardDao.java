@@ -140,7 +140,7 @@ public class DashboardDao {
 
             while (rs.next()) {
                 int id = rs.getInt(idIndex);
-                String name = nameIndex != -1 ? rs.getString(nameIndex) : "Staff #" + id;
+                String name = nameIndex != -1 ? rs.getString(nameIndex) : "Staff ST-" + id;
                 staffNames.put(id, name);
             }
         } catch (Exception e) {
@@ -157,7 +157,7 @@ public class DashboardDao {
             
             while (rs.next()) {
                 int staffId = rs.getInt("staff_id");
-                String name = staffNames.getOrDefault(staffId, "Staff member #" + staffId);
+                String name = staffNames.getOrDefault(staffId, "Staff member ST-" + staffId);
                 data.put(name, rs.getInt("count"));
             }
         } catch (Exception e) {
@@ -407,7 +407,7 @@ public class DashboardDao {
                 java.sql.Date date = rs.getDate("billing_date");
                 String displayStatus = rs.getString("payment_status");
                 
-                String invoiceId = "#INV-" + String.format("%04d", Integer.parseInt(id));
+                String invoiceId = "INV-" + id;
                 
                 // Formatted date
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMM dd, yyyy");

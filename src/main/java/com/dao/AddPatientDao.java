@@ -3,6 +3,7 @@ package com.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -241,57 +242,56 @@ public class AddPatientDao {
 
     public ArrayList<AddPatientModel> searchPatients(String query) {
         ArrayList<AddPatientModel> patients = new ArrayList<>();
-        
-        String sql = "SELECT * FROM patient WHERE patient_name LIKE ? OR username LIKE ? OR email LIKE ?";
-        boolean isNumeric = false;
-        int idQuery = -1;
-        try {
-            idQuery = Integer.parseInt(query);
-            isNumeric = true;
-            sql += " OR patient_id = ?";
-        } catch (NumberFormatException e) {
-            // Ignore if not a valid integer ID
+
+        if (query == null || query.trim().isEmpty()) {
+            return patients;
         }
-        
-        sql += " ORDER BY patient_id DESC";
-        
+
+        String trimmedQuery = query.trim();
+        boolean numericSearch = trimmedQuery.matches("\\d+");
+        String sql = numericSearch
+                ? "SELECT * FROM patient WHERE patient_id = ? ORDER BY patient_id DESC"
+                : "SELECT * FROM patient WHERE patient_name LIKE ? OR username LIKE ? OR email LIKE ? OR phone LIKE ? ORDER BY patient_id DESC";
+
         try {
             Connection conn = DBconfig.getConnection();
             if (conn == null) {
                 System.out.println("DATABASE CONNECTION IS NULL");
                 return patients;
             }
-            
+
             PreparedStatement ps = conn.prepareStatement(sql);
-            String searchPattern = "%" + query + "%";
-            ps.setString(1, searchPattern);
-            ps.setString(2, searchPattern);
-            ps.setString(3, searchPattern);
-            
-            if (isNumeric) {
-                ps.setInt(4, idQuery);
+
+            if (numericSearch) {
+                ps.setInt(1, Integer.parseInt(trimmedQuery));
+            } else {
+                String searchPattern = "%" + trimmedQuery + "%";
+                ps.setString(1, searchPattern);
+                ps.setString(2, searchPattern);
+                ps.setString(3, searchPattern);
+                ps.setString(4, searchPattern);
             }
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 AddPatientModel patient = new AddPatientModel();
-                
+
                 patient.setPatientId(rs.getInt("patient_id"));
-                
+
                 int adminId = rs.getInt("admin_id");
                 if (rs.wasNull()) {
                     patient.setAdminId(null);
                 } else {
                     patient.setAdminId(adminId);
                 }
-                
+
                 int staffId = rs.getInt("staff_id");
                 if (rs.wasNull()) {
                     patient.setStaffId(null);
                 } else {
                     patient.setStaffId(staffId);
                 }
-                
+
                 patient.setPatientName(rs.getString("patient_name"));
                 patient.setEmail(rs.getString("email"));
                 patient.setPhone(rs.getString("phone"));
@@ -301,14 +301,14 @@ public class AddPatientDao {
                 patient.setUsername(rs.getString("username"));
                 patient.setPassword(rs.getString("password"));
                 patient.setCreatedAt(rs.getTimestamp("created_at"));
-                
+
                 patients.add(patient);
             }
-            
+
             rs.close();
             ps.close();
             conn.close();
-            
+
         } catch (Exception e) {
             System.out.println("ERROR WHILE SEARCHING PATIENTS:");
             e.printStackTrace();
@@ -318,22 +318,84 @@ public class AddPatientDao {
 
     public boolean deletePatient(int patientId) {
         String sql = "DELETE FROM patient WHERE patient_id = ?";
-        try {
-            Connection conn = DBconfig.getConnection();
+        try (Connection conn = DBconfig.getConnection()) {
             if (conn == null) {
                 System.out.println("DATABASE CONNECTION IS NULL");
                 return false;
             }
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, patientId);
-            int rows = ps.executeUpdate();
-            ps.close();
-            conn.close();
-            return rows > 0;
+
+            conn.setAutoCommit(false);
+
+            try {
+                deleteRelatedPatientRows(conn, "billing", "patient_id", patientId);
+                deleteRelatedPatientRows(conn, "exercise", "patient_id", patientId);
+                deleteRelatedPatientRows(conn, "treatment", "patient_id", patientId);
+                deleteRelatedAppointmentRows(conn, "treatment", patientId);
+                deleteRelatedPatientRows(conn, "appointment", "patient_id", patientId);
+
+                try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                    ps.setInt(1, patientId);
+                    int rows = ps.executeUpdate();
+                    conn.commit();
+                    return rows > 0;
+                }
+            } catch (Exception e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
         } catch (Exception e) {
             System.out.println("ERROR WHILE DELETING PATIENT:");
             e.printStackTrace();
             return false;
+        }
+    }
+
+    private void deleteRelatedPatientRows(Connection conn, String tableName, String columnName, int patientId)
+            throws SQLException {
+        if (!columnExists(conn, tableName, columnName)) {
+            return;
+        }
+
+        String sql = "DELETE FROM `" + tableName + "` WHERE `" + columnName + "` = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            ps.executeUpdate();
+        }
+    }
+
+    private boolean columnExists(Connection conn, String tableName, String columnName) throws SQLException {
+        try (ResultSet rs = conn.getMetaData().getColumns(null, null, tableName, columnName)) {
+            if (rs.next()) {
+                return true;
+            }
+        }
+
+        try (ResultSet rs = conn.getMetaData().getColumns(null, null, tableName.toUpperCase(), columnName)) {
+            if (rs.next()) {
+                return true;
+            }
+        }
+
+        try (ResultSet rs = conn.getMetaData().getColumns(null, null, tableName.toLowerCase(), columnName)) {
+            return rs.next();
+        }
+    }
+
+    private void deleteRelatedAppointmentRows(Connection conn, String tableName, int patientId)
+            throws SQLException {
+        if (!columnExists(conn, tableName, "appointment_id")) {
+            return;
+        }
+
+        String sql = "DELETE FROM `" + tableName + "` "
+                + "WHERE `appointment_id` IN ("
+                + "SELECT appointment_id FROM appointment WHERE patient_id = ?"
+                + ")";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            ps.executeUpdate();
         }
     }
 

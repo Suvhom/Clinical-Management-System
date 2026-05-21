@@ -1,14 +1,130 @@
 package com.dao;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.model.AdminModel;
 import com.utils.DBconfig;
 
 public class AdminDao {
+    private String lastErrorMessage = "";
+
+    public AdminDao() {
+        verifyAdminTable();
+    }
+
+    public String getLastErrorMessage() {
+        return lastErrorMessage;
+    }
+
+    private void setLastError(Exception e) {
+        lastErrorMessage = e == null ? "" : e.getMessage();
+    }
+
+    private void verifyAdminTable() {
+        String createSql = "CREATE TABLE IF NOT EXISTS admin ("
+                + "admin_id INT AUTO_INCREMENT PRIMARY KEY, "
+                + "username VARCHAR(100) NOT NULL UNIQUE, "
+                + "password VARCHAR(255) NOT NULL, "
+                + "full_name VARCHAR(150), "
+                + "email VARCHAR(150), "
+                + "phone VARCHAR(50), "
+                + "address VARCHAR(255)"
+                + ")";
+
+        try (Connection conn = DBconfig.getConnection()) {
+            if (conn == null) return;
+
+            try (Statement stmt = conn.createStatement()) {
+                stmt.executeUpdate(createSql);
+            }
+
+            addColumnIfMissing(conn, "username", "VARCHAR(100)");
+            addColumnIfMissing(conn, "password", "VARCHAR(255)");
+            addColumnIfMissing(conn, "full_name", "VARCHAR(150)");
+            addColumnIfMissing(conn, "email", "VARCHAR(150)");
+            addColumnIfMissing(conn, "phone", "VARCHAR(50)");
+            addColumnIfMissing(conn, "address", "VARCHAR(255)");
+            ensureColumnCanStore(conn, "username", 100);
+            ensureColumnCanStore(conn, "password", 255);
+            ensureAdminIdAutoIncrement(conn);
+
+        } catch (Exception e) {
+            setLastError(e);
+            System.out.println("ERROR VERIFYING ADMIN TABLE:");
+            e.printStackTrace();
+        }
+    }
+
+    private void addColumnIfMissing(Connection conn, String columnName, String columnType) throws Exception {
+        if (columnExists(conn, columnName)) {
+            return;
+        }
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("ALTER TABLE admin ADD COLUMN " + columnName + " " + columnType);
+        }
+    }
+
+    private void resizeColumnIfExists(Connection conn, String columnName, String columnType) throws Exception {
+        if (!columnExists(conn, columnName)) {
+            return;
+        }
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("ALTER TABLE admin MODIFY COLUMN " + columnName + " " + columnType);
+        }
+    }
+
+    private void ensureColumnCanStore(Connection conn, String columnName, int minLength) throws Exception {
+        if (!columnExists(conn, columnName)) {
+            return;
+        }
+
+        DatabaseMetaData metaData = conn.getMetaData();
+        try (ResultSet rs = metaData.getColumns(conn.getCatalog(), null, "admin", columnName)) {
+            if (rs.next()) {
+                int currentSize = rs.getInt("COLUMN_SIZE");
+                if (currentSize < minLength) {
+                    resizeColumnIfExists(conn, columnName, "VARCHAR(" + minLength + ")");
+                }
+            }
+        }
+    }
+
+    private boolean columnExists(Connection conn, String columnName) throws Exception {
+        DatabaseMetaData metaData = conn.getMetaData();
+        try (ResultSet rs = metaData.getColumns(conn.getCatalog(), null, "admin", columnName)) {
+            if (rs.next()) {
+                return true;
+            }
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement("SELECT admin_id FROM admin LIMIT 1");
+             ResultSet rs = ps.executeQuery()) {
+            java.sql.ResultSetMetaData rowMetaData = rs.getMetaData();
+            for (int i = 1; i <= rowMetaData.getColumnCount(); i++) {
+                if (columnName.equalsIgnoreCase(rowMetaData.getColumnName(i))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private void ensureAdminIdAutoIncrement(Connection conn) {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("ALTER TABLE admin MODIFY COLUMN admin_id INT AUTO_INCREMENT");
+        } catch (Exception e) {
+            System.out.println("ADMIN ID AUTO_INCREMENT CHECK SKIPPED:");
+            System.out.println(e.getMessage());
+        }
+    }
 
     private AdminModel mapRow(ResultSet rs) throws Exception {
         AdminModel admin = new AdminModel();
@@ -42,7 +158,53 @@ public class AdminDao {
             return rows > 0;
 
         } catch (Exception e) {
+            setLastError(e);
             System.out.println("ERROR ADDING ADMIN:");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean usernameExists(String username) {
+        String sql = "SELECT COUNT(*) FROM admin WHERE username = ?";
+
+        try (Connection conn = DBconfig.getConnection()) {
+            if (conn == null) return false;
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, username);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    return rs.next() && rs.getInt(1) > 0;
+                }
+            }
+
+        } catch (Exception e) {
+            setLastError(e);
+            System.out.println("ERROR CHECKING ADMIN USERNAME:");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean usernameExistsForAnotherAdmin(String username, int adminId) {
+        String sql = "SELECT COUNT(*) FROM admin WHERE username = ? AND admin_id <> ?";
+
+        try (Connection conn = DBconfig.getConnection()) {
+            if (conn == null) return false;
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, username);
+                ps.setInt(2, adminId);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    return rs.next() && rs.getInt(1) > 0;
+                }
+            }
+
+        } catch (Exception e) {
+            setLastError(e);
+            System.out.println("ERROR CHECKING ADMIN USERNAME:");
             e.printStackTrace();
             return false;
         }
@@ -64,6 +226,7 @@ public class AdminDao {
             }
 
         } catch (Exception e) {
+            setLastError(e);
             System.out.println("ERROR GETTING ALL ADMINS:");
             e.printStackTrace();
         }
@@ -89,6 +252,7 @@ public class AdminDao {
             }
 
         } catch (Exception e) {
+            setLastError(e);
             System.out.println("ERROR GETTING ADMIN BY ID:");
             e.printStackTrace();
         }
@@ -117,6 +281,7 @@ public class AdminDao {
             return rows > 0;
 
         } catch (Exception e) {
+            setLastError(e);
             System.out.println("ERROR UPDATING ADMIN:");
             e.printStackTrace();
             return false;
@@ -137,6 +302,7 @@ public class AdminDao {
             return rows > 0;
 
         } catch (Exception e) {
+            setLastError(e);
             System.out.println("ERROR DELETING ADMIN:");
             e.printStackTrace();
             return false;

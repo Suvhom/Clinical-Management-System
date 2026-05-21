@@ -110,4 +110,50 @@ public class ExerciseDao {
             return false;
         }
     }
+
+    public ExerciseModel searchExercise(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return null;
+        }
+
+        String sql = "SELECT exercise_id, patient_id, exercise_name, focus_area, description, video_url "
+                   + "FROM exercise "
+                   + "WHERE exercise_name LIKE ? OR focus_area LIKE ? OR description LIKE ? "
+                   + "ORDER BY exercise_id DESC LIMIT 1";
+
+        try (Connection conn = DBconfig.getConnection()) {
+            if (conn == null) {
+                System.out.println("DATABASE CONNECTION IS NULL");
+                return null;
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                String pattern = "%" + keyword.trim() + "%";
+                ps.setString(1, pattern);
+                ps.setString(2, pattern);
+                ps.setString(3, pattern);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        ExerciseModel exercise = new ExerciseModel();
+                        exercise.setExerciseId(rs.getInt("exercise_id"));
+
+                        int patientId = rs.getInt("patient_id");
+                        exercise.setPatientId(rs.wasNull() ? null : patientId);
+
+                        exercise.setExerciseName(rs.getString("exercise_name"));
+                        exercise.setFocusArea(rs.getString("focus_area"));
+                        exercise.setDescription(rs.getString("description"));
+                        exercise.setVideoUrl(rs.getString("video_url"));
+                        return exercise;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR WHILE SEARCHING EXERCISE:");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

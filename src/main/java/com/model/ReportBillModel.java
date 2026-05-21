@@ -22,7 +22,7 @@ public class ReportBillModel {
     }
 
     public String getInvoiceNumber() {
-        return String.format("#INV-%04d", billingId);
+        return "INV-" + billingId;
     }
 
     public int getPatientId() {
