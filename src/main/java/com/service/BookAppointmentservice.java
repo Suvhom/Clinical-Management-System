@@ -13,6 +13,10 @@ public class BookAppointmentservice {
         return dao.insertAppointment(appointment);
     }
 
+    public int getAvailableStaffId() {
+        return dao.getAvailableStaffId();
+    }
+
     public List<BookAppointmentmodel> getAppointmentsByPatientId(int patientId) {
         return dao.getAppointmentsByPatientId(patientId);
     }

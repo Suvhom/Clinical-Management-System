@@ -39,7 +39,7 @@ public class DeleteAppointmentServlet extends HttpServlet {
             boolean success = appointmentDao.deleteAppointment(appointmentId);
 
             if (success) {
-                new DashboardDao().insertActivity("Appointment deleted: ID #" + appointmentId);
+                new DashboardDao().insertActivity("Appointment deleted: APT-" + appointmentId);
                 response.sendRedirect(request.getContextPath() + "/admin/appointments?success=4");
             } else {
                 response.sendRedirect(request.getContextPath() + "/admin/appointments?error=failed");

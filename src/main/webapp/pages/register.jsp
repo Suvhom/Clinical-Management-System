@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/registers.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/registers.css">
 </head>
 <body>
 
@@ -23,21 +23,23 @@
         <div class="form-box">
             <h2>Get started</h2>
             <p class="subtitle">Create your MotionRehab patient account</p>
+            <p class="error-message">${errorMessage}</p>
 
             <form action="${pageContext.request.contextPath}/register"
                   method="post"
-                  enctype="multipart/form-data">
+                  enctype="multipart/form-data"
+                  autocomplete="off">
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fullName">Full name</label>
-                        <input type="text" id="fullName" name="fullName"
+                        <input type="text" id="fullName" name="fullName" autocomplete="off"
                                placeholder="Enter your full name" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input type="email" id="email" name="email"
+                        <label for="patientEmail">Email address</label>
+                        <input type="email" id="patientEmail" name="patientEmail" autocomplete="off"
                                placeholder="Enter your email" required>
                     </div>
                 </div>
@@ -45,7 +47,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="phone">Phone number</label>
-                        <input type="tel" id="phone" name="phone"
+                        <input type="tel" id="phone" name="phone" autocomplete="off"
                                placeholder="Enter your phone number">
                     </div>
 
@@ -68,21 +70,21 @@
 
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <input type="text" id="address" name="address"
+                        <input type="text" id="address" name="address" autocomplete="off"
                                placeholder="Enter your address">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password"
+                        <label for="newPatientPassword">Password</label>
+                        <input type="password" id="newPatientPassword" name="newPatientPassword" autocomplete="new-password"
                                placeholder="Create a password" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="confirmPassword">Confirm password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword"
+                        <label for="confirmPatientPassword">Confirm password</label>
+                        <input type="password" id="confirmPatientPassword" name="confirmPatientPassword" autocomplete="new-password"
                                placeholder="Confirm your password" required>
                     </div>
                 </div>
@@ -97,7 +99,7 @@
 
             <p class="login-text">
                 Already have an account?
-                <a href="${pageContext.request.contextPath}/pages/login.jsp">Back to login</a>
+                <a href="${pageContext.request.contextPath}/login">Back to login</a>
             </p>
         </div>
     </div>

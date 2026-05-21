@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminDirectory.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminDirectory.css">
 </head>
 
 <body>
@@ -36,8 +36,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -69,6 +68,14 @@
                     <p class="error-message">Admin could not be saved.</p>
                 </c:if>
 
+                <c:if test="${param.error == 'duplicate'}">
+                    <p class="error-message">This username already exists. Please choose another username.</p>
+                </c:if>
+
+                <c:if test="${not empty errorMessage}">
+                    <p class="error-message">${errorMessage}</p>
+                </c:if>
+
                 <div class="form-card">
                     <form action="${pageContext.request.contextPath}/admin/add-admin" method="post" autocomplete="off">
 
@@ -78,7 +85,7 @@
                             <div class="form-grid">
                                 <div class="input-group">
                                     <label for="username">Username</label>
-                                    <input type="text" id="username" name="username" autocomplete="off" required>
+                                    <input type="text" id="username" name="username" value="${usernameValue}" autocomplete="off" required>
                                 </div>
 
                                 <div class="input-group">
@@ -88,22 +95,22 @@
 
                                 <div class="input-group">
                                     <label for="fullName">Full Name</label>
-                                    <input type="text" id="fullName" name="fullName" autocomplete="off" required>
+                                    <input type="text" id="fullName" name="fullName" value="${fullNameValue}" autocomplete="off" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" autocomplete="off" required>
+                                    <input type="email" id="email" name="email" value="${emailValue}" autocomplete="off" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="phone">Phone</label>
-                                    <input type="text" id="phone" name="phone" autocomplete="off" required>
+                                    <input type="text" id="phone" name="phone" value="${phoneValue}" autocomplete="off" required>
                                 </div>
 
                                 <div class="input-group full">
                                     <label for="address">Address</label>
-                                    <input type="text" id="address" name="address" autocomplete="off" required>
+                                    <input type="text" id="address" name="address" value="${addressValue}" autocomplete="off" required>
                                 </div>
                             </div>
                         </section>

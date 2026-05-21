@@ -35,7 +35,7 @@ public class BookingAppointmentcontroller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String staffIdStr = request.getParameter("staff_Id");
+        String preferredDoctor = request.getParameter("preferredDoctor");
         String appointmentDate = request.getParameter("appointmentDate");
         String appointmentTime = request.getParameter("appointmentTime");
         String reason = request.getParameter("reason");
@@ -43,8 +43,9 @@ public class BookingAppointmentcontroller extends HttpServlet {
         request.setAttribute("todayDate", LocalDate.now().toString());
         request.setAttribute("appointmentDate", appointmentDate);
         request.setAttribute("appointmentTime", appointmentTime);
+        request.setAttribute("preferredDoctor", preferredDoctor);
 
-        if (isBlank(staffIdStr) || isBlank(appointmentDate) || isBlank(appointmentTime)) {
+        if (isBlank(appointmentDate) || isBlank(appointmentTime)) {
             request.setAttribute("error", "Please fill up the required fields.");
 
             request.getRequestDispatcher("/WEB-INF/User_Pages/BookAppointment.jsp")
@@ -95,20 +96,21 @@ public class BookingAppointmentcontroller extends HttpServlet {
         }
 
         try {
-            int staffId = Integer.parseInt(staffIdStr);
+            int staffId = service.getAvailableStaffId();
+            String appointmentReason = buildReasonWithDoctor(reason, preferredDoctor);
 
             BookAppointmentmodel appointment = new BookAppointmentmodel(
                     patientId,
                     staffId,
                     appointmentDate,
                     appointmentTime,
-                    reason
+                    appointmentReason
             );
 
             boolean success = service.bookAppointment(appointment);
 
             if (success) {
-                response.sendRedirect(request.getContextPath() + "/AppointmentHistory");
+                response.sendRedirect(request.getContextPath() + "/appointment-history");
             } else {
                 request.setAttribute("error", "Appointment booking failed. Please try again.");
 
@@ -128,6 +130,22 @@ public class BookingAppointmentcontroller extends HttpServlet {
 
     private boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
+    }
+
+    private String buildReasonWithDoctor(String reason, String preferredDoctor) {
+        String cleanReason = isBlank(reason) ? "" : reason.trim();
+
+        if (isBlank(preferredDoctor)) {
+            return cleanReason;
+        }
+
+        String doctorText = "Preferred Doctor: " + preferredDoctor.trim();
+
+        if (cleanReason.isEmpty()) {
+            return doctorText;
+        }
+
+        return cleanReason + " | " + doctorText;
     }
 
     private Integer getPatientIdFromSession(HttpSession session) {

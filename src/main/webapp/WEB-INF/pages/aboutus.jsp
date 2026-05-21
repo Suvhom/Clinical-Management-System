@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="${pageContext.request.contextPath}/css/aboutus.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Common_Website_Css.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Navbar_website.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/aboutus.css?v=2">
 </head>
 <body>
  <!-- Nav Bar -->
@@ -23,20 +25,21 @@
 
     <!-- Navigation Links -->
     <ul class="nav-links">
-      <li><a href="${pageContext.request.contextPath}/HomeServlet" class="nav-button">Home</a></li>
-<li><a href="${pageContext.request.contextPath}/FacilitiesServlet" class="nav-button">Facilities</a></li>
-<li><a href="${pageContext.request.contextPath}/Aboutus" class="nav-button">About Us</a></li>
-<li><a href="${pageContext.request.contextPath}/BlogServlet" class="nav-button">Blog</a></li>
-<li><a href="${pageContext.request.contextPath}/Contactus" class="nav-button">Contact Us</a></li>
-      <li><a href="#" class="book-btn">Book Appointment</a></li>
+        <li><a href="${pageContext.request.contextPath}/home" class="nav-button">Home</a></li>
+      <li><a href="${pageContext.request.contextPath}/facilities" class="nav-button">Facilities</a></li>
+      <li><a href="${pageContext.request.contextPath}/about" class="nav-button">About Us</a></li>
+      <li><a href="${pageContext.request.contextPath}/blog" class="nav-button">Blog</a></li>
+      <li><a href="${pageContext.request.contextPath}/contact" class="nav-button">Contact Us</a></li>
+      <li><a href="${pageContext.request.contextPath}/login" class="login-btn">Login</a></li>
     </ul>
 
   </div>
+</header>
 
 <!-- Hero -->
 <section class="hero">
   <div class="hero-badge">About Our Team</div>
-  <h1>Meet Our Expert Team<br><em>of Specialists</em></h1>
+  <h1>Meet Our Expert Team<br><span>of Specialists</span></h1>
   <p>Dedicated physiotherapy professionals committed to advancing rehabilitation and personalised wellness of the individuals.</p>
 </section>
 
@@ -58,7 +61,7 @@
           <span class="tag">Rehabilitation</span>
           <span class="tag">Sports Injury</span>
         </div>
-        <a href="#" class="btn-book">Book with Suvhom</a>
+        <a href="${pageContext.request.contextPath}/BookAppointment" class="btn-book">Book with Suvhom</a>
       </div>
     </div>
 
@@ -76,7 +79,7 @@
           <span class="tag">Mobility</span>
           <span class="tag">Post-Surgery</span>
         </div>
-        <a href="#" class="btn-book">Book with Suyesh</a>
+        <a href="${pageContext.request.contextPath}/BookAppointment" class="btn-book">Book with Suyesh</a>
       </div>
     </div>
 
@@ -94,7 +97,7 @@
           <span class="tag">Injury Recovery</span>
           <span class="tag">Strength</span>
         </div>
-        <a href="#" class="btn-book">Book with Dibish</a>
+        <a href="${pageContext.request.contextPath}/BookAppointment" class="btn-book">Book with Dibish</a>
       </div>
     </div>
 
@@ -112,7 +115,7 @@
           <span class="tag">Stroke Recovery</span>
           <span class="tag">Balance</span>
         </div>
-        <a href="#" class="btn-book">Book with Aaraj</a>
+        <a href="${pageContext.request.contextPath}/BookAppointment" class="btn-book">Book with Aaraj</a>
       </div>
     </div>
 
@@ -130,7 +133,7 @@
           <span class="tag">Chronic Pain</span>
           <span class="tag">Posture</span>
         </div>
-        <a href="#" class="btn-book">Book with Asim</a>
+        <a href="${pageContext.request.contextPath}/BookAppointment" class="btn-book">Book with Asim</a>
       </div>
     </div>
 
@@ -146,7 +149,7 @@
     </p>
 
     <div class="cta-buttons">
-      <a href="#" class="cta-btn-primary">Book Your Appointment</a>
+      <a href="${pageContext.request.contextPath}/BookAppointment" class="cta-btn-primary">Book Your Appointment</a>
       <a href="#" class="cta-btn-secondary">Call-PHYSIO</a>
     </div>
   </div>

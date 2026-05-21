@@ -1,22 +1,38 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/*
-Patient Profile page styles
-
-This file controls the patient directory page:
-- page spacing
-- search bar
-- table design
-- action buttons
-*/
-
-/* Main page area */
-.content {
-    width: 100%;
-    padding: 30px 40px 40px;
+* {
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
-/* Header area with title + add button */
+
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.page {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 30px 40px 40px;
+    overflow-x: hidden;
+}
+
 .title-row {
     display: flex;
     justify-content: space-between;
@@ -26,36 +42,33 @@ This file controls the patient directory page:
 }
 
 .title-row h2 {
+    margin: 0;
     font-size: 30px;
     font-weight: 700;
     color: #111827;
 }
 
 .title-row p {
-    margin-top: 6px;
+    margin: 6px 0 0;
     color: #6b7280;
     font-size: 16px;
 }
 
-/* Main blue button - used for Add New Patient */
 .primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    padding: 14px 22px;
+    min-height: 46px;
+    padding: 0 22px;
     border: 0;
     border-radius: 10px;
-
     background: #1677d8;
     color: #ffffff;
     text-decoration: none;
-
     font-size: 15px;
     font-weight: 700;
     white-space: nowrap;
     cursor: pointer;
-
     box-shadow: 0 8px 18px rgba(22, 119, 216, 0.22);
 }
 
@@ -63,15 +76,12 @@ This file controls the patient directory page:
     background: #0f6fc4;
 }
 
-/* Alert messages */
 .success-message,
 .error-message,
 .delete-message {
     padding: 14px 18px;
-    margin-bottom: 20px;
-
+    margin: 0 0 20px;
     border-radius: 10px;
-
     font-size: 14px;
     font-weight: 600;
 }
@@ -87,7 +97,6 @@ This file controls the patient directory page:
     color: #b91c1c;
 }
 
-/* Search bar section */
 .search-row {
     width: 100%;
     max-width: 650px;
@@ -102,19 +111,15 @@ This file controls the patient directory page:
 }
 
 .search-input-wrap {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
     height: 48px;
-
     display: flex;
     align-items: center;
-    gap: 10px;
-
     padding: 0 16px;
-
     background: #ffffff;
     border: 1px solid #d1d5db;
     border-radius: 14px;
-
     box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
 }
 
@@ -123,19 +128,12 @@ This file controls the patient directory page:
     box-shadow: 0 0 0 4px rgba(22, 119, 216, 0.12);
 }
 
-.search-symbol {
-    color: #6b7280;
-    font-size: 15px;
-}
-
 .search-input-wrap input {
-    flex: 1;
+    width: 100%;
     height: 100%;
-
-    border: none;
-    outline: none;
+    border: 0;
+    outline: 0;
     background: transparent;
-
     color: #111827;
     font-size: 14px;
 }
@@ -144,20 +142,24 @@ This file controls the patient directory page:
     color: #9ca3af;
 }
 
-.search-btn {
+.search-btn,
+.clear-btn {
     height: 48px;
-    min-width: 110px;
-
-    border: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 14px;
-
-    background: #1677d8;
-    color: #ffffff;
-
     font-size: 14px;
     font-weight: 700;
+    white-space: nowrap;
     cursor: pointer;
+}
 
+.search-btn {
+    min-width: 110px;
+    border: 0;
+    background: #1677d8;
+    color: #ffffff;
     box-shadow: 0 8px 20px rgba(22, 119, 216, 0.25);
 }
 
@@ -166,88 +168,118 @@ This file controls the patient directory page:
 }
 
 .clear-btn {
-    height: 48px;
     min-width: 80px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
     border: 1px solid #d1d5db;
-    border-radius: 14px;
-
     background: #ffffff;
     color: #374151;
     text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 700;
 }
 
 .clear-btn:hover {
     background: #f3f4f6;
 }
 
-/* Patient table */
 .table-card {
     width: 100%;
-    padding: 28px 30px;
-
+    max-width: 100%;
+    padding: 0;
     background: #ffffff;
     border-radius: 18px;
-
     box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
-
     overflow-x: auto;
+    overflow-y: visible;
 }
 
-table {
+.table-card table {
     width: 100%;
-    min-width: 1050px;
+    min-width: 1100px;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
-thead {
+.table-card thead {
     background: #f9fafb;
 }
 
-th {
-    padding: 16px 18px;
+.table-card th,
+.table-card td {
+    padding: 12px 14px;
     border-bottom: 1px solid #e5e7eb;
-
+    vertical-align: middle;
     text-align: left;
-    color: #6b7280;
+}
 
+.table-card th {
+    color: #6b7280;
     font-size: 14px;
     font-weight: 700;
     white-space: nowrap;
 }
 
-td {
-    padding: 18px;
-    border-bottom: 1px solid #e5e7eb;
-
+.table-card td {
     color: #111827;
-    font-size: 15px;
-    vertical-align: middle;
+    font-size: 14px;
+    line-height: 1.35;
+    overflow-wrap: break-word;
+    word-break: normal;
 }
 
-tbody tr:hover {
+.table-card tbody tr {
+    min-height: 58px;
+}
+
+.table-card tbody tr:hover {
     background: #f9fafb;
 }
 
-tbody tr:last-child td {
-    border-bottom: none;
+.table-card tbody tr:last-child td {
+    border-bottom: 0;
 }
 
-/* ID column */
-td:first-child {
+.col-id {
+    width: 60px;
+}
+
+.col-name {
+    width: 170px;
+}
+
+.col-email {
+    width: 210px;
+}
+
+.col-phone {
+    width: 125px;
+}
+
+.col-gender {
+    width: 90px;
+}
+
+.col-dob {
+    width: 125px;
+}
+
+.col-username {
+    width: 125px;
+}
+
+.col-created {
+    width: 145px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.col-action {
+    width: 150px;
+}
+
+td.col-id {
     color: #374151;
     font-weight: 700;
 }
 
-/* Patient name column */
-td:nth-child(2) {
+td.col-name {
     font-weight: 700;
 }
 
@@ -264,46 +296,42 @@ td:nth-child(2) {
     text-decoration: underline;
 }
 
-/* Empty state inside table */
 td[colspan] {
     padding: 32px;
     text-align: center;
-
     color: #6b7280;
     font-weight: 600;
 }
 
-/* Action buttons */
 .action-group {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
 }
 
 .edit-btn,
 .upload-btn,
 .delete-btn,
 .appointment-btn {
+    width: 112px;
     min-height: 38px;
-    padding: 8px 15px;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    border: none;
+    padding: 8px 10px;
+    border: 0;
     border-radius: 9px;
-
     text-decoration: none;
+    text-align: center;
     font-size: 13px;
+    line-height: 1.15;
     font-weight: 700;
-
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Edit patient */
 .edit-btn,
 .edit-btn:visited,
 .edit-btn:active {
@@ -316,7 +344,6 @@ td[colspan] {
     color: #0f6fc4;
 }
 
-/* Upload exercises */
 .upload-btn,
 .upload-btn:visited,
 .upload-btn:active {
@@ -329,7 +356,6 @@ td[colspan] {
     color: #166534;
 }
 
-/* Delete patient */
 .delete-btn,
 .delete-btn:visited,
 .delete-btn:active {
@@ -342,7 +368,6 @@ td[colspan] {
     color: #ffffff;
 }
 
-/* Appointment link - kept for later use */
 .appointment-btn,
 .appointment-btn:visited,
 .appointment-btn:active {
@@ -354,7 +379,6 @@ td[colspan] {
     background: #bae6fd;
 }
 
-/* Smaller screens */
 @media (max-width: 1000px) {
     .content {
         padding: 26px;
@@ -379,19 +403,6 @@ td[colspan] {
         padding: 22px;
     }
 
-    .table-card {
-        padding: 18px;
-        border-radius: 14px;
-    }
-
-    table {
-        min-width: 1000px;
-    }
-
-    .title-row h2 {
-        font-size: 24px;
-    }
-
     .patient-search-form {
         flex-direction: column;
         align-items: stretch;
@@ -400,5 +411,13 @@ td[colspan] {
     .search-btn,
     .clear-btn {
         width: 100%;
+    }
+
+    .table-card {
+        border-radius: 14px;
+    }
+
+    .table-card table {
+        min-width: 1100px;
     }
 }

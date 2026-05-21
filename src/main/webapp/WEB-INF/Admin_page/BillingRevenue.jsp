@@ -37,8 +37,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -74,7 +73,7 @@
                         <a class="primary report-btn" href="${pageContext.request.contextPath}/admin/reports">
                             Generate Report
                         </a>
-                        <a class="primary" href="${pageContext.request.contextPath}/admin/create-invoice" style="text-decoration: none; font-weight: 700; display: inline-block;">
+                        <a class="primary create-invoice-btn" href="${pageContext.request.contextPath}/admin/create-invoice">
                             + Create Invoice
                         </a>
                     </div>
@@ -139,7 +138,7 @@
                             <c:choose>
                                 <c:when test="${empty transactions}">
                                 <tr>
-                                    <td colspan="6" style="text-align: center; color: #6b7280; padding: 40px; font-size: 15px;">
+                                    <td colspan="6" class="billing-empty-cell">
                                         No billing invoices found. Create appointments to generate clinical transactions dynamically!
                                     </td>
                                 </tr>
@@ -149,7 +148,7 @@
                                 <tr>
                                     <td><strong>${t[0]}</strong></td>
                                     <td>
-                                        <div class="patient-cell" style="display: flex; align-items: center; gap: 10px;">
+                                        <div class="patient-cell">
                                             <span class="avatar mini a${(status.index mod 6) + 1}"></span>
                                             <strong>${t[1]}</strong>
                                         </div>

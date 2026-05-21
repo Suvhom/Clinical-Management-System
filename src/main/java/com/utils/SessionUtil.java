@@ -36,12 +36,12 @@ public class SessionUtil {
             throws Exception {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            response.sendRedirect(request.getContextPath() + "/login");
             return null;
         }
         PatientModel patient = (PatientModel) session.getAttribute("patient");
         if (patient == null) {
-            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            response.sendRedirect(request.getContextPath() + "/login");
             return null;
         }
         return patient;

@@ -1,4 +1,11 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+
 
 /* Content */
 .content {
@@ -267,6 +274,136 @@
 
 .secondary-btn:hover {
     background: #dbeafe;
+}
+
+.patient-not-found {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+}
+
+.patient-not-found h2 {
+    color: #ef4444;
+}
+
+.patient-not-found p {
+    color: #6b7280;
+    margin-top: 8px;
+}
+
+.not-found-link {
+    display: inline-block;
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+.history-item {
+    margin-bottom: 16px;
+    padding-left: 14px;
+}
+
+.history-item.status-cancelled {
+    border-left: 4px solid #ef4444;
+}
+
+.history-item.status-confirmed {
+    border-left: 4px solid #22c55e;
+}
+
+.history-item.status-pending {
+    border-left: 4px solid #eab308;
+}
+
+.history-item.status-rescheduled {
+    border-left: 4px solid #f97316;
+}
+
+.history-item.status-default {
+    border-left: 4px solid #9ca3af;
+}
+
+.history-reason {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 4px 0 2px;
+}
+
+.history-staff {
+    color: #6b7280;
+    font-size: 13px;
+    margin: 0;
+}
+
+.compact-pill {
+    font-size: 11px;
+    margin-left: 6px;
+    min-width: auto;
+    padding: 2px 8px;
+}
+
+.patient-empty-state {
+    color: #6b7280;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.patient-empty-state p {
+    font-size: 15px;
+    margin: 0;
+}
+
+.upcoming-box {
+    margin-bottom: 12px;
+}
+
+.upcoming-box strong {
+    color: #111827;
+    font-size: 15px;
+}
+
+.upcoming-box p {
+    color: #6b7280;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.upcoming-status {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 10px;
+}
+
+.appointment-action-link {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    color: #374151;
+    display: block;
+    font-weight: 600;
+    margin-top: 12px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.no-upcoming-box {
+    padding: 16px 0;
+    text-align: center;
+}
+
+.no-upcoming-box p {
+    color: #6b7280;
+    font-size: 14px;
+    margin: 0;
+}
+
+.schedule-link {
+    background: #1677d8;
+    border-color: #1677d8;
+    color: #ffffff;
+    font-weight: 700;
 }
 
 /* Responsive */

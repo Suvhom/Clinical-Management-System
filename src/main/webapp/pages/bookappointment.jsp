@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Book Your Appointment</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bookappointment.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/User_CSS/bookappointment.css">
 </head>
 <body>
 <main class="appointment-page">
@@ -33,7 +33,7 @@
           <p class="alert success"><%= request.getAttribute("successMessage") %></p>
         <% } %>
 
-        <form class="booking-form" action="${pageContext.request.contextPath}/appointment" method="post">
+        <form class="booking-form" action="${pageContext.request.contextPath}/BookAppointment" method="post">
           <label>
             Full Name
             <input type="text" name="fullName" placeholder="Enter full name" required>
@@ -123,7 +123,7 @@
           </label>
 
           <div class="form-actions full-width">
-            <a href="${pageContext.request.contextPath}/pages/login.jsp" class="back-link">Back to login</a>
+            <a href="${pageContext.request.contextPath}/UserDashboard" class="back-link">Back to dashboard</a>
             <button type="submit">Confirm Appointment</button>
           </div>
         </form>

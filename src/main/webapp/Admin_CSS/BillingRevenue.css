@@ -1,4 +1,11 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+
 
 /* Content */
 .content {
@@ -47,6 +54,12 @@
 }
 
 .billing-actions a {
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.create-invoice-btn {
     text-decoration: none;
     font-weight: 700;
     display: inline-block;
@@ -227,6 +240,13 @@ tr:last-child td {
 
 .patient-cell strong {
     font-size: 15px;
+}
+
+.billing-empty-cell {
+    color: #6b7280;
+    font-size: 15px;
+    padding: 40px;
+    text-align: center;
 }
 
 /* Avatar */

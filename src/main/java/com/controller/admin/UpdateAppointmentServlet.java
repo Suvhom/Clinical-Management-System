@@ -83,9 +83,9 @@ public class UpdateAppointmentServlet extends HttpServlet {
             if (success) {
                 com.dao.DashboardDao dashDao = new com.dao.DashboardDao();
                 if ("Completed".equalsIgnoreCase(status)) {
-                    dashDao.insertActivity("Payment completed for appointment ID #" + appointmentId);
+                    dashDao.insertActivity("Payment completed for appointment APT-" + appointmentId);
                 } else {
-                    dashDao.insertActivity("Appointment updated: ID #" + appointmentId);
+                    dashDao.insertActivity("Appointment updated: APT-" + appointmentId);
                 }
                 
                 response.sendRedirect(request.getContextPath() + "/admin/appointments?success=2");

@@ -1,0 +1,242 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+  background-color: #eef1f5;
+  color: #111827;
+}
+
+.appointment-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+}
+
+.booking-card {
+  width: min(1200px, 100%);
+  background-color: #f5f7fb;
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.booking-info {
+  background-color: #4a79db;
+  color: #f8fbff;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.tag {
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.booking-info h1 {
+  font-size: 46px;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  max-width: 290px;
+}
+
+.booking-info p {
+  line-height: 1.6;
+  color: #eaf2ff;
+  max-width: 300px;
+}
+
+.booking-info ul {
+  margin-top: auto;
+  padding-left: 20px;
+  line-height: 1.9;
+  color: #ecf3ff;
+}
+
+.booking-form-wrap {
+  padding: 30px 28px;
+}
+
+.booking-form-wrap h2 {
+  font-size: 50px;
+  color: #111827;
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin-top: 4px;
+  color: #6b7280;
+}
+
+.alert {
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.alert.success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.booking-form {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.booking-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  border: 1px solid #d6dbe4;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background-color: #ffffff;
+  color: #111827;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+  border-color: #4a79db;
+  box-shadow: 0 0 0 3px rgba(74, 121, 219, 0.14);
+}
+
+.booking-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.checkbox-label {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 10px !important;
+  font-weight: 500 !important;
+}
+
+.checkbox-label input {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.back-link {
+  color: #2f67d5;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.form-actions button {
+  border: none;
+  background-color: #2f67d5;
+  color: #fff;
+  border-radius: 10px;
+  padding: 13px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 220px;
+}
+
+.form-actions button:hover {
+  background-color: #2459bf;
+}
+
+@media (max-width: 1080px) {
+  .booking-card {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-info {
+    min-height: 320px;
+  }
+
+  .booking-info h1 {
+    font-size: 40px;
+    max-width: 100%;
+  }
+
+  .booking-info p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .appointment-page {
+    padding: 12px;
+  }
+
+  .booking-info,
+  .booking-form-wrap {
+    padding: 28px 20px;
+  }
+
+  .booking-form {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-form-wrap h2 {
+    font-size: 36px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}

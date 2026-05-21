@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminDirectory.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminDirectory.css">
 </head>
 
 <body>
@@ -36,8 +36,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>

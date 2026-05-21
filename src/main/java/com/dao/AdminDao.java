@@ -210,6 +210,33 @@ public class AdminDao {
         }
     }
 
+    public AdminModel getAdminByUsername(String username) {
+        String sql = "SELECT admin_id, username, password, full_name, email, phone, address "
+                + "FROM admin WHERE username = ? OR email = ?";
+
+        try (Connection conn = DBconfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            if (conn == null) return null;
+
+            ps.setString(1, username);
+            ps.setString(2, username);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+            }
+
+        } catch (Exception e) {
+            setLastError(e);
+            System.out.println("ERROR GETTING ADMIN BY USERNAME:");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public ArrayList<AdminModel> getAllAdmins() {
         ArrayList<AdminModel> admins = new ArrayList<>();
         String sql = "SELECT admin_id, username, password, full_name, email, phone, address "

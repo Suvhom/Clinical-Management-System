@@ -40,7 +40,7 @@ public class CancelAppointmentServlet extends HttpServlet {
             boolean success = appointmentDao.updateStatus(appointmentId, "Cancelled");
 
             if (success) {
-                new com.dao.DashboardDao().insertActivity("Appointment cancelled: ID #" + appointmentId);
+                new com.dao.DashboardDao().insertActivity("Appointment cancelled: APT-" + appointmentId);
                 response.sendRedirect(request.getContextPath() + "/admin/appointments?success=3");
             } else {
                 response.sendRedirect(request.getContextPath() + "/admin/appointments?error=failed");

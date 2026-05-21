@@ -36,8 +36,7 @@
                 </nav>
 
                 <div class="side-bottom">
-                    <a href="#">Settings</a>
-                    <a href="#">Log out</a>
+                    <a href="${pageContext.request.contextPath}/admin/logout">Log out</a>
                 </div>
 
             </aside>

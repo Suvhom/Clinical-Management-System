@@ -4,9 +4,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.util.List;
 import java.util.Calendar;
 import com.model.PatientModel;
+import com.model.BookAppointmentmodel;
+import com.model.ExerciseModel;
 import com.dao.PatientDao;
+import com.dao.BookAppointmentdao;
+import com.dao.ExerciseDao;
 
 @WebServlet(urlPatterns = "/UserDashboard", asyncSupported = true)
 public class UserDashboardServlet extends HttpServlet {
@@ -44,23 +49,28 @@ public class UserDashboardServlet extends HttpServlet {
                             : hour < 17 ? "Good afternoon"
                             : "Good evening";
 
-            // Using avatar HTML in servlet 
-            String imgTag;
-            String rawImage = freshPatient.getImage();
-            if (rawImage != null && !rawImage.isEmpty()) {
-                imgTag = "<img src=\"data:image/*;base64," + rawImage
-                       + "\" alt=\"Profile\" class=\"avatar a1\">";
-            } else {
-                imgTag = "<b class=\"avatar a1\"></b>";
-            }
+            BookAppointmentdao appointmentDao = new BookAppointmentdao();
+            ExerciseDao exerciseDao = new ExerciseDao();
+
+            BookAppointmentmodel upcomingAppointment =
+                    appointmentDao.getUpcomingAppointmentByPatientId(freshPatient.getPatientId());
+            List<ExerciseModel> todaysExercises =
+                    exerciseDao.getExercisesByPatientId(freshPatient.getPatientId());
+
+            int upcomingCount = appointmentDao.countUpcomingAppointments(freshPatient.getPatientId());
+            int assignedExerciseCount = exerciseDao.countExercisesByPatientId(freshPatient.getPatientId());
 
             // Passes everything to JSP as request attributes
             session.setAttribute("patient", freshPatient);
+            session.setAttribute("patientName", freshPatient.getPatientName());
             request.setAttribute("patient",  freshPatient);
             request.setAttribute("greeting", greeting);
-            request.setAttribute("imgTag",   imgTag);
+            request.setAttribute("upcomingAppointment", upcomingAppointment);
+            request.setAttribute("todaysExercises", todaysExercises);
+            request.setAttribute("upcomingCount", upcomingCount);
+            request.setAttribute("assignedExerciseCount", assignedExerciseCount);
 
-            request.getRequestDispatcher("/pages/UserDashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/User_Pages/UserDashboard.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

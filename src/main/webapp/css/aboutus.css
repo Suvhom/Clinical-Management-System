@@ -9,59 +9,70 @@
 
 /* About Page Hero Section */
 .hero {
-  padding: 4rem 1.5rem 3rem;
+  padding: 48px 24px 44px;
   text-align: center;
   background: #fff;
   border-bottom: 1px solid #e8e8e4;
 }
 
 .hero-badge {
+  display: inline-block;
   font-size: 11px;
+  font-weight: 600;
   background: #e6f1fb;
   color: #185fa5;
-  padding: 5px 16px;
+  padding: 7px 18px;
   border-radius: 999px;
-  margin-bottom: 1.2rem;
+  margin-bottom: 18px;
 }
 
 .hero h1 {
-  font-size: 42px;
-  margin-bottom: 1rem;
+  color: #111827;
+  font-size: 40px;
+  line-height: 1.2;
+  margin: 0 auto 18px;
+  max-width: 760px;
+}
+
+.hero h1 span {
+  display: block;
+  font-style: normal;
+  font-weight: 700;
+  margin-top: 6px;
 }
 
 .hero p {
   font-size: 16px;
-  color: #666;
+  color: #5f6b7a;
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 900px;
 }
 
 /* Team Section */
 .team-section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 3rem;
+  background: #f4f8fb;
+  padding: 48px 24px;
 }
 
 .team-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  justify-content: center;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin: 0 auto;
+  max-width: 1180px;
 }
 
 .team-card {
   background: #fff;
-  border: 1px solid #e8e8e4;
-  border-radius: 14px;
-  width: 220px;
-  transition: transform 0.2s;
-}
-
-.team-card:hover {
-  transform: translateY(-3px);
+  border: 1px solid #dfe8ef;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(15, 35, 55, 0.06);
+  overflow: hidden;
 }
 
 .card-avatar {
-  height: 170px;
+  height: 190px;
   background: #f1f5fb;
   display: flex;
   justify-content: center;
@@ -75,17 +86,20 @@
 }
 
 .card-body {
-  padding: 1rem;
+  padding: 18px;
 }
 
 .card-name {
-  font-size: 15px;
-  font-weight: 500;
+  color: #111827;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .card-role {
-  font-size: 12px;
+  font-size: 13px;
   color: #185fa5;
+  font-weight: 600;
+  margin-top: 3px;
 }
 
 .card-desc {
@@ -104,8 +118,9 @@
 
 .tag {
   font-size: 11px;
-  background: #f1f5fb;
-  padding: 3px 9px;
+  background: #e8f3fd;
+  color: #185fa5;
+  padding: 4px 9px;
   border-radius: 999px;
 }
 
@@ -117,9 +132,12 @@
 }
 
 @media screen and (max-width: 768px) {
-  .team-grid {
-    flex-direction: column;
-    align-items: center;
+  .hero {
+    padding: 38px 18px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
   }
 }
 

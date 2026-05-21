@@ -15,47 +15,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminAppointments.css?v=2">
-
-    <style>
-        .new-appointment-btn {
-            text-decoration: none !important;
-        }
-
-        .filter-card {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            gap: 18px !important;
-            flex-wrap: wrap !important;
-        }
-
-        .appointment-search-form {
-            display: flex !important;
-            align-items: center !important;
-            gap: 14px !important;
-            width: min(100%, 620px) !important;
-        }
-
-        .appointment-search-form .filter-search {
-            flex: 1 !important;
-            width: auto !important;
-            height: 44px !important;
-        }
-
-        .filter-search input {
-            width: 100% !important;
-            height: 100% !important;
-            border: none !important;
-            outline: none !important;
-            background: transparent !important;
-        }
-
-        .search-btn {
-            height: 44px !important;
-            min-width: 110px !important;
-            width: auto !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -80,8 +39,7 @@
         </nav>
 
         <div class="nav-bottom">
-            <a class="nav-item" href="#">Settings</a>
-            <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+            <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
         </div>
 
     </div>
@@ -265,7 +223,7 @@
 
                                                 <div>
                                                     <strong>${empty appt.patientName ? '-' : appt.patientName}</strong>
-                                                    <small>#PT-${appt.patientId}</small>
+                                                    <small>PT-${appt.patientId}</small>
                                                 </div>
                                             </div>
                                         </td>
@@ -278,7 +236,7 @@
                                         <td>
                                             <div class="doctor">
                                                 <span class="avatar small a2"></span>
-                                                <strong>Staff #${appt.staffId}</strong>
+                                                <strong>Staff ST-${appt.staffId}</strong>
                                             </div>
                                         </td>
 

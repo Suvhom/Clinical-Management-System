@@ -51,6 +51,27 @@
   border: 1px solid #ddd;
 }
 
+.success-message,
+.error-message {
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+}
+
+.success-message {
+  background-color: #e6f7ed;
+  border: 1px solid #b8e8ca;
+  color: #1f7a43;
+}
+
+.error-message {
+  background-color: #fdecec;
+  border: 1px solid #f4bcbc;
+  color: #b42318;
+}
+
 .form-grid-2 {
   display: flex;
   gap: 15px;
@@ -123,6 +144,14 @@ textarea {
 .map-visual svg {
   width: 100%;
   height: 100%;
+}
+
+.map-image {
+  border-radius: 8px 8px 0 0;
+  display: block;
+  height: 170px;
+  object-fit: cover;
+  width: 100%;
 }
 
 .info-card {

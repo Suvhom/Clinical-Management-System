@@ -1,10 +1,8 @@
 package com.controller.admin;
 
 import java.io.IOException;
-
 import com.dao.AddPatientDao;
 import com.model.AddPatientModel;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,15 +20,19 @@ public class UploadExerciseServlet extends HttpServlet {
 
         String patientIdStr = request.getParameter("patientId");
 
+        System.out.println("UPLOAD EXERCISE GET - patientId param: " + patientIdStr);
+
         if (patientIdStr == null || patientIdStr.trim().isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/admin/patients");
             return;
         }
 
         try {
-            int patientId = Integer.parseInt(patientIdStr);
+            int patientId = Integer.parseInt(patientIdStr.trim());
             AddPatientDao dao = new AddPatientDao();
             AddPatientModel patient = dao.getPatientById(patientId);
+
+            System.out.println("PATIENT FOUND: " + (patient != null ? patient.getPatientName() : "NULL"));
 
             if (patient == null) {
                 response.sendRedirect(request.getContextPath() + "/admin/patients?error=patientnotfound");
@@ -42,6 +44,7 @@ public class UploadExerciseServlet extends HttpServlet {
                    .forward(request, response);
 
         } catch (NumberFormatException e) {
+            System.out.println("INVALID PATIENT ID FORMAT: " + patientIdStr);
             response.sendRedirect(request.getContextPath() + "/admin/patients");
         }
     }

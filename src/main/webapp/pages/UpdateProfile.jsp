@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/UpdateProfile.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/User_CSS/UpdateProfile.css">
 </head>
 <body>
 

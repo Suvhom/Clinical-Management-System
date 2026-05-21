@@ -1,4 +1,11 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+
 
 /* Content Area */
 .content {
@@ -228,6 +235,93 @@ tr:last-child td {
 
 .dot.busy {
     background: #f97316;
+}
+
+.dashboard-empty-cell {
+    color: #6b7280;
+    padding: 30px;
+    text-align: center;
+}
+
+.dashboard-empty-text {
+    color: #6b7280;
+    font-size: 15px;
+}
+
+.staff-list,
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.staff-list {
+    gap: 20px;
+}
+
+.activity-list {
+    gap: 16px;
+}
+
+.staff-list-item {
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    gap: 15px;
+    padding-bottom: 15px;
+}
+
+.staff-avatar {
+    margin-top: 4px;
+}
+
+.staff-list-info {
+    flex-grow: 1;
+}
+
+.staff-list-head {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.staff-list-head strong {
+    color: #1e293b;
+    font-size: 16px;
+}
+
+.staff-specialization {
+    color: #64748b;
+    font-size: 14px;
+    margin-top: 3px;
+}
+
+.staff-contact-list {
+    color: #94a3b8;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    gap: 2px;
+    margin-top: 4px;
+}
+
+.activity-item {
+    border-bottom: 1px dotted #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 12px;
+}
+
+.activity-item span {
+    color: #334155;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.activity-item small {
+    color: #94a3b8;
+    font-size: 13px;
 }
 
 /* Responsive Dashboard Content */

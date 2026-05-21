@@ -13,7 +13,7 @@
     <!-- Importing External CSS files -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/PatientProfile.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/PatientProfile.css?v=3">
 </head>
 
 <body>
@@ -38,8 +38,7 @@
         </nav>
 
         <div class="nav-bottom">
-            <a class="nav-item" href="#">Settings</a>
-            <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+            <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
         </div>
 
     </div>
@@ -135,15 +134,15 @@
 
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Patient Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Gender</th>
-                            <th>Date of Birth</th>
-                            <th>Username</th>
-                            <th>Created At</th>
-                            <th>Action</th>
+                            <th class="col-id">ID</th>
+                            <th class="col-name">Patient Name</th>
+                            <th class="col-email">Email</th>
+                            <th class="col-phone">Phone</th>
+                            <th class="col-gender">Gender</th>
+                            <th class="col-dob">Date of Birth</th>
+                            <th class="col-username">Username</th>
+                            <th class="col-created">Created At</th>
+                            <th class="col-action">Action</th>
                         </tr>
                     </thead>
 
@@ -156,23 +155,23 @@
                                 <c:forEach var="patient" items="${patients}">
 
                                     <tr>
-                                        <td>${patient.patientId}</td>
+                                        <td class="col-id">PT-${patient.patientId}</td>
 
-                                        <td>
+                                        <td class="col-name">
                                             <a class="patient-link"
                                                href="${pageContext.request.contextPath}/admin/patient-detail?id=${patient.patientId}">
                                                 ${empty patient.patientName ? '-' : patient.patientName}
                                             </a>
                                         </td>
 
-                                        <td>${empty patient.email ? '-' : patient.email}</td>
-                                        <td>${empty patient.phone ? '-' : patient.phone}</td>
-                                        <td>${empty patient.gender ? '-' : patient.gender}</td>
-                                        <td>${empty patient.dateOfBirth ? '-' : patient.dateOfBirth}</td>
-                                        <td>${empty patient.username ? '-' : patient.username}</td>
-                                        <td>${empty patient.createdAt ? '-' : patient.createdAt}</td>
+                                        <td class="col-email">${empty patient.email ? '-' : patient.email}</td>
+                                        <td class="col-phone">${empty patient.phone ? '-' : patient.phone}</td>
+                                        <td class="col-gender">${empty patient.gender ? '-' : patient.gender}</td>
+                                        <td class="col-dob">${empty patient.dateOfBirth ? '-' : patient.dateOfBirth}</td>
+                                        <td class="col-username">${empty patient.username ? '-' : patient.username}</td>
+                                        <td class="col-created">${empty patient.createdAt ? '-' : patient.createdAt}</td>
 
-                                        <td>
+                                        <td class="col-action">
 
                                         <!-- Action to Edit delete and upload exercise for patient -->
                                             <div class="action-group">

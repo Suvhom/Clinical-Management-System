@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isErrorPage="true"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <!doctype html>
 <html lang="en">
@@ -14,9 +16,27 @@
         <section class="error-box">
             <h1>404</h1>
             <p>Oops! The page you&rsquo;re looking for can&rsquo;t be found.</p>
-            <a href="${pageContext.request.contextPath}/admin/dashboard" class="home-btn">
-                Go to Homepage
-            </a>
+            <c:set var="errorUri" value="${requestScope['jakarta.servlet.error.request_uri']}" />
+
+            <c:choose>
+                <c:when test="${fn:contains(errorUri, '/admin')}">
+                    <a href="${pageContext.request.contextPath}/admin/dashboard" class="home-btn">
+                        Go to Dashboard
+                    </a>
+                </c:when>
+
+                <c:when test="${not empty sessionScope.patient or sessionScope.role == 'patient'}">
+                    <a href="${pageContext.request.contextPath}/UserDashboard" class="home-btn">
+                        Go to Dashboard
+                    </a>
+                </c:when>
+
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/login" class="home-btn">
+                        Go to Login
+                    </a>
+                </c:otherwise>
+            </c:choose>
         </section>
     </main>
 </body>

@@ -34,8 +34,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
         </div>
 

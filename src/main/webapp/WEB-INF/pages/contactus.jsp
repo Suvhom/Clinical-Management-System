@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/css/contactus.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Common_Website_Css.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Navbar_website.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/contactus.css">
 </head>
 <body>
 	
-       
+  <!-- Nav Bar -->
         <header class="navbar">
   <div class="container nav-wrapper">
 
@@ -18,16 +21,16 @@
  <div class="logo">
   <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="Motion Rehab Logo" class="logo-img">
   <span>MotionRehab</span>
-</div>	
+</div>
 
     <!-- Navigation Links -->
     <ul class="nav-links">
-        <li><a href="${pageContext.request.contextPath}/HomeServlet" class="nav-button">Home</a></li>
-      <li><a href="${pageContext.request.contextPath}/FacilitiesServlet" class="nav-button">Facilities</a></li>
-      <li><a href="${pageContext.request.contextPath}/Aboutus" class="nav-button">About Us</a></li>
-      <li><a href="${pageContext.request.contextPath}/BlogServlet" class="nav-button">Blog</a></li>
-      <li><a href="${pageContext.request.contextPath}/Contactus" class="nav-button">Contact Us</a></li>
-       <li><a href="#" class="book-btn">Book Appointment</a></li>
+        <li><a href="${pageContext.request.contextPath}/home" class="nav-button">Home</a></li>
+      <li><a href="${pageContext.request.contextPath}/facilities" class="nav-button">Facilities</a></li>
+      <li><a href="${pageContext.request.contextPath}/about" class="nav-button">About Us</a></li>
+      <li><a href="${pageContext.request.contextPath}/blog" class="nav-button">Blog</a></li>
+      <li><a href="${pageContext.request.contextPath}/contact" class="nav-button">Contact Us</a></li>
+      <li><a href="${pageContext.request.contextPath}/login" class="login-btn">Login</a></li>
     </ul>
 
   </div>
@@ -45,34 +48,50 @@
 
     <!-- Form -->
     <div class="form-card">
-      <form id="contactForm">
+      <c:if test="${param.success == '1'}">
+        <p class="success-message">Your inquiry has been sent successfully.</p>
+      </c:if>
+
+      <c:if test="${param.error == '1'}">
+        <p class="error-message">Something went wrong. Please try again.</p>
+      </c:if>
+
+      <c:if test="${param.error == 'missing'}">
+        <p class="error-message">Please fill in all required fields.</p>
+      </c:if>
+
+      <c:if test="${param.error == 'description'}">
+        <p class="error-message">Please write a description before sending your inquiry.</p>
+      </c:if>
+
+      <form id="contactForm" action="${pageContext.request.contextPath}/contact-inquiry" method="post">
         <div class="form-grid-2">
           <div class="form-group">
             <label for="fname">First Name</label>
-            <input type="text" id="fname" placeholder="Ram" required />
+            <input type="text" id="fname" name="firstName" placeholder="Ram" required />
           </div>
           <div class="form-group">
             <label for="lname">Last Name</label>
-            <input type="text" id="lname" placeholder="Bahadur" required />
+            <input type="text" id="lname" name="lastName" placeholder="Bahadur" required />
           </div>
         </div>
         <div class="form-grid-2">
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="Ram@example.com" required />
+            <input type="email" id="email" name="email" placeholder="Ram@example.com" required />
           </div>
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" placeholder="+977 9800000000" />
+            <input type="tel" id="phone" name="phone" placeholder="+977 9800000000" />
           </div>
         </div>
         <div class="form-group full">
           <label for="doctor">Doctor Preference</label>
-          <input type="text" id="doctor" placeholder="e.g. Dr. Hari Shrestha" />
+          <input type="text" id="doctor" name="doctorPreference" placeholder="e.g. Dr. Hari Shrestha" />
         </div>
         <div class="form-group full">
           <label for="description">Description</label>
-          <textarea id="description" placeholder="Tell us about your condition or what you need help with…"></textarea>
+          <textarea id="description" name="description" placeholder="Tell us about your condition or what you need help with..." required></textarea>
         </div>
         <button type="submit" class="btn-submit">
           <span class="btn-text">Send Message</span>
@@ -92,7 +111,7 @@
            title="Open in OpenStreetMap">
           <img
             src="${pageContext.request.contextPath}/Images/map_image.png"
-            style="width:100%; height:170px; object-fit:cover; display:block; border-radius:8px 8px 0 0;"
+            class="map-image"
             onerror="this.onerror=null; this.src='https://staticmap.openstreetmap.de/staticmap.php?center=27.6939,85.3157&zoom=16&size=320x170&markers=27.6939,85.3157,red-pushpin';"
           />
         </a>
@@ -105,7 +124,7 @@
       <!-- Info cards -->
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}/Images/phone.png" alt="Phone" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="Phone" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Phone</span>
@@ -115,7 +134,7 @@
 
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}/Images/mail.png" alt="Email" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="Email" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Email</span>
@@ -125,7 +144,7 @@
 
       <div class="info-card">
         <div class="info-icon">
-          <img src="${pageContext.request.contextPath}/Images/clock.png" alt="Working Hours" width="18" height="18" />
+          <img src="${pageContext.request.contextPath}/Images/Logo.png" alt="Working Hours" width="18" height="18" />
         </div>
         <div class="info-text">
           <span>Working Hours</span>
@@ -146,7 +165,7 @@
     </p>
 
     <div class="cta-buttons">
-      <a href="#" class="cta-btn-primary">Book Your Appointment</a>
+      <a href="${pageContext.request.contextPath}/BookAppointment" class="cta-btn-primary">Book Your Appointment</a>
       <a href="#" class="cta-btn-secondary">Call-PHYSIO</a>
     </div>
   </div>

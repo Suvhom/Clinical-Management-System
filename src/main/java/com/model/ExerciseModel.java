@@ -7,6 +7,9 @@ public class ExerciseModel {
     private String focusArea;
     private String description;
     private String videoUrl;
+    private String status;
+    private String assignedDate;
+    private String notes;
 
     public ExerciseModel() {}
 
@@ -65,5 +68,29 @@ public class ExerciseModel {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAssignedDate() {
+        return assignedDate;
+    }
+
+    public void setAssignedDate(String assignedDate) {
+        this.assignedDate = assignedDate;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

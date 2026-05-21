@@ -37,8 +37,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -94,7 +93,7 @@
                                     <select id="patientId" name="patientId" required>
                                         <c:forEach var="patient" items="${patientsList}">
                                             <option value="${patient.patientId}" ${patient.patientId == appointment.patientId ? 'selected' : ''}>
-                                                ${patient.patientName} (#PT-${patient.patientId})
+                                                ${patient.patientName} (PT-${patient.patientId})
                                             </option>
                                         </c:forEach>
                                     </select>
@@ -105,7 +104,7 @@
                                     <select id="staffId" name="staffId" required>
                                         <c:forEach var="staff" items="${staffList}">
                                             <option value="${staff[0]}" ${staff[0] == appointment.staffId ? 'selected' : ''}>
-                                                ${staff[1]} (#${staff[0]})
+                                                ${staff[1]} (ST-${staff[0]})
                                             </option>
                                         </c:forEach>
                                     </select>
@@ -165,7 +164,7 @@
                                 Cancel
                             </a>
 
-                            <button type="submit" class="save-btn" style="background: #1677d8; border-color: #1677d8;">
+                            <button type="submit" class="save-btn blue-save-btn">
                                 Update Appointment
                             </button>
 

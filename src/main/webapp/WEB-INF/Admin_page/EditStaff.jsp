@@ -37,8 +37,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -161,7 +160,7 @@
                                 Cancel
                             </a>
 
-                            <button type="submit" class="save-btn" style="background: #1677d8; border-color: #1677d8;">
+                            <button type="submit" class="save-btn blue-save-btn">
                                 Update Staff Record
                             </button>
 

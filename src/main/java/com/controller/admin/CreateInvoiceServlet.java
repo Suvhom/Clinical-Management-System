@@ -76,7 +76,7 @@ public class CreateInvoiceServlet extends HttpServlet {
 
             if (success) {
                 DashboardDao dashDao = new DashboardDao();
-                dashDao.insertActivity("Invoice created for appointment ID #" + appointmentId);
+                dashDao.insertActivity("Invoice created for appointment APT-" + appointmentId);
                 response.sendRedirect(request.getContextPath() + "/admin/billing?success=1");
             } else {
                 request.setAttribute("errorMessage", "Failed to save invoice to database.");

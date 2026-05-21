@@ -1,4 +1,11 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+
 
 
 /* Main content area */
@@ -205,6 +212,93 @@
 
 .save-btn:hover {
     background: #0f6fc4;
+}
+
+.blue-save-btn {
+    background: #1677d8;
+    border-color: #1677d8;
+}
+
+.invoice-breadcrumb {
+    color: #6b7280;
+    display: flex;
+    font-size: 14px;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.invoice-breadcrumb p {
+    color: #111827;
+    font-weight: 600;
+    margin: 0;
+}
+
+.invoice-card {
+    border-radius: 20px;
+    padding: 28px;
+}
+
+.invoice-title {
+    color: #111827;
+    font-size: 20px;
+    margin-bottom: 24px;
+}
+
+.invoice-grid {
+    gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.invoice-input-group {
+    gap: 8px;
+}
+
+.invoice-input-group label {
+    color: #374151;
+    font-weight: 600;
+}
+
+.invoice-input-group input,
+.invoice-input-group select {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    height: 48px;
+    outline: none;
+    padding: 0 12px;
+}
+
+.invoice-input-group input[readonly] {
+    background: #f9fafb;
+}
+
+.invoice-actions {
+    border-top: 1px solid #e5e7eb;
+    gap: 14px;
+    justify-content: flex-end;
+    margin-top: 36px;
+    padding-top: 24px;
+}
+
+.invoice-cancel-btn,
+.invoice-save-btn {
+    border-radius: 8px;
+    padding: 12px 24px;
+}
+
+.invoice-cancel-btn {
+    border: 1px solid #d1d5db;
+    color: #374151;
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+}
+
+.invoice-save-btn {
+    background: #1677d8;
+    border: 1px solid #1677d8;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 700;
 }
 
 /* Responsive */

@@ -115,12 +115,12 @@ public class AddAppointmentServlet extends HttpServlet {
 
             boolean success = appointmentDao.addAppointment(appt);
             if (success) {
-                String pName = "Patient #" + patientId;
+                String pName = "Patient PT-" + patientId;
                 AddPatientModel pModel = patientDao.getPatientById(patientId);
                 if (pModel != null) {
                     pName = pModel.getPatientName();
                 }
-                String sName = "Staff #" + staffId;
+                String sName = "Staff ST-" + staffId;
                 com.model.StaffModel sModel = new com.dao.StaffDao().getStaffById(staffId);
                 if (sModel != null) {
                     sName = sModel.getStaffName();

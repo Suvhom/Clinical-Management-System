@@ -36,8 +36,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -59,7 +58,7 @@
 
             <div class="content">
 
-                <section class="stats-grid" style="grid-template-columns: repeat(5, 1fr) !important;">
+                <section class="stats-grid">
 
                     <div class="card stat">
                         <span>Total Patients</span>
@@ -109,7 +108,7 @@
                                 <c:choose>
                                     <c:when test="${empty todayAppointments}">
                                         <tr>
-                                            <td colspan="5" style="text-align: center; color: #6b7280; padding: 30px;">
+                                            <td colspan="5" class="dashboard-empty-cell">
                                                 No appointments scheduled for today.
                                             </td>
                                         </tr>
@@ -122,7 +121,7 @@
                                                     <b class="avatar mini a${(status.index mod 6) + 1}"></b>
                                                     ${appt[1]}
                                                     <br>
-                                                    <small>#PT-${appt[0]}</small>
+                                                    <small>PT-${appt[0]}</small>
                                                 </td>
                                                 <td>${appt[2]}</td>
                                                 <td>${appt[4]}</td>
@@ -144,22 +143,22 @@
 
                         <article class="card">
                             <h2>Available Staff</h2>
-                            <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 15px;">
+                            <div class="staff-list">
                                 <c:choose>
                                     <c:when test="${empty availableStaff}">
-                                        <p style="color: #6b7280; font-size: 15px;">No active staff found.</p>
+                                        <p class="dashboard-empty-text">No active staff found.</p>
                                     </c:when>
                                     <c:otherwise>
                                         <c:forEach var="staff" items="${availableStaff}" varStatus="status">
-                                            <div style="display: flex; align-items: start; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9;">
-                                                <b class="avatar mini a${((status.index + 1) mod 6) + 1}" style="margin-top: 4px;"></b>
-                                                <div style="flex-grow: 1;">
-                                                    <div style="display: flex; align-items: center; justify-content: space-between;">
-                                                        <strong style="font-size: 16px; color: #1e293b;">${staff[1]}</strong>
+                                            <div class="staff-list-item">
+                                                <b class="avatar mini staff-avatar a${((status.index + 1) mod 6) + 1}"></b>
+                                                <div class="staff-list-info">
+                                                    <div class="staff-list-head">
+                                                        <strong>${staff[1]}</strong>
                                                         <span class="dot ${staff[5] == 'Busy' ? 'busy' : ''}" title="${staff[5]}"></span>
                                                     </div>
-                                                    <div style="font-size: 14px; color: #64748b; margin-top: 3px;">${staff[2]}</div>
-                                                    <div style="font-size: 13px; color: #94a3b8; margin-top: 4px; display: flex; flex-direction: column; gap: 2px;">
+                                                    <div class="staff-specialization">${staff[2]}</div>
+                                                    <div class="staff-contact-list">
                                                         <span>Phone: ${staff[3]}</span>
                                                         <span>Email: ${staff[4]}</span>
                                                     </div>
@@ -173,16 +172,16 @@
 
                         <article class="card activity">
                             <h2>Recent Activity</h2>
-                            <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 15px;">
+                            <div class="activity-list">
                                 <c:choose>
                                     <c:when test="${empty recentActivities}">
-                                        <p style="color: #6b7280; font-size: 15px;">No recent activities logged.</p>
+                                        <p class="dashboard-empty-text">No recent activities logged.</p>
                                     </c:when>
                                     <c:otherwise>
                                         <c:forEach var="act" items="${recentActivities}">
-                                            <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 12px; border-bottom: 1px dotted #f1f5f9;">
-                                                <span style="font-size: 15px; color: #334155; line-height: 1.4;">${act[0]}</span>
-                                                <small style="color: #94a3b8; font-size: 13px;">${act[1]}</small>
+                                            <div class="activity-item">
+                                                <span>${act[0]}</span>
+                                                <small>${act[1]}</small>
                                             </div>
                                         </c:forEach>
                                     </c:otherwise>

@@ -1,0 +1,351 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --user-blue: #0f7ddd;
+  --user-blue-dark: #0d6ec8;
+  --user-blue-light: #e8f3fd;
+  --user-bg: #f4f8fb;
+  --user-surface: #ffffff;
+  --user-border: #dfe8ef;
+  --user-text: #172335;
+  --user-muted: #728294;
+  --user-sidebar: #eef5fa;
+  --user-green: #dff4e8;
+  --user-green-text: #2f8654;
+  --user-yellow: #fff0d8;
+  --user-yellow-text: #9a6a22;
+  --user-red: #fde7e5;
+  --user-red-text: #d44842;
+  --user-radius: 8px;
+  --user-radius-sm: 6px;
+  --user-shadow: 0 1px 3px rgba(15, 35, 55, 0.06);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--user-bg);
+  color: var(--user-text);
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 14px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  background: var(--user-surface);
+  border: 1px solid var(--user-border);
+  border-radius: var(--user-radius-sm);
+  color: var(--user-text);
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 36px;
+  padding: 0 16px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+button:hover {
+  background: #f0f5fa;
+}
+
+.user-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.user-sidebar {
+  background: var(--user-sidebar);
+  border-right: 1px solid var(--user-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 28px 18px;
+  position: sticky;
+  top: 0;
+  width: 260px;
+}
+
+.user-brand {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 34px;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.user-avatar {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.user-brand img,
+.brand-logo {
+  border-radius: var(--user-radius-sm);
+  display: block;
+  flex-shrink: 0;
+  height: 34px;
+  max-height: 34px;
+  max-width: 34px;
+  object-fit: contain;
+  width: 34px;
+}
+
+.user-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.user-nav-item {
+  align-items: center;
+  border-radius: var(--user-radius-sm);
+  color: #31465b;
+  display: flex;
+  font-weight: 700;
+  min-height: 42px;
+  padding: 0 16px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.user-nav-item:hover {
+  background: rgba(15, 125, 221, 0.08);
+}
+
+.user-nav-item.active {
+  background: var(--user-blue);
+  color: #ffffff;
+}
+
+.user-nav-item.active:hover {
+  background: var(--user-blue-dark);
+}
+
+.user-logout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.user-page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.user-topbar {
+  align-items: center;
+  background: var(--user-surface);
+  border-bottom: 1px solid var(--user-border);
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  min-height: 78px;
+  padding: 12px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.user-topbar h1 {
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.user-topbar p,
+.user-content p {
+  color: var(--user-muted);
+}
+
+.user-topbar p {
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.user-top-actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 14px;
+}
+
+.user-search {
+  align-items: center;
+  border: 1px solid var(--user-border);
+  border-radius: 999px;
+  color: #8a98a8;
+  display: flex;
+  height: 38px;
+  padding: 0 18px;
+  width: 300px;
+}
+
+.user-profile {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.user-profile div {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-profile strong {
+  color: var(--user-text);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.user-profile span {
+  color: var(--user-muted);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.user-avatar {
+  background: linear-gradient(135deg, #d1ae8c, #176c79);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 800;
+  height: 44px;
+  object-fit: cover;
+  width: 44px;
+}
+
+.user-content {
+  flex: 1;
+  padding: 34px 32px;
+}
+
+.user-card {
+  background: var(--user-surface);
+  border: 1px solid var(--user-border);
+  border-radius: var(--user-radius);
+  box-shadow: var(--user-shadow);
+  padding: 24px;
+}
+
+.user-card-title {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.user-card-title h2 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.user-primary-button {
+  background: var(--user-blue);
+  border-color: var(--user-blue);
+  color: #ffffff;
+}
+
+.user-primary-button:hover {
+  background: var(--user-blue-dark);
+  border-color: var(--user-blue-dark);
+}
+
+.status-pill {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 12px;
+}
+
+.status-pill.completed {
+  background: var(--user-green);
+  color: var(--user-green-text);
+}
+
+.status-pill.pending,
+.status-pill.upcoming {
+  background: var(--user-yellow);
+  color: var(--user-yellow-text);
+}
+
+.status-pill.cancelled {
+  background: var(--user-red);
+  color: var(--user-red-text);
+}
+
+@media (max-width: 980px) {
+  .user-layout {
+    flex-direction: column;
+  }
+
+  .user-sidebar {
+    height: auto;
+    position: static;
+    width: 100%;
+  }
+
+  .user-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 16px;
+    position: static;
+  }
+
+  .user-top-actions {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .user-search {
+    width: 100%;
+  }
+
+  .user-profile {
+    border-left: 0;
+    border-top: 1px solid var(--user-border);
+    justify-content: space-between;
+    padding-left: 0;
+    padding-top: 12px;
+  }
+
+  .user-profile div {
+    align-items: flex-start;
+  }
+
+  .user-content {
+    padding: 22px 16px;
+  }
+}

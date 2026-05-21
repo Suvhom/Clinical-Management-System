@@ -37,8 +37,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -93,7 +92,7 @@
                                         <option value="">Choose patient...</option>
                                         <c:forEach var="patient" items="${patientsList}">
                                             <option value="${patient.patientId}" ${selectedPatientId == patient.patientId ? 'selected' : ''}>
-                                                ${patient.patientName} (#PT-${patient.patientId})
+                                                ${patient.patientName} (PT-${patient.patientId})
                                             </option>
                                         </c:forEach>
                                     </select>
@@ -105,7 +104,7 @@
                                         <option value="">Choose staff...</option>
                                         <c:forEach var="staff" items="${staffList}">
                                             <option value="${staff[0]}" ${enteredStaffId == staff[0] ? 'selected' : ''}>
-                                                ${staff[1]} (#${staff[0]})
+                                                ${staff[1]} (ST-${staff[0]})
                                             </option>
                                         </c:forEach>
                                     </select>
@@ -155,7 +154,7 @@
                                 Cancel
                             </a>
 
-                            <button type="submit" class="save-btn" style="background: #1677d8; border-color: #1677d8;">
+                            <button type="submit" class="save-btn blue-save-btn">
                                 Save Appointment
                             </button>
 

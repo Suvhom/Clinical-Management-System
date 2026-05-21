@@ -13,46 +13,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminStaff.css">
-
-    <style>
-        .staff-action-group {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .staff-action-btn {
-            text-decoration: none;
-            padding: 6px 12px !important;
-            border-radius: 8px !important;
-            font-size: 12px !important;
-            font-weight: 700 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            border: none !important;
-            transition: background-color 0.2s ease, transform 0.1s ease !important;
-        }
-
-        .staff-action-btn.edit {
-            background: #eef4ff !important;
-            color: #1677d8 !important;
-        }
-
-        .staff-action-btn.edit:hover {
-            background: #dbeafe !important;
-        }
-
-        .staff-action-btn.delete {
-            background: #fee2e2 !important;
-            color: #b91c1c !important;
-        }
-
-        .staff-action-btn.delete:hover {
-            background: #fca5a5 !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -76,8 +36,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -105,7 +64,7 @@
                         <p>Manage clinic physiotherapists, specialties, workloads and schedules.</p>
                     </div>
 
-                    <a class="primary-btn" href="${pageContext.request.contextPath}/admin/add-staff" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; height: 46px; box-sizing: border-box;">+ Add Staff Member</a>
+                    <a class="primary-btn staff-add-btn" href="${pageContext.request.contextPath}/admin/add-staff">+ Add Staff Member</a>
                 </div>
 
                 <c:if test="${not empty param.success}">
@@ -126,19 +85,18 @@
                     <p class="error-message">Failed to perform the operation. Please try again.</p>
                 </c:if>
 
-                <div class="filter-card" style="margin-bottom: 20px; padding: 16px; background: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                    <form action="${pageContext.request.contextPath}/admin/staff" method="get" style="display: flex; gap: 8px; width: 100%;">
-                        <div style="flex: 1; position: relative;">
+                <div class="filter-card staff-filter-card">
+                    <form class="staff-search-form" action="${pageContext.request.contextPath}/admin/staff" method="get">
+                        <div class="staff-search-field">
                             <input
                                 type="text"
                                 name="search"
                                 value="${empty currentSearch ? '' : currentSearch}"
                                 placeholder="Search by Staff ID, Name, Specialization, Email..."
-                                style="width: 100%; height: 42px; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0 16px; font-size: 15px; outline: none; background: #ffffff; box-sizing: border-box;"
                             >
                         </div>
-                        <button type="submit" class="primary-btn" style="padding: 0 24px; height: 42px; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; border-radius: 8px;">Search</button>
-                        <a href="${pageContext.request.contextPath}/admin/staff" style="padding: 0 20px; height: 42px; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; border-radius: 8px; text-decoration: none; background: #f3f4f6; color: #374151; font-weight: 600; border: 1px solid #e5e7eb; transition: background-color 0.2s ease; cursor: pointer;">Clear</a>
+                        <button type="submit" class="primary-btn staff-search-btn">Search</button>
+                        <a class="staff-clear-btn" href="${pageContext.request.contextPath}/admin/staff">Clear</a>
                     </form>
                 </div>
 
@@ -166,7 +124,7 @@
                                                     <span class="avatar a2"></span>
                                                     <div>
                                                         <strong>${empty s.staffName ? '-' : s.staffName}</strong>
-                                                        <small>#ST-${s.staffId} | ${empty s.gender ? '-' : s.gender}</small>
+                                                        <small>ST-${s.staffId} | ${empty s.gender ? '-' : s.gender}</small>
                                                     </div>
                                                 </div>
                                             </td>
@@ -186,7 +144,7 @@
                                             </td>
 
                                             <td>
-                                                <span class="pill ${s.activeAppointmentsCount == 0 ? 'green' : s.activeAppointmentsCount <= 2 ? 'yellow' : 'red'}" style="min-width: 90px; text-align: center;">
+                                                <span class="pill workload-pill ${s.activeAppointmentsCount == 0 ? 'green' : s.activeAppointmentsCount <= 2 ? 'yellow' : 'red'}">
                                                     ${s.activeAppointmentsCount} active ${s.activeAppointmentsCount == 1 ? 'appt' : 'appts'}
                                                 </span>
                                             </td>
@@ -208,7 +166,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <tr>
-                                        <td colspan="7" style="text-align: center; color: #6b7280; padding: 40px 0;">
+                                        <td colspan="7" class="empty-table-cell">
                                             No staff members found matching your search parameters.
                                         </td>
                                     </tr>

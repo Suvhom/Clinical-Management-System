@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/Admin_Navbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminDirectory.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin_CSS/AdminDirectory.css">
 </head>
 
 <body>
@@ -36,8 +36,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -69,6 +68,10 @@
                     <p class="error-message">Admin could not be updated.</p>
                 </c:if>
 
+                <c:if test="${param.error == 'duplicate'}">
+                    <p class="error-message">This username already exists. Please choose another username.</p>
+                </c:if>
+
                 <div class="form-card">
                     <form action="${pageContext.request.contextPath}/admin/update-admin" method="post" autocomplete="off">
 
@@ -85,7 +88,7 @@
 
                                 <div class="input-group">
                                     <label for="password">Password</label>
-                                    <input type="password" id="password" name="password" autocomplete="new-password" required>
+                                    <input type="password" id="password" name="password" autocomplete="new-password" placeholder="Leave blank to keep current password">
                                 </div>
 
                                 <div class="input-group">

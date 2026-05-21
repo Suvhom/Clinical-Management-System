@@ -9,12 +9,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Import External CSS -->
+        <link rel="stylesheet" href="../css/Common_Website_Css.css">
+        <link rel="stylesheet" href="../css/Navbar_website.css">
         <link rel="stylesheet" href="../css/Home_CSS.css">
     </Head>
-    <style>
-        
-    </style>
-    
     <Body>
 
         <!-- Nav Bar -->

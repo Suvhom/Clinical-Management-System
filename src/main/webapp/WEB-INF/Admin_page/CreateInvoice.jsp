@@ -35,8 +35,7 @@
             </nav>
 
             <div class="nav-bottom">
-                <a class="nav-item" href="#">Settings</a>
-                <a class="nav-item" href="${pageContext.request.contextPath}/logout">Log out</a>
+                <a class="nav-item" href="${pageContext.request.contextPath}/admin/logout">Log out</a>
             </div>
 
         </div>
@@ -58,10 +57,10 @@
 
             <div class="content">
 
-                <div class="breadcrumb" style="display: flex; gap: 8px; margin-bottom: 24px; color: #6b7280; font-size: 14px;">
-                    <a href="${pageContext.request.contextPath}/admin/billing" style="text-decoration: none; color: #1677d8;">Billing & Revenue</a>
+                <div class="breadcrumb invoice-breadcrumb">
+                    <a href="${pageContext.request.contextPath}/admin/billing">Billing & Revenue</a>
                     <span>&gt;</span>
-                    <p style="margin:0; font-weight: 600; color: #111827;">Create Invoice</p>
+                    <p>Create Invoice</p>
                 </div>
 
                 <c:if test="${not empty errorMessage}">
@@ -70,30 +69,30 @@
                     </p>
                 </c:if>
 
-                <div class="form-card" style="background: #ffffff; border-radius: 20px; padding: 28px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);">
+                <div class="form-card invoice-card">
 
                     <form action="${pageContext.request.contextPath}/admin/create-invoice" method="post">
 
                         <section class="form-section">
 
-                            <h2 style="font-size: 20px; color: #111827; margin-bottom: 24px;">New Invoice Details</h2>
+                            <h2 class="invoice-title">New Invoice Details</h2>
 
-                            <div class="form-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+                            <div class="form-grid invoice-grid">
 
-                                <div class="input-group" style="display: flex; flex-direction: column; gap: 8px;">
-                                    <label for="appointmentId" style="font-weight: 600; color: #374151;">Appointment ID</label>
-                                    <select id="appointmentId" name="appointmentId" required style="height: 48px; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 12px; outline: none; background: #ffffff;">
+                                <div class="input-group invoice-input-group">
+                                    <label for="appointmentId">Appointment ID</label>
+                                    <select id="appointmentId" name="appointmentId" required>
                                         <option value="">Choose appointment...</option>
                                         <c:forEach var="appointment" items="${appointmentsList}">
                                             <option value="${appointment[0]}" data-patient-id="${appointment[1]}">
-                                                #${appointment[0]} - ${appointment[2]} (${appointment[3]}, ${appointment[4]})
+                                                APT-${appointment[0]} - ${appointment[2]} (${appointment[3]}, ${appointment[4]})
                                             </option>
                                         </c:forEach>
                                     </select>
                                 </div>
 
-                                <div class="input-group" style="display: flex; flex-direction: column; gap: 8px;">
-                                    <label for="patientId" style="font-weight: 600; color: #374151;">Patient ID</label>
+                                <div class="input-group invoice-input-group">
+                                    <label for="patientId">Patient ID</label>
                                     <input
                                         type="number"
                                         id="patientId"
@@ -102,11 +101,10 @@
                                         step="1"
                                         required
                                         readonly
-                                        style="height: 48px; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 12px; outline: none; background: #f9fafb;">
                                 </div>
 
-                                <div class="input-group" style="display: flex; flex-direction: column; gap: 8px;">
-                                    <label for="totalAmount" style="font-weight: 600; color: #374151;">Total Amount</label>
+                                <div class="input-group invoice-input-group">
+                                    <label for="totalAmount">Total Amount</label>
                                     <input
                                         type="number"
                                         id="totalAmount"
@@ -115,12 +113,11 @@
                                         step="0.01"
                                         placeholder="Enter amount"
                                         required
-                                        style="height: 48px; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 12px; outline: none; background: #ffffff;">
                                 </div>
 
-                                <div class="input-group" style="display: flex; flex-direction: column; gap: 8px;">
-                                    <label for="paymentStatus" style="font-weight: 600; color: #374151;">Payment Status</label>
-                                    <select id="paymentStatus" name="paymentStatus" required style="height: 48px; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 12px; outline: none; background: #ffffff;">
+                                <div class="input-group invoice-input-group">
+                                    <label for="paymentStatus">Payment Status</label>
+                                    <select id="paymentStatus" name="paymentStatus" required>
                                         <option value="">Select status...</option>
                                         <option value="Paid">Paid</option>
                                         <option value="Pending">Pending</option>
@@ -128,9 +125,9 @@
                                     </select>
                                 </div>
 
-                                <div class="input-group" style="display: flex; flex-direction: column; gap: 8px;">
-                                    <label for="paymentMethod" style="font-weight: 600; color: #374151;">Payment Method</label>
-                                    <select id="paymentMethod" name="paymentMethod" required style="height: 48px; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 12px; outline: none; background: #ffffff;">
+                                <div class="input-group invoice-input-group">
+                                    <label for="paymentMethod">Payment Method</label>
+                                    <select id="paymentMethod" name="paymentMethod" required>
                                         <option value="">Select method...</option>
                                         <option value="Cash">Cash</option>
                                         <option value="Card">Card</option>
@@ -141,27 +138,26 @@
                                     </select>
                                 </div>
 
-                                <div class="input-group" style="display: flex; flex-direction: column; gap: 8px;">
-                                    <label for="billingDate" style="font-weight: 600; color: #374151;">Billing Date</label>
+                                <div class="input-group invoice-input-group">
+                                    <label for="billingDate">Billing Date</label>
                                     <input
                                         type="date"
                                         id="billingDate"
                                         name="billingDate"
                                         required
-                                        style="height: 48px; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 12px; outline: none; background: #ffffff;">
                                 </div>
 
                             </div>
 
                         </section>
 
-                        <div class="form-actions" style="display: flex; justify-content: flex-end; gap: 14px; margin-top: 36px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+                        <div class="form-actions invoice-actions">
 
-                            <a href="${pageContext.request.contextPath}/admin/billing" class="cancel-btn" style="display: inline-block; padding: 12px 24px; border-radius: 8px; border: 1px solid #d1d5db; background: #ffffff; color: #374151; font-weight: 600; text-decoration: none; text-align: center;">
+                            <a href="${pageContext.request.contextPath}/admin/billing" class="cancel-btn invoice-cancel-btn">
                                 Cancel
                             </a>
 
-                            <button type="submit" class="save-btn" style="padding: 12px 24px; border-radius: 8px; border: 1px solid #1677d8; background: #1677d8; color: #ffffff; font-weight: 700; cursor: pointer;">
+                            <button type="submit" class="save-btn invoice-save-btn">
                                 Generate Invoice
                             </button>
 

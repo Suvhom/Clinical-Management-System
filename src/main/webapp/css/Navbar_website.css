@@ -29,6 +29,13 @@
   align-items: center;
   gap: 10px;
   font-weight: 600;
+  color: #111;
+  text-decoration: none;
+}
+
+.navbar .logo span {
+  color: #111;
+  text-decoration: none;
 }
 
 .navbar .logo-img {

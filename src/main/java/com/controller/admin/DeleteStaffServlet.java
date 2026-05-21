@@ -33,7 +33,7 @@ public class DeleteStaffServlet extends HttpServlet {
                 int staffId = Integer.parseInt(idStr.trim());
                 
                 // Get staff name for log activity before deletion
-                String staffName = "Staff #" + staffId;
+                String staffName = "Staff ST-" + staffId;
                 StaffModel staff = staffDao.getStaffById(staffId);
                 if (staff != null) {
                     staffName = staff.getStaffName();

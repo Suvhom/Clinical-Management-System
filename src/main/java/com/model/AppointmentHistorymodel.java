@@ -46,4 +46,34 @@ public class AppointmentHistorymodel {
     public String getStaffName() {
         return staffName;
     }
+
+    public String getStatusCssClass() {
+        if (status == null) {
+            return "upcoming";
+        }
+
+        String value = status.toLowerCase();
+
+        if (value.equals("completed")) {
+            return "completed";
+        }
+
+        if (value.equals("cancelled")) {
+            return "cancelled";
+        }
+
+        return "upcoming";
+    }
+
+    public String getDisplayStatus() {
+        if (status == null || status.trim().isEmpty()) {
+            return "Upcoming";
+        }
+
+        if (status.equalsIgnoreCase("booked") || status.equalsIgnoreCase("upcoming")) {
+            return "Upcoming";
+        }
+
+        return status;
+    }
 }

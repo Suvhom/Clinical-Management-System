@@ -3,6 +3,7 @@ package com.utils;
 import jakarta.servlet.http.*;
 
 public class CookieUtil {
+    private static final int DEFAULT_MAX_AGE = 30 * 60;
 
     // Create and send a cookie
     public static void setCookie(HttpServletResponse response,
@@ -12,6 +13,10 @@ public class CookieUtil {
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         response.addCookie(cookie);
+    }
+
+    public static void setCookie(HttpServletResponse response, String name, String value) {
+        setCookie(response, name, value, DEFAULT_MAX_AGE);
     }
 
     // Read a cookie value by name
@@ -31,6 +36,7 @@ public class CookieUtil {
     public static void deleteCookie(HttpServletResponse response, String name) {
         Cookie cookie = new Cookie(name, "");
         cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
         cookie.setPath("/");
         response.addCookie(cookie);
     }

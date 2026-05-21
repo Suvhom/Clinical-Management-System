@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/Common_Website_Css.css">
+<link rel="stylesheet" href="../css/Navbar_website.css">
 <link rel="stylesheet" href="../css/blog.css">
 <title>Blog</title>
 </head>
